@@ -91,7 +91,7 @@
     "skills": [
         ""
     ]
-}
+   }
 
 4. Run the Python file (Make sure you have the json file in the same dir and its named resume_data.json)
    ```sh
