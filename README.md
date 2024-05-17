@@ -21,3 +21,19 @@
    ```sh
    git clone https://github.com/Chrisdalbano/pyresumebuilder.git
    cd pyresumebuilder
+
+2. Create a virtual environment and activate it & install req library:
+   ```python
+   python -m venv venv
+   source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
+   pip install reportlab
+3. Prepare your JSON:
+   ```json
+   Prepare your resume data in a JSON file. Here is an example structure:
+4. Run the Python file (Make sure you have the json file in the same dir and its named resume_data.json)
+   ```sh
+   python main.py
+
+Success! Your resume should be generated in PDF at the root of your dir. 
+
+
