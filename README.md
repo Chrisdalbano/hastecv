@@ -29,7 +29,70 @@
    pip install reportlab
 3. Prepare your JSON:
    ```json
-   Prepare your resume data in a JSON file. Here is an example structure:
+   {
+    "name": "",
+    "title": "",
+    "contact": {
+        "email": "",
+        "phone": "",
+        "location": "",
+        "linkedin": "",
+        "github": "",
+        "website": ""
+    },
+    "summary": "",
+    "technical_proficiency": {
+        "languages_frameworks": "",
+        "frontend_development": "",
+        "backend_development": "",
+        "database_technologies": "",
+        "devops_cloud": "",
+        "tools_platforms": "",
+        "testing_debugging": ""
+    },
+    "experience": [
+        {
+            "position": "",
+            "company": "",
+            "location": "",
+            "dates": "",
+            "responsibilities": [
+                ""
+            ],
+            "technologies": ""
+        }
+    ],
+    "projects": [
+        {
+            "title": "",
+            "url": "",
+            "description": "",
+            "technologies": ""
+        }
+    ],
+    "education": [
+        {
+            "degree": "",
+            "institution": "",
+            "dates": ""
+        }
+    ],
+    "additional_experience": [
+        {
+            "position": "",
+            "company": "",
+            "dates": "",
+            "responsibilities": [
+                ""
+            ],
+            "technologies": ""
+        }
+    ],
+    "skills": [
+        ""
+    ]
+}
+
 4. Run the Python file (Make sure you have the json file in the same dir and its named resume_data.json)
    ```sh
    python main.py
