@@ -1,131 +1,63 @@
 {
-    "name": "Christian D`Albano",
-    "title": "Full-Stack Developer",
+    "name": "",
+    "title": "",
     "contact": {
-        "email": "chrisdalbano12@gmail.com",
-        "phone": "407-449-0746",
-        "location": "Orlando, FL",
-        "linkedin": "linkedin.com/in/chrisdalb",
-        "github": "github.com/chrisdalbano",
-        "website": "chrisdalbano.com"
+        "email": "",
+        "phone": "",
+        "location": "",
+        "linkedin": "",
+        "github": "",
+        "website": ""
     },
-    "summary": "Dynamic Full-Stack Developer with extensive expertise in crafting efficient and accessible web applications using JavaScript, HTML, CSS, and modern frameworks such as Vue.js and React. Proven track record in the education and healthcare sectors, achieving a 40% reduction in client inquiries and a 35% improvement in integration reliability. Proficient in integrating AI functionalities through APIs, enhancing web solutions with intelligent interactivity. Adept at analyzing user behavior and traffic statistics to align digital strategies with client needs and market trends. Seeking to leverage my skills and experience to drive innovative web solutions in a fast-paced tech environment.",
+    "summary": "",
     "technical_proficiency": {
-        "languages_frameworks": "JavaScript (ES6+), HTML5, CSS3, Vue.js, React.js, Node.js, Express.js, Python, Django, Flask, Java, Spring Boot",
-        "frontend_development": "Vue.js, React, Redux, Tailwind CSS, Bootstrap, SASS, Webpack",
-        "backend_development": "Node.js, Express.js, Django, Flask, RESTful APIs, GraphQL",
-        "database_technologies": "MySQL, PostgreSQL, MongoDB, Firebase",
-        "devops_cloud": "Microsoft Azure, AWS (EC2, S3, RDS), Docker, Kubernetes, Jenkins, CI/CD pipelines",
-        "tools_platforms": "Git, GitHub, ServiceNow, Figma, Adobe XD, Jira, Trello",
-        "testing_debugging": "Jest, Mocha, Chai, Selenium, Cypress"
+        "languages_frameworks": "",
+        "frontend_development": "",
+        "backend_development": "",
+        "database_technologies": "",
+        "devops_cloud": "",
+        "tools_platforms": "",
+        "testing_debugging": ""
     },
     "experience": [
         {
-            "position": "Software Support Engineer",
-            "company": "Mouseflow",
+            "position": "",
+            "company": "",
             "location": "",
-            "dates": "Aug 2023 - Present",
+            "dates": "",
             "responsibilities": [
-                "Achieved a 40% reduction in repeat client inquiries by authoring 20+ detailed knowledge base entries.",
-                "Improved client satisfaction by resolving 300+ issues annually using advanced troubleshooting techniques.",
-                "Boosted client retention rates by 15% through comprehensive consultations and strategic analytics.",
-                "Enhanced API integration reliability by 35% for seamless third-party interactions.",
-                "Developed automation scripts reducing ticket resolution times and increasing first contact resolution rates."
+                ""
             ],
-            "technologies": "HTML, CSS, JavaScript, ServiceNow, WordPress, Shopify, API integrations, Automation scripting, Jira"
-        },
-        {
-            "position": "Web Application Support Engineer",
-            "company": "Baptist Health South Florida",
-            "location": "",
-            "dates": "Jun 2022 - Aug 2023",
-            "responsibilities": [
-                "Provided technical support for the patient portal web application, contributing to a successful migration to Flutter.",
-                "Utilized JavaScript and Dart for troubleshooting, improving bug identification and function debugging.",
-                "Managed 20+ daily tickets, escalating complex issues and providing detailed feedback to the development team."
-            ],
-            "technologies": "JavaScript, Dart, Flutter, ServiceNow, Okta"
+            "technologies": ""
         }
     ],
     "projects": [
         {
-            "title": "Christian D`Albano Web Portfolio",
-            "url": "https://chrisdalbano.com",
-            "description": "Created a responsive and dynamic online portfolio with Tailwind CSS for styling and GSAP for animations, showcasing various web development projects. Deployed on Firebase for scalable and secure hosting.",
-            "technologies": "Vue.js, Tailwind CSS, GSAP, Firebase"
-        },
-        {
-            "title": "QuizMEGPT",
-            "url": "https://quizmegpt.chrisdalbano.com",
-            "description": "Developed an AI-based web application that generates customizable quizzes using the GPT-3 API. Improved user engagement with regex algorithms for dynamic quiz creation and a user-friendly interface.",
-            "technologies": "Vue.js, Firebase, Node.js, GPT-3 API"
-        },
-        {
-            "title": "Aizhak Coffee",
-            "url": "https://aizhak.com",
-            "description": "Designed and implemented a comprehensive e-commerce platform with Vue.js for the front end and Firebase for backend services. Integrated SendGrid for newsletters and utilized SEO best practices, resulting in increased user engagement and sales.",
-            "technologies": "Vue.js, Firebase, Node.js, SendGrid"
-        },
-        {
-            "title": "MTGen",
-            "url": "https://mtgen.chrisdalbano.com",
-            "description": "Designed and implemented a creative Magic The Gathering Card generator based on DALL-E and GPT API. Complex REST API platform to handle users request for cards.",
-            "technologies": "Vue.js, Firebase, Firebase Functions, Node.js, DALL-E, GPT-3 API, Hard Regex"
+            "title": "",
+            "url": "",
+            "description": "",
+            "technologies": ""
         }
     ],
     "education": [
         {
-            "degree": "B.A.S Computing Technology and Software Development",
-            "institution": "Valencia College",
-            "dates": "2023 - 2024"
-        },
-        {
-            "degree": "A.S Computer Programming and Analysis",
-            "institution": "Valencia College",
-            "dates": "2020 - 2023"
+            "degree": "",
+            "institution": "",
+            "dates": ""
         }
     ],
     "additional_experience": [
         {
-            "position": "Principal Full-Stack Developer",
-            "company": "Aizhak Coffee (Contract)",
-            "dates": "Sep 2023 - Jan 2024",
+            "position": "",
+            "company": "",
+            "dates": "",
             "responsibilities": [
-                "Spearheaded the creation of Aizhak Coffee’s e-commerce platform, enhancing site functionality and user engagement.",
-                "Managed API integrations and directed a team of marketing specialists and developers, ensuring timely project delivery."
+                ""
             ],
-            "technologies": "Vue.js, Vuex, Tailwind CSS, Firebase, SendGrid"
-        },
-        {
-            "position": "Full Stack Developer Intern",
-            "company": "DoughRise (Internship)",
-            "dates": "Oct 2022 - Jan 2023",
-            "responsibilities": [
-                "Built and implemented features for the web application DoughRise, showcasing adaptability in front-end and back-end development.",
-                "Collaborated with cross-functional teams using Agile methodologies to deliver high-quality applications."
-            ],
-            "technologies": "Vue.js, Agile methodologies"
-        },
-        {
-            "position": "IT Support Engineer",
-            "company": "SNI Technology (Contract)",
-            "dates": "Sep 2021 - Jun 2022",
-            "responsibilities": [
-                "Automated system administration tasks to streamline COVID-19 vaccination event processes.",
-                "Managed Azure cloud infrastructure, ensuring high availability and security for healthcare applications."
-            ],
-            "technologies": "Python, Microsoft Azure, EHR systems"
+            "technologies": ""
         }
     ],
     "skills": [
-        "Agile/Scrum methodologies",
-        "RESTful API design",
-        "Continuous Integration/Continuous Deployment (CI/CD)",
-        "Microservices architecture",
-        "Responsive web design",
-        "Cross-browser compatibility",
-        "Code versioning (Git)",
-        "Debugging and performance optimization",
-        "Technical writing and documentation"
+        ""
     ]
 }
