@@ -6,6 +6,8 @@ from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, Tabl
 from reportlab.lib import colors
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfbase import pdfmetrics
+from reportlab.lib.utils import ImageReader
+
 
 def load_resume_data(file_path):
     with open(file_path, 'r') as file:
@@ -70,24 +72,46 @@ def generate_resume(data):
     story.append(HRFlowable(width="100%", thickness=1, lineCap='round', color=colors.darkblue, spaceBefore=6, spaceAfter=12))
 
     # Contact Information using a grid layout
-    contact_data = [
-        [Paragraph('<b>Email:</b>', normal_style), Paragraph(data['contact']['email'], normal_style)],
-        [Paragraph('<b>Phone:</b>', normal_style), Paragraph(data['contact']['phone'], normal_style)],
-        [Paragraph('<b>Location:</b>', normal_style), Paragraph(data['contact']['location'], normal_style)],
-        [Paragraph('<b>LinkedIn:</b>', normal_style), Paragraph(f"<a href='{data['contact']['linkedin']}' color='blue'>{data['contact']['linkedin']}</a>", normal_style)],
-        [Paragraph('<b>GitHub:</b>', normal_style), Paragraph(f"<a href='{data['contact']['github']}' color='blue'>{data['contact']['github']}</a>", normal_style)],
-        [Paragraph('<b>Website:</b>', normal_style), Paragraph(f"<a href='{data['contact']['website']}' color='blue'>{data['contact']['website']}</a>", normal_style)]
-    ]
+    email_icon = 'icons/email.png'
+    phone_icon = 'icons/phone.png'
+    location_icon = 'icons/location.png'
+    linkedin_icon = 'icons/linkedin.png'
+    github_icon = 'icons/github.png'
+    website_icon = 'icons/website.png'
 
-    contact_table = Table(contact_data, hAlign='LEFT', colWidths=[1.5 * inch, 2.5 * inch, 1.5 * inch, 2.5 * inch])
+    icon_size = 10
+
+ 
+
+    contact_data = [
+    [Image(email_icon, width=icon_size, height=icon_size), Paragraph(data['contact']['email'], normal_style),
+     Spacer(1, 10),
+     Image(phone_icon, width=icon_size, height=icon_size), Paragraph(data['contact']['phone'], normal_style),
+     Spacer(1, 10),
+     Image(location_icon, width=icon_size, height=icon_size), Paragraph(data['contact']['location'], normal_style)],
+    
+    [Image(linkedin_icon, width=icon_size, height=icon_size), Paragraph(f"<a href='{data['contact']['linkedin']}' color='blue'>{data['contact']['linkedin']}</a>", normal_style),
+     Spacer(1, 10),
+     Image(github_icon, width=icon_size, height=icon_size), Paragraph(f"<a href='{data['contact']['github']}' color='blue'>{data['contact']['github']}</a>", normal_style),
+     Spacer(1, 10),
+     Image(website_icon, width=icon_size, height=icon_size), Paragraph(f"<a href='{data['contact']['website']}' color='blue'>{data['contact']['website']}</a>", normal_style)]
+]
+
+    # Create a single-row table with multiple columns
+    contact_table = Table(contact_data, hAlign='CENTER', colWidths=[icon_size, 2 * inch, 0.5 * inch, icon_size, 2 * inch, 0.5 * inch, icon_size, 2 * inch])
     contact_table.setStyle(TableStyle([
-        ('VALIGN', (0, 0), (-1, -1), 'TOP'),
+        ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
         ('TEXTCOLOR', (0, 0), (-1, -1), colors.black),
-        ('FONTNAME', (0, 0), (-1, -1), 'Helvetica'),
-        ('ALIGN', (0, 0), (-1, -1), 'LEFT')
+        ('FONTNAME', (0, 0), (-1, -1), 'OpenSans-Regular'),
+        ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+        ('LEFTPADDING', (0, 0), (-1, -1), 6),
+        ('RIGHTPADDING', (0, 0), (-1, -1), 6),
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 6),
+        ('TOPPADDING', (0, 0), (-1, -1), 6),
     ]))
+
     story.append(contact_table)
-    story.append(Spacer(1, 12))
+    story.append(Spacer(1, 20))
 
     # Summary
     story.append(KeepTogether([Paragraph("Summary", subtitle_style), Paragraph(data['summary'], normal_style), Spacer(1, 12)]))
