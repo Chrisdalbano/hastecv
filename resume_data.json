@@ -1,63 +1,139 @@
 {
-    "name": "",
-    "title": "",
-    "contact": {
-        "email": "",
-        "phone": "",
-        "location": "",
-        "linkedin": "",
-        "github": "",
-        "website": ""
+  "name": "Christian D`Albano",
+  "title": "Full-Stack Developer",
+  "contact": {
+    "email": "chrisdalbano12@gmail.com",
+    "phone": "407-449-0746",
+    "location": "Orlando, FL",
+    "linkedin": "https://linkedin.com/in/chrisdalb",
+    "github": "https://github.com/chrisdalbano",
+    "website": "https://chrisdalbano.com"
+  },
+  "summary": "Dynamic Full-Stack Developer with expertise in developing efficient and accessible web applications using JavaScript, HTML, CSS, and modern frameworks such as Vue.js and React. Proven success in reducing client inquiries by 40% and improving API integration reliability by 35% in the education and healthcare sectors. Proficient in integrating AI functionalities through APIs and enhancing web solutions with intelligent interactivity. Skilled in analyzing user behavior and traffic statistics to align digital strategies with client needs and market trends. Seeking to leverage my skills to drive innovative web solutions in a fast-paced tech environment.",
+  "technical_proficiency": {
+    "languages_frameworks": "JavaScript, HTML5, CSS3, Vue.js, React.js, Node.js, Express.js, Python, Django, Flask",
+    "frontend_development": "Vue.js, React, Redux, Tailwind CSS, Bootstrap, SASS, Webpack",
+    "backend_development": "Node.js, Express.js, Django, Flask, RESTful APIs, GraphQL",
+    "database_technologies": "MySQL, PostgreSQL, MongoDB, Firebase",
+    "devops_cloud": "Microsoft Azure, AWS (EC2, S3, RDS), Docker, Kubernetes, Jenkins, CI/CD pipelines",
+    "tools_platforms": "Git, GitHub, ServiceNow, Figma, Adobe XD, Jira, Trello, Photoshop",
+    "testing_debugging": "Jest, Mocha, Chai, Selenium, Cypress"
+  },
+  "experience": [
+    {
+      "position": "Software Developer",
+      "company": "Mouseflow",
+      "location": "Remote - Orlando, FL",
+      "dates": "Aug 2023 - Present",
+      "responsibilities": [
+        "Developed and maintained integrations and core web applications using JavaScript, HTML, CSS, and Vue.js.",
+        "Implemented responsive design techniques to ensure optimal user experience across various devices and screen sizes.",
+        "Enhanced API integration reliability by 35% for seamless third-party interactions using Node.js and Express.",
+        "Authored comprehensive technical documentation and knowledge base entries to support user onboarding and reduce support inquiries by 40%.",
+        "Developed automation scripts to streamline web application deployment and monitoring processes, reducing resolution times by 20%."
+      ],
+      "technologies": "JavaScript, HTML, CSS, React, Vue.js, Node.js, Express, API integrations, Automation scripting, Jira"
     },
-    "summary": "",
-    "technical_proficiency": {
-        "languages_frameworks": "",
-        "frontend_development": "",
-        "backend_development": "",
-        "database_technologies": "",
-        "devops_cloud": "",
-        "tools_platforms": "",
-        "testing_debugging": ""
+    {
+      "position": "Full-Stack Developer",
+      "company": "Baptist Health South Florida",
+      "location": "Remote - Miami, FL",
+      "dates": "Jun 2022 - Aug 2023",
+      "responsibilities": [
+        "Collaborated with cross-functional teams to develop and enhance the patient portal web application using JavaScript and Dart.",
+        "Contributed to the successful migration of the patient portal to Flutter, ensuring seamless functionality and improved user experience.",
+        "Troubleshot and resolved application bugs and performance issues, improving overall application stability and reliability.",
+        "Managed the full development lifecycle for web application features, from requirements gathering to deployment.",
+        "Provided detailed feedback and code reviews to ensure adherence to best practices and coding standards."
+      ],
+      "technologies": "JavaScript, Dart, Flutter, Node.js, Express, ServiceNow, Okta"
+    }
+  ],
+  "projects": [
+    {
+      "title": "Christian D`Albano Web Portfolio",
+      "url": "https://chrisdalbano.com",
+      "description": "Created a responsive and dynamic online portfolio with Tailwind CSS for styling and GSAP for animations, showcasing various web development projects. Deployed on Firebase for scalable and secure hosting.",
+      "technologies": "Vue.js, Tailwind CSS, GSAP, Firebase"
     },
-    "experience": [
-        {
-            "position": "",
-            "company": "",
-            "location": "",
-            "dates": "",
-            "responsibilities": [
-                ""
-            ],
-            "technologies": ""
-        }
-    ],
-    "projects": [
-        {
-            "title": "",
-            "url": "",
-            "description": "",
-            "technologies": ""
-        }
-    ],
-    "education": [
-        {
-            "degree": "",
-            "institution": "",
-            "dates": ""
-        }
-    ],
-    "additional_experience": [
-        {
-            "position": "",
-            "company": "",
-            "dates": "",
-            "responsibilities": [
-                ""
-            ],
-            "technologies": ""
-        }
-    ],
-    "skills": [
-        ""
-    ]
+    {
+      "title": "QuizMEGPT",
+      "url": "https://quizmegpt.chrisdalbano.com",
+      "description": "Developed an AI-based web application that generates customizable quizzes using the GPT-3 API. Improved user engagement with regex algorithms for dynamic quiz creation and a user-friendly interface.",
+      "technologies": "Vue.js, Firebase, Node.js, GPT-3 API"
+    },
+    {
+      "title": "Aizhak Coffee",
+      "url": "https://aizhak.com",
+      "description": "Designed and implemented a comprehensive e-commerce platform with Vue.js for the front end and Firebase for backend services. Integrated SendGrid for newsletters and utilized SEO best practices, resulting in increased user engagement and sales.",
+      "technologies": "Vue.js, Firebase, Node.js, SendGrid"
+    },
+    {
+      "title": "MTGen",
+      "url": "https://mtgen.chrisdalbano.com",
+      "description": "Designed and implemented a creative Magic The Gathering Card generator based on DALL-E and GPT API. Complex REST API platform to handle users request for cards.",
+      "technologies": "Vue.js, Firebase, Firebase Functions, Node.js, DALL-E, GPT-3 API, Hard Regex"
+    },
+    {
+      "title": "PyResumeBuilder",
+      "url": "https://github.com/Chrisdalbano/pyresumebuilder",
+      "description": "JSON Based Python application that will format and generate an awesomely structured from a JSON file. This current resume was built with this very project of mine.",
+      "technologies": "Python, Reportlab"
+    }
+  ],
+  "education": [
+    {
+      "degree": "B.A.S Computing Technology and Software Development",
+      "institution": "Valencia College",
+      "dates": "2023 - 2024"
+    },
+    {
+      "degree": "A.S Computer Programming and Analysis",
+      "institution": "Valencia College",
+      "dates": "2020 - 2023"
+    }
+  ],
+  "additional_experience": [
+    {
+      "position": "Full-Stack Developer",
+      "company": "Aizhak Coffee (Contract)",
+      "dates": "Sep 2023 - Jan 2024",
+      "responsibilities": [
+        "Spearheaded the creation of Aizhak Coffee`s e-commerce platform, enhancing site functionality and user engagement.",
+        "Managed API integrations and directed a team of marketing specialists and developers, ensuring timely project delivery."
+      ],
+      "technologies": "Vue.js, Vuex, Tailwind CSS, Firebase, SendGrid"
+    },
+    {
+      "position": "Full Stack Developer Intern",
+      "company": "DoughRise (Internship)",
+      "dates": "Oct 2022 - Jan 2023",
+      "responsibilities": [
+        "Built and implemented features for the web application DoughRise, showcasing adaptability in front-end and back-end development.",
+        "Collaborated with cross-functional teams using Agile methodologies to deliver high-quality applications."
+      ],
+      "technologies": "Vue.js, Agile methodologies"
+    },
+    {
+      "position": "DevOps Engineer",
+      "company": "SNI Technology (Contract)",
+      "dates": "Sep 2021 - Jun 2022",
+      "responsibilities": [
+        "Automated system administration tasks to streamline COVID-19 vaccination event processes.",
+        "Managed Azure cloud infrastructure, ensuring high availability and security for healthcare applications."
+      ],
+      "technologies": "Python, Microsoft Azure, EHR systems"
+    }
+  ],
+  "skills": [
+    "Agile/Scrum methodologies",
+    "RESTful API design",
+    "Continuous Integration/Continuous Deployment (CI/CD)",
+    "Microservices architecture",
+    "Responsive web design",
+    "Cross-browser compatibility",
+    "Code versioning (Git)",
+    "Debugging and performance optimization",
+    "Technical writing and documentation"
+  ]
 }
