@@ -169,4 +169,73 @@ def get_styles(template="default"):
         styles.add(custom_bullet_style)
         styles.add(custom_bold_style)
     
+    elif template == "minimal":
+        custom_title_style = ParagraphStyle(
+            name='CustomTitle',
+            parent=styles['Title'],
+            fontName='Lexend-Bold',
+            fontSize=18,
+            leading=22,
+            spaceAfter=14,
+            textColor=colors.HexColor('#000000')
+        )
+
+        custom_h2_style = ParagraphStyle(
+            name='CustomH2',
+            parent=styles['Title'],
+            fontName='Lexend-Bold',
+            fontSize=16,
+            leading=20,
+            spaceAfter=12,
+            textColor=colors.HexColor('#444444')
+        )
+
+        custom_subtitle_style = ParagraphStyle(
+            name='CustomSubtitle',
+            parent=styles['Heading2'],
+            fontName='Lexend-Bold',
+            fontSize=12,
+            leading=18,
+            textColor=colors.HexColor('#000000'),
+            spaceBefore=12,
+            spaceAfter=6
+        )
+
+        custom_normal_style = ParagraphStyle(
+            name='CustomNormal',
+            parent=styles['Normal'],
+            fontName='OpenSans-Regular',
+            fontSize=10,
+            leading=12,
+            textColor=colors.HexColor('#000000')
+        )
+
+        custom_bold_style = ParagraphStyle(
+            name='CustomBold',
+            parent=styles['Normal'],
+            fontName='OpenSans-Bold',
+            fontSize=10,
+            leading=12,
+            textColor=colors.HexColor('#000000'),
+        )
+
+        custom_bullet_style = ParagraphStyle(
+            name='CustomBullet',
+            parent=styles['Normal'],
+            fontName='OpenSans-Regular',
+            fontSize=10,
+            leading=12,
+            textColor=colors.HexColor('#000000'),
+            leftIndent=10,
+            bulletFontName='OpenSans-Regular',
+            bulletIndent=0
+        )
+        
+        styles.add(custom_title_style)
+        styles.add(custom_h2_style)
+        styles.add(custom_subtitle_style)
+        styles.add(custom_normal_style)
+        styles.add(custom_bullet_style)
+        styles.add(custom_bold_style)
+
     return styles

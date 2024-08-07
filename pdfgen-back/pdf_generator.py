@@ -16,18 +16,25 @@ def generate_resume(data, template="default"):
 
     story = []
 
+    # Define header background colors based on the template
+    header_bg_colors = {
+        'default': '#262626',
+        'modern': '#333333',
+        'minimal': '#FFFFFF'  # No header background
+    }
+
+    header_bg_color = header_bg_colors.get(template)
+
     # Define the header height
     header_height = 1 * inch
 
-    # Header bg color
-    header_bg_color = hex_to_rgb('#262626')
-
     # Function to draw the header background
     def draw_header_background(canvas, doc):
-        canvas.saveState()
-        canvas.setFillColorRGB(*header_bg_color)
-        canvas.rect(0, doc.height + doc.topMargin - header_height, doc.width, header_height, fill=1)
-        canvas.restoreState()
+        if header_bg_color and header_bg_color != '#FFFFFF':
+            canvas.saveState()
+            canvas.setFillColorRGB(*hex_to_rgb(header_bg_color))
+            canvas.rect(0, doc.height + doc.topMargin - header_height, doc.width, header_height, fill=1)
+            canvas.restoreState()
 
     # Header content
     header_content = []
@@ -181,4 +188,4 @@ def generate_resume(data, template="default"):
             story.extend(skills_section)
 
     # Build the PDF
-    doc.build(story, onFirstPage=draw_header_background)
+    doc.build(story, onFirstPage=draw_header_background if header_bg_color else None)

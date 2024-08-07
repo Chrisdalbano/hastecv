@@ -28,7 +28,7 @@ def generate():
 
 @app.route('/templates')
 def get_templates():
-    templates = ["default", "modern"]
+    templates = ["default", "modern", "minimal"]
     return jsonify(templates)
 
 @app.route('/<path:path>')

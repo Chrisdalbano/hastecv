@@ -1,6 +1,6 @@
 <template>
-    <header class="bg-gray-800 text-white p-4">
-      <h1 class="text-3xl">Resume Builder</h1>
+    <header class="bg-transparent text-white p-4 font-open-sans">
+      <h1 class="text-4xl">HasteCV</h1>
     </header>
   </template>
   
@@ -12,5 +12,9 @@
   
   <style scoped>
   /* Add any scoped styles for Header component here */
+
+  h1 {
+    color: var(--haste-yellow);
+  }
   </style>
   
