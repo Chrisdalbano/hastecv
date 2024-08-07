@@ -1,2 +1,6 @@
 resume.pdf
 .env
+venv/
+*.pyc
+__pycache__/
+resume.pdf
