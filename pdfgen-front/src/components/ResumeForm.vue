@@ -24,7 +24,6 @@
     </div>
     <div v-show="view === 'form'">
       <form @submit.prevent="submitForm">
-        <h2 class="text-2xl font-bold mb-4 text-white">Personal Information</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <input
             v-model="store.resumeData.name"
@@ -40,10 +39,8 @@
           />
         </div>
 
-        <h2 class="text-2xl font-bold mb-4 mt-6 text-white">
-          Contact Information
-        </h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+       
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-10">
           <input
             v-model="store.resumeData.contact.email"
             class="w-full p-2"
@@ -62,18 +59,7 @@
             type="text"
             placeholder="Location"
           />
-          <input
-            v-model="store.resumeData.contact.linkedin"
-            class="w-full p-2"
-            type="text"
-            placeholder="LinkedIn"
-          />
-          <input
-            v-model="store.resumeData.contact.github"
-            class="w-full p-2"
-            type="text"
-            placeholder="GitHub"
-          />
+
           <input
             v-model="store.resumeData.contact.website"
             class="w-full p-2"
@@ -82,10 +68,10 @@
           />
         </div>
 
-        <h2 class="text-2xl font-bold mb-4 mt-6 text-white">Summary</h2>
+       
         <textarea
           v-model="store.resumeData.summary"
-          class="w-full p-2 bg-black border-solid border-2 border-whitesmoke text-white"
+          class="w-full p-2 bg-transparent border-solid border border-whitesmoke mt-10 text-3xl font-opensans font-bold"
           rows="4"
           placeholder="Summary"
         ></textarea>
@@ -128,12 +114,11 @@
             x
           </button>
         </div>
-        <div class="flex">
+        <div class="flex items-center text-center  flex-wrap">
           <button
             @click.prevent="openModal('experience')"
-            class="p-2 text-white font-bold rounded mt-2 mr-2"
-          >
-            Add Experience
+            class="haste-option"
+          >+ Experience
           </button>
 
           <div
@@ -170,9 +155,9 @@
           </div>
           <button
             @click.prevent="openModal('education')"
-            class="text-white font-bold rounded mt-2 mx-4"
+            class="haste-option"
           >
-            Add Education
+            + Education
           </button>
 
           <div
@@ -195,14 +180,15 @@
           </div>
           <button
             @click.prevent="openModal('skill')"
-            class="text-white font-bold rounded mt-2 mx-4"
+            class="haste-option"
           >
-            Add Skill
+            + Skill
           </button>
+          <button type="submit" class="haste-button">Generate</button>
+
         </div>
 
         <div></div>
-        <button type="submit" class="haste-button">Generate Preview</button>
       </form>
     </div>
 

@@ -5,7 +5,8 @@ import App from "./App.vue";
 import router from "./router";
 
 import "@/assets/tailwind.css";
-import "@/assets/global.css"
+import "@/assets/global.css";
+import "@/assets/reset.css";
 
 import "ace-builds/src-noconflict/ace";
 import "ace-builds/src-noconflict/theme-twilight";

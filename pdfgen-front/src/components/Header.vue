@@ -1,5 +1,5 @@
 <template>
-    <header class="bg-transparent text-white p-4 font-open-sans">
+    <header class="bg-transparent text-white p-4 font-open-sans font-bold italic">
       <h1 class="text-4xl">HasteCV</h1>
     </header>
   </template>

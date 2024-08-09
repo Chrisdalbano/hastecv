@@ -16,7 +16,7 @@
             :src="downloadLink"
             class="w-full h-full border"
           ></iframe>
-          <div v-else class="preview-placeholder text-yellow-300">
+          <div v-else class="preview-placeholder">
             Preview of your CV will appear here
           </div>
         </div>
@@ -100,12 +100,15 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #141414;
+  background-color: #1414147c;
+
 }
 
 .preview-placeholder {
-  color: #ffd700;
-  font-size: 1.2rem;
+  color: var(--haste-yellow);
+  
+  font-size: 30px;
+  font-family: 'OpenSans';
   text-align: center;
 }
 

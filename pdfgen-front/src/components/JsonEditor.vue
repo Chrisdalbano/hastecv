@@ -3,7 +3,7 @@
     <h2 class="text-2xl font-bold mb-4 text-white">Paste JSON Data</h2>
     <div ref="jsonEditor" class="my-12 h-72"></div>
     <button @click="submitJson" class="haste-button">
-      Generate PDF from JSON
+      Generate
     </button>
   </div>
 </template>

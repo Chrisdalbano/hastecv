@@ -8,6 +8,7 @@ module.exports = {
     extend: {
       fontFamily: {
         'open-sans': ['OpenSans', 'sans-serif'],
+        'cardo' : ['Cardo', 'serif'],
       },
     },
   },
