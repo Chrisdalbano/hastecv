@@ -25,7 +25,7 @@
     <div class="text-center p-4">
       <DownloadLink v-if="downloadLink" :downloadLink="downloadLink" />
     </div>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. At consequatur sunt omnis nobis accusamus ipsum quisquam, voluptas quasi deleniti iusto saepe assumenda ratione blanditiis non quo atque officia expedita delectus.</p>
+    <!-- <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. At consequatur sunt omnis nobis accusamus ipsum quisquam, voluptas quasi deleniti iusto saepe assumenda ratione blanditiis non quo atque officia expedita delectus.</p> -->
 
   </div>
 
