@@ -2,34 +2,3 @@
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
-  font-family: "OpenSans";
-  src: url("../assets/fonts/OpenSans-BoldItalic.ttf") format("truetype");
-  font-weight: bold;
-  font-style: italic;
-}
-
-:root {
-  --haste-yellow: #ffd510;
-  --primary-black: #080808;
-}
-
-
-.haste-button {
-  border-radius: 2px;
-  border: 1px solid #080808;
-  background-color: var(--haste-yellow);
-  color: var(--primary-black);
-  transition: all 0.3s ease;
-  font-weight: bold;
-  /* px-4 py-2 */
-  padding-block: 0.5rem;
-  padding-inline: 1rem;
-  margin-block: 1rem;
-}
-
-.haste-button:hover {
-  opacity: 0.8;
-  transform: scale(1.05);
-  transition: all 0.25s ease;
-}

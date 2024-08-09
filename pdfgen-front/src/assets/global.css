@@ -1,0 +1,67 @@
+@font-face {
+    font-family: "OpenSans";
+    src: url("../assets/fonts/OpenSans-BoldItalic.ttf") format("truetype");
+    font-weight: bold;
+    font-style: italic;
+  }
+  
+  :root {
+    --haste-yellow: #ffd510;
+    --primary-black: #080808;
+  }
+  
+  input {
+    background-color: #030303;
+    border: 1px solid whitesmoke;
+    color: whitesmoke;
+  }
+  
+  .haste-button {
+    border-radius: 2px;
+    border: 1px solid var(--primary-black);
+    background-color: var(--haste-yellow);
+    color: var(--primary-black);
+    transition: all 0.3s ease;
+    font-weight: bold;
+    /* px-4 py-2 */
+    padding-block: 0.5rem;
+    padding-inline: 1rem;
+    margin-block: 1rem;
+  }
+  
+  .haste-button:hover {
+    opacity: 0.8;
+    transform: scale(1.05);
+    transition: all 0.25s ease;
+  }
+  
+  div.jsoneditor-menu > a {
+    display: none;
+  }
+  
+  .jsoneditor-menu {
+    background-color: var(--primary-black);
+    border-bottom: 1px solid var(--haste-yellow);
+  }
+
+  .jsoneditor-menu > button {
+    background-color: var(--primary-black);
+    
+  }
+
+  .jsoneditor-statusbar {
+    background-color: var(--primary-black);
+  }
+  
+  body {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    min-height: 100svh;
+    background: linear-gradient(
+      110deg,
+      rgb(14, 14, 14) 52.4%,
+      rgba(255, 208, 0, 0.788) 138.8%
+    );
+  }
+  

@@ -73,10 +73,10 @@
       "technologies": "Vue.js, Firebase, Firebase Functions, Node.js, DALL-E, GPT-3 API, Hard Regex"
     },
     {
-      "title": "PyResumeBuilder Python Application",
-      "url": "https://github.com/Chrisdalbano/pyresumebuilder",
-      "description": "JSON Based Python application that will format and generate an awesomely structured from a JSON file. This current resume was built with this very project of mine.",
-      "technologies": "Python, Reportlab"
+      "title": "HasteCV Flask Web Application",
+      "url": "https://github.com/Chrisdalbano/hastecv",
+      "description": "Vue Full-Stack Flask Based application that will format and generate an awesomely structured from a JSON file. This current resume was built with this very project of mine.",
+      "technologies": "Python, Flask, Vue, Reportlab"
     }
   ],
   "education": [

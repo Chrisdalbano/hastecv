@@ -1,11 +1,15 @@
-import { createApp } from 'vue'
-import App from './App.vue'
-import './assets/tailwind.css'
-import 'ace-builds/src-noconflict/ace';
-import 'ace-builds/src-noconflict/theme-twilight';
-import 'jsoneditor/dist/jsoneditor.css';
+import { createApp } from "vue";
+import { createPinia } from "pinia";
 
+import App from "./App.vue";
+import router from "./router";
 
+import "@/assets/tailwind.css";
+import "@/assets/global.css"
 
+import "ace-builds/src-noconflict/ace";
+import "ace-builds/src-noconflict/theme-twilight";
+import "jsoneditor/dist/jsoneditor.css";
 
-createApp(App).mount('#app')
+const pinia = createPinia();
+createApp(App).use(router).use(pinia).mount("#app");
