@@ -1,4 +1,4 @@
-# PyResumeBuilder
+# HasteCV
 
 `PyResumeBuilder` is a Python application designed to format and generate a professionally structured resume from a JSON file using the ReportLab library. This application allows you to easily customize and update your resume content in a structured format.
 
