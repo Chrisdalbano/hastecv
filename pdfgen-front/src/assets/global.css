@@ -84,3 +84,13 @@ body {
   width: min(100% - 2rem, 1000px);
   margin-inline: auto;
 }
+.active-link {
+  background-color: var(--haste-yellow) !important;
+  color: var(--primary-black) !important;
+  transition: all 0.25s;
+}
+
+.inactive-link {
+  background-color: transparent !important;
+  transition: all 0.25s;
+}
