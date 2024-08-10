@@ -19,5 +19,27 @@ export const useResumeDataStore = defineStore("resume", () => {
     skills: []
   });
 
-  return { resumeData };
+  const downloadLink = ref(null);
+  const template = ref("default");
+
+  async function generatePdf(jsonData) {
+    try {
+      const response = await fetch("http://127.0.0.1:5000/generate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ data: jsonData, template: template.value })
+      });
+
+      if (!response.ok) throw new Error("Failed to generate PDF");
+
+      const blob = await response.blob();
+      downloadLink.value = URL.createObjectURL(blob);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  }
+
+  return { resumeData, downloadLink, generatePdf, template };
 });
