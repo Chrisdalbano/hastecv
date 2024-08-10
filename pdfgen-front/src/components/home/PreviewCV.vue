@@ -1,8 +1,8 @@
 <template>
   <div class="preview-overlay">
     <iframe
-      v-if="downloadLink"
-      :src="downloadLink"
+      v-if="props.downloadLink"
+      :src="props.downloadLink"
       class="h-full w-full border"
     ></iframe>
     <div v-else class="preview-placeholder">
@@ -11,12 +11,20 @@
   </div>
 </template>
 
+<script setup>
+const props = defineProps({
+  downloadLink: {
+    required: true
+  }
+});
+</script>
+
 <style scoped>
 .preview-overlay {
+  flex: 1;
   position: relative;
   margin: 2rem;
   height: 90%;
-  width: 90%;
   display: flex;
   align-items: center;
   justify-content: center;
