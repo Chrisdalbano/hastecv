@@ -79,3 +79,8 @@ body {
   min-height: 100svh;
   background: rgb(14, 14, 14) 52.4%;
 }
+
+.center {
+  width: min(100% - 2rem, 1000px);
+  margin-inline: auto;
+}

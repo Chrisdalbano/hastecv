@@ -1,6 +1,8 @@
 <template>
   <AppHeader />
-  <router-view></router-view>
+  <main>
+    <router-view></router-view>
+  </main>
 </template>
 
 <script setup>

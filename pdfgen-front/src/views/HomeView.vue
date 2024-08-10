@@ -1,28 +1,23 @@
 <template>
-  <div class="relative flex overflow-hidden px-32 py-4">
-    <div class="container relative z-10">
-      <div class="grid grid-cols-2 gap-4">
-        <div>
-          <TemplateSelector @select="updateTemplate" />
+  <div class="center relative z-10 grid grid-cols-2 gap-4 overflow-hidden py-4">
+    <div>
+      <!-- refactor -->
+      <TemplateSelector @select="updateTemplate" />
 
-          <ResumeForm @submit="generatePdf" />
-        </div>
-        <div class="preview-overlay">
-          <iframe
-            v-if="downloadLink"
-            :src="downloadLink"
-            class="h-full w-full border"
-          ></iframe>
-          <div v-else class="preview-placeholder">
-            Preview of your CV will appear here
-          </div>
-        </div>
+      <ResumeForm @submit="generatePdf" />
+    </div>
+    <div class="preview-overlay">
+      <iframe
+        v-if="downloadLink"
+        :src="downloadLink"
+        class="h-full w-full border"
+      ></iframe>
+      <div v-else class="preview-placeholder">
+        Preview of your CV will appear here
       </div>
     </div>
-    <div class="p-4 text-center">
-      <DownloadLink v-if="downloadLink" :downloadLink="downloadLink" />
-    </div>
   </div>
+  <DownloadLink v-if="downloadLink" :downloadLink="downloadLink" />
 </template>
 <script setup>
 import ResumeForm from "@/components/ResumeForm.vue";
