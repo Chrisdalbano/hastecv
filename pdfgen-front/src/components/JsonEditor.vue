@@ -1,6 +1,6 @@
 <template>
   <div class="mt-8">
-    <h2 class="text-2xl font-bold mb-4 text-white">Edit JSON</h2>
+    <h2 class="mb-4 text-2xl font-bold text-white">Edit JSON</h2>
     <form @submit.prevent="submitForm">
       <div ref="jsonEditor" class="my-12 h-72"></div>
       <button type="submit" @click="submitJson" class="haste-button">
@@ -27,7 +27,7 @@ onMounted(() => {
   editor.value = new JSONEditor(container, {
     modes: ["code", "form", "text", "tree", "view"],
     ace: window.ace,
-    theme: "ace/theme/twilight",
+    theme: "ace/theme/twilight"
   });
   editor.value.set(store.resumeData);
 });

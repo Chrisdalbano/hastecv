@@ -1,25 +1,24 @@
 @font-face {
-    font-family: "OpenSans";
-    src: url("../assets/fonts/OpenSans-BoldItalic.ttf") format("truetype");
-    font-weight: bold;
-    font-style: italic;
-  }
-  
-  @font-face {
-    font-family: "OpenSans";
-    src: url("../assets/fonts/OpenSans-Regular.ttf") format("truetype");
-    font-style: normal;
-  }
-  
-  @font-face {
-    font-family: "OpenSans";
-    src: url("../assets/fonts/OpenSans-Bold.ttf") format("truetype");
-    font-style: bold;
-  }
-  
-  @font-face {
-    font-family: "Cardo";
-    src: url("@/assets/fonts/Cardo-Regular.ttf") format("truetype");
-    font-style: normal;
-  }
-  
+  font-family: "OpenSans";
+  src: url("../assets/fonts/OpenSans-BoldItalic.ttf") format("truetype");
+  font-weight: bold;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "OpenSans";
+  src: url("../assets/fonts/OpenSans-Regular.ttf") format("truetype");
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "OpenSans";
+  src: url("../assets/fonts/OpenSans-Bold.ttf") format("truetype");
+  font-style: bold;
+}
+
+@font-face {
+  font-family: "Cardo";
+  src: url("@/assets/fonts/Cardo-Regular.ttf") format("truetype");
+  font-style: normal;
+}
