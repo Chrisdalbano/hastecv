@@ -1,33 +1,9 @@
 <template>
   <div class="py-4">
-    <div class="mb-4 flex items-center">
-      <div class="switch-toggle">
-        <button
-          @click="toggleView('form')"
-          :class="{
-            active: view === 'form',
-            inactive: view !== 'form'
-          }"
-          class="switch-toggle-button"
-        >
-          Manual
-        </button>
-        <button
-          @click="toggleView('json')"
-          :class="{
-            active: view === 'json',
-            inactive: view !== 'json'
-          }"
-          class="switch-toggle-button"
-        >
-          JSON
-        </button>
-      </div>
-    </div>
+    <div class="mb-4 flex items-center"></div>
   </div>
 
   <div class="py-4">
-    <div v-show="view === 'form'">
       <form @submit.prevent="submitForm">
         <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
           <input
@@ -182,13 +158,9 @@
           <button type="submit" class="haste-button">Generate</button>
         </div>
 
-        <div></div>
       </form>
-    </div>
 
-    <div v-if="view === 'json'">
-      <JsonEditor />
-    </div>
+   
 
     <ReusableModal
       :show="showModal"
@@ -251,10 +223,8 @@ import { useResumeDataStore } from "@/stores/resumeData";
 import { ref } from "vue";
 
 import ReusableModal from "@/components/ReusableModal.vue";
-import JsonEditor from "@/components/JsonEditor.vue";
 
 const store = useResumeDataStore();
-const view = ref("form");
 const showModal = ref(false);
 const modalType = ref("");
 const modalTitle = ref("");
@@ -262,7 +232,7 @@ const newEntry = ref({});
 const emit = defineEmits(["submit"]);
 
 function submitForm() {
-  emit("submit", JSON.stringify(store.resumeData));
+  store.generatePdf(JSON.stringify(store.resumeData));
 }
 
 function openModal(type) {
@@ -299,45 +269,6 @@ function removeEducation(index) {
 function removeSkill(index) {
   store.resumeData.skills.splice(index, 1);
 }
-function toggleView(newView) {
-  view.value = newView;
-}
 </script>
 
-<style scoped>
-.switch-toggle {
-  --width: 260px;
-  --height: 60px;
-
-  position: relative;
-  width: var(--width);
-  height: var(--height);
-
-  background: transparent;
-  border: 1px solid var(--haste-yellow);
-  display: flex;
-  justify-content: space-between;
-}
-
-.switch-toggle-button {
-  flex: 1;
-  padding: 10px 0;
-  font-size: 24px;
-  font-weight: 500;
-  text-align: center;
-  border-radius: calc(var(--radius) - var(--offset));
-  transition:
-    background-color 250ms cubic-bezier(0.93, 0.26, 0.07, 0.69),
-    color 250ms cubic-bezier(0.93, 0.26, 0.07, 0.69);
-}
-
-.switch-toggle-button.active {
-  background-color: var(--haste-yellow);
-  color: var(--primary-black);
-}
-
-.switch-toggle-button.inactive {
-  background-color: transparent;
-  color: var(--haste-yellow);
-}
-</style>
+<style scoped></style>
