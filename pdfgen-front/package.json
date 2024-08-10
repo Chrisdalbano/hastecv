@@ -9,15 +9,21 @@
   "dependencies": {
     "ace-builds": "^1.35.4",
     "jsoneditor": "^10.1.0",
-    "pinia": "^2.2.1",
-    "vue": "^3.0.0",
-    "vue-router": "^4.4.3"
+    "pinia": "^2.1.7",
+    "vue": "^3.4.29",
+    "vue-router": "^4.3.3"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^1.2.3",
+    "@rushstack/eslint-patch": "^1.8.0",
+    "@vitejs/plugin-vue": "^5.0.5",
+    "@vue/eslint-config-prettier": "^9.0.0",
     "autoprefixer": "^10.2.5",
+    "eslint": "^8.57.0",
+    "eslint-plugin-vue": "^9.23.0",
     "postcss": "^8.2.15",
+    "prettier": "^3.2.5",
+    "prettier-plugin-tailwindcss": "^0.6.6",
     "tailwindcss": "^2.1.2",
-    "vite": "^2.3.3"
+    "vite": "^5.3.1"
   }
 }
