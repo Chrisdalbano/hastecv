@@ -13,7 +13,7 @@ export const useResumeDataStore = defineStore("resume", () => {
       github: "",
       website: "",
     },
-    summary: "",
+    summary: [],
     experience: [],
     education: [],
     skills: [],

@@ -17,6 +17,5 @@
   </script>
   
   <style scoped>
-  /* Add any scoped styles for DownloadLink component here */
   </style>
   

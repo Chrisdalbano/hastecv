@@ -1,27 +1,32 @@
 <template>
-  <div class="p-6">
+  <div class="py-4">
     <div class="flex items-center mb-4">
-      <button
-        @click="toggleView('form')"
-        :class="{
-          'bg-haste-yellow text-black ': view === 'form',
-          'bg-black text-gray-200': view !== 'form',
-        }"
-        class="px-4 py-2 font-bold"
-      >
-        Manual
-      </button>
-      <button
-        @click="toggleView('json')"
-        :class="{
-          'bg-haste-yellow text-black': view === 'json',
-          'bg-black text-gray-200': view !== 'json',
-        }"
-        class="px-4 py-2 font-bold"
-      >
-        JSON
-      </button>
+      <div class="switch-toggle">
+        <button
+          @click="toggleView('form')"
+          :class="{
+            active: view === 'form',
+            inactive: view !== 'form',
+          }"
+          class="switch-toggle-button"
+        >
+          Manual
+        </button>
+        <button
+          @click="toggleView('json')"
+          :class="{
+            active: view === 'json',
+            inactive: view !== 'json',
+          }"
+          class="switch-toggle-button"
+        >
+          JSON
+        </button>
+      </div>
     </div>
+  </div>
+
+  <div class="py-4">
     <div v-show="view === 'form'">
       <form @submit.prevent="submitForm">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -39,7 +44,6 @@
           />
         </div>
 
-       
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-10">
           <input
             v-model="store.resumeData.contact.email"
@@ -68,10 +72,9 @@
           />
         </div>
 
-       
         <textarea
           v-model="store.resumeData.summary"
-          class="w-full p-2 bg-transparent border-solid border border-whitesmoke mt-10 text-3xl font-opensans font-bold"
+          class="w-full p-2 mt-10 text-3xl font-bold"
           rows="4"
           placeholder="Summary"
         ></textarea>
@@ -114,11 +117,9 @@
             x
           </button>
         </div>
-        <div class="flex items-center text-center  flex-wrap">
-          <button
-            @click.prevent="openModal('experience')"
-            class="haste-option"
-          >+ Experience
+        <div class="flex items-center text-center flex-wrap">
+          <button @click.prevent="openModal('experience')" class="haste-option">
+            + Experience
           </button>
 
           <div
@@ -153,10 +154,7 @@
               x
             </button>
           </div>
-          <button
-            @click.prevent="openModal('education')"
-            class="haste-option"
-          >
+          <button @click.prevent="openModal('education')" class="haste-option">
             + Education
           </button>
 
@@ -178,14 +176,10 @@
               x
             </button>
           </div>
-          <button
-            @click.prevent="openModal('skill')"
-            class="haste-option"
-          >
+          <button @click.prevent="addSkill" class="haste-option">
             + Skill
           </button>
           <button type="submit" class="haste-button">Generate</button>
-
         </div>
 
         <div></div>
@@ -248,14 +242,6 @@
           placeholder="Dates"
         />
       </template>
-      <template v-show="modalType === 'skill'">
-        <input
-          v-model="newEntry.skill"
-          class="w-full p-2 mb-2"
-          type="text"
-          placeholder="Skill"
-        />
-      </template>
     </ReusableModal>
   </div>
 </template>
@@ -296,11 +282,14 @@ function saveEntry() {
     store.resumeData.experience.push(newEntry.value);
   } else if (modalType.value === "education") {
     store.resumeData.education.push(newEntry.value);
-  } else if (modalType.value === "skill") {
-    store.resumeData.skills.push(newEntry.value.skill);
   }
   closeModal();
 }
+
+function addSkill() {
+  store.resumeData.skills.push(newEntry.value.skill);
+}
+
 function removeExperience(index) {
   store.resumeData.experience.splice(index, 1);
 }
@@ -315,4 +304,39 @@ function toggleView(newView) {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.switch-toggle {
+  --width: 260px;
+  --height: 60px;
+
+  position: relative;
+  width: var(--width);
+  height: var(--height);
+
+  background: transparent;
+  border: 1px solid var(--haste-yellow);
+  display: flex;
+  justify-content: space-between;
+}
+
+.switch-toggle-button {
+  flex: 1;
+  padding: 10px 0;
+  font-size: 24px;
+  font-weight: 500;
+  text-align: center;
+  border-radius: calc(var(--radius) - var(--offset));
+  transition: background-color 250ms cubic-bezier(0.93, 0.26, 0.07, 0.69),
+    color 250ms cubic-bezier(0.93, 0.26, 0.07, 0.69);
+}
+
+.switch-toggle-button.active {
+  background-color: var(--haste-yellow);
+  color: var(--primary-black);
+}
+
+.switch-toggle-button.inactive {
+  background-color: transparent;
+  color: var(--haste-yellow);
+}
+</style>

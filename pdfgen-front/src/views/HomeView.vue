@@ -1,14 +1,11 @@
 <template>
-  <div
-    class="py-4 px-10 flex flex-col justify-center overflow-hidden relative"
-  >
-
-    
-    <div class="container mx-auto p-6 relative z-10">
+  <div class="py-4 px-32 flex overflow-hidden relative">
+    <div class="container relative z-10">
       <div class="grid grid-cols-2 gap-4">
         <div>
-          <ResumeForm @submit="generatePdf" />
           <TemplateSelector @select="updateTemplate" />
+
+          <ResumeForm @submit="generatePdf" />
         </div>
         <div class="preview-overlay">
           <iframe
@@ -25,12 +22,9 @@
     <div class="text-center p-4">
       <DownloadLink v-if="downloadLink" :downloadLink="downloadLink" />
     </div>
-    <!-- <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. At consequatur sunt omnis nobis accusamus ipsum quisquam, voluptas quasi deleniti iusto saepe assumenda ratione blanditiis non quo atque officia expedita delectus.</p> -->
-
   </div>
-
 </template>
-<script >
+<script>
 import ResumeForm from "@/components/ResumeForm.vue";
 import DownloadLink from "@/components/DownloadLink.vue";
 import TemplateSelector from "@/components/TemplateSelector.vue";
@@ -38,7 +32,6 @@ import TemplateSelector from "@/components/TemplateSelector.vue";
 export default {
   name: "App",
   components: {
-    
     ResumeForm,
     DownloadLink,
     TemplateSelector,
@@ -54,7 +47,6 @@ export default {
           phone: "",
           location: "",
         },
-        // Add more default fields as necessary
       },
       template: "default",
     };
@@ -86,12 +78,6 @@ export default {
 </script>
 
 <style scoped>
-.min-h-screen {
-  min-height: 100vh;
-}
-
-
-
 .preview-overlay {
   position: relative;
   margin: 2rem;
@@ -101,18 +87,13 @@ export default {
   align-items: center;
   justify-content: center;
   background-color: #1414147c;
-
 }
 
 .preview-placeholder {
   color: var(--haste-yellow);
-  
-  font-size: 30px;
-  font-family: 'OpenSans';
-  text-align: center;
-}
 
-.iframe {
-  border: none;
+  font-size: 30px;
+  font-family: "OpenSans";
+  text-align: center;
 }
 </style>

@@ -105,9 +105,13 @@ def generate_resume(data, template="default"):
     story.append(Spacer(1, 20))
 
     # Summary
-    if 'summary' in data and data['summary'].strip():
+    if 'summary' in data and isinstance(data['summary'], list):
         story.append(Paragraph("Summary", styles['CustomSubtitle']))
-        story.append(Paragraph(data['summary'], styles['CustomNormal']))
+        
+        for summary_line in data['summary']:
+            if summary_line.strip():  # Ensure non-empty lines are processed
+                story.append(Paragraph(summary_line, styles['CustomNormal']))
+        
         story.append(Spacer(1, 12))
 
     # Technical Proficiency

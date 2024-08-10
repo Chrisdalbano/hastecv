@@ -1,10 +1,12 @@
 <template>
   <div class="mt-8">
-    <h2 class="text-2xl font-bold mb-4 text-white">Paste JSON Data</h2>
-    <div ref="jsonEditor" class="my-12 h-72"></div>
-    <button @click="submitJson" class="haste-button">
-      Generate
-    </button>
+    <h2 class="text-2xl font-bold mb-4 text-white">Edit JSON</h2>
+    <form @submit.prevent="submitForm">
+      <div ref="jsonEditor" class="my-12 h-72"></div>
+      <button type="submit" @click="submitJson" class="haste-button">
+        Generate
+      </button>
+    </form>
   </div>
 </template>
 <script setup>
@@ -38,6 +40,10 @@ function submitJson() {
   } catch (error) {
     alert("Invalid JSON format");
   }
+}
+
+function submitForm() {
+  emit("submit", JSON.stringify(store.resumeData));
 }
 </script>
 <style scoped></style>

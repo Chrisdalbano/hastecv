@@ -1,32 +1,9 @@
-@font-face {
-  font-family: "OpenSans";
-  src: url("../assets/fonts/OpenSans-BoldItalic.ttf") format("truetype");
-  font-weight: bold;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: "OpenSans";
-  src: url("../assets/fonts/OpenSans-Regular.ttf") format("truetype");
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "OpenSans";
-  src: url("../assets/fonts/OpenSans-Bold.ttf") format("truetype");
-  font-style: bold;
-}
-
-@font-face {
-  font-family: "Cardo";
-  src: url("@/assets/fonts/Cardo-Regular.ttf") format("truetype");
-  font-style: normal;
-}
-
 :root {
-  --haste-yellow: #ffd510;
+  --haste-yellow: #FF2800;
   --primary-black: #080808;
 }
+
+
 
 input {
   background-color: transparent;
@@ -36,23 +13,29 @@ input {
   font-size: 30px;
 }
 
+textarea {
+  background: transparent;
+  border: 1px solid whitesmoke;
+  font-family: "OpenSans";
+}
+
 .haste-button {
   border-radius: 2px;
-  border: 1px solid whitesmoke;
+  border: 1px solid var(--haste-yellow);
   background: transparent;
-  color: whitesmoke;
+  color: var(--haste-yellow);
   transition: all 0.3s ease;
   font-weight: bold;
-  /* px-4 py-2 */
   padding-block: 0.5rem;
   padding-inline: 1rem;
   margin-block: 1rem;
-  font-family: 'OpenSans';
+  font-family: "OpenSans";
   font-weight: bold;
   font-size: 30px;
 }
 
-.haste-button:hover, .haste-option:hover {
+.haste-button:hover,
+.haste-option:hover {
   opacity: 0.8;
   transform: scale(1.05);
   transition: all 0.25s ease;
@@ -60,18 +43,18 @@ input {
 
 .haste-option {
   border-radius: 2px;
-  border-bottom: 1px solid whitesmoke;
+  border-bottom: 1px solid var(--haste-yellow);
   background: transparent;
-  color: whitesmoke;
+  color: var(--haste-yellow);
   transition: all 0.3s ease;
   font-weight: bold;
   padding-block: 0.25rem;
   padding-inline: 0.5rem;
   margin-block: 1rem;
   margin-inline: 1rem;
-  font-family: 'OpenSans';
+  font-family: "OpenSans";
   font-weight: bold;
-  font-size: 30px;
+  font-size: 24px;
 }
 
 div.jsoneditor-menu > a {
@@ -92,13 +75,9 @@ div.jsoneditor-menu > a {
 }
 
 body {
-  color: white;
+  color: whitesmoke;
   display: flex;
   flex-direction: column;
   min-height: 100svh;
-  background: linear-gradient(
-    110deg,
-    rgb(14, 14, 14) 52.4%,
-    rgba(255, 208, 0, 0.788) 138.8%
-  );
+  background: rgb(14, 14, 14) 52.4%;
 }
