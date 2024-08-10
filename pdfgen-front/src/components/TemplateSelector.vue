@@ -1,15 +1,24 @@
 <template>
   <div class="mt-2">
-    <label class="font-bold font-open-sans text-2xl">Resume Style</label>
-    <select v-model="selectedTemplate" @change="updateTemplate" class="w-full p-2 bg-black text-2xl mt-2 font-open-sans">
+    <label class="font-open-sans text-2xl font-bold">Resume Style</label>
+    <select
+      v-model="selectedTemplate"
+      @change="updateTemplate"
+      class="mt-2 w-full bg-black p-2 font-open-sans text-2xl"
+    >
       <option value="default">
-        <span class="inline-block w-3 h-3 bg-gray-400 rounded-full mr-2"></span>Default
+        <span class="mr-2 inline-block h-3 w-3 rounded-full bg-gray-400"></span
+        >Default
       </option>
       <option value="modern">
-        <span class="inline-block w-3 h-3 bg-gray-800 rounded-full mr-2"></span>Modern
+        <span class="mr-2 inline-block h-3 w-3 rounded-full bg-gray-800"></span
+        >Modern
       </option>
       <option value="minimal">
-        <span class="inline-block w-3 h-3 bg-white rounded-full border border-gray-800 mr-2"></span>Minimal
+        <span
+          class="mr-2 inline-block h-3 w-3 rounded-full border border-gray-800 bg-white"
+        ></span
+        >Minimal
       </option>
     </select>
   </div>
@@ -17,20 +26,18 @@
 
 <script>
 export default {
-  name: 'TemplateSelector',
+  name: "TemplateSelector",
   data() {
     return {
-      selectedTemplate: 'default',
+      selectedTemplate: "default"
     };
   },
   methods: {
     updateTemplate() {
-      this.$emit('select', this.selectedTemplate);
-    },
-  },
+      this.$emit("select", this.selectedTemplate);
+    }
+  }
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

@@ -6,11 +6,7 @@
   </header>
 </template>
 
-<script>
-export default {
-  name: "HeaderPepeGanga"
-};
-</script>
+<script setup></script>
 
 <style scoped>
 /* Add any scoped styles for Header component here */

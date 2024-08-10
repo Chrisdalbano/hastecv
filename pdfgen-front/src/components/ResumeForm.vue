@@ -1,12 +1,12 @@
 <template>
   <div class="py-4">
-    <div class="flex items-center mb-4">
+    <div class="mb-4 flex items-center">
       <div class="switch-toggle">
         <button
           @click="toggleView('form')"
           :class="{
             active: view === 'form',
-            inactive: view !== 'form',
+            inactive: view !== 'form'
           }"
           class="switch-toggle-button"
         >
@@ -16,7 +16,7 @@
           @click="toggleView('json')"
           :class="{
             active: view === 'json',
-            inactive: view !== 'json',
+            inactive: view !== 'json'
           }"
           class="switch-toggle-button"
         >
@@ -29,7 +29,7 @@
   <div class="py-4">
     <div v-show="view === 'form'">
       <form @submit.prevent="submitForm">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
           <input
             v-model="store.resumeData.name"
             class="w-full p-2"
@@ -44,7 +44,7 @@
           />
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-10">
+        <div class="mt-10 grid grid-cols-1 gap-4 md:grid-cols-2">
           <input
             v-model="store.resumeData.contact.email"
             class="w-full p-2"
@@ -74,7 +74,7 @@
 
         <textarea
           v-model="store.resumeData.summary"
-          class="w-full p-2 mt-10 text-3xl font-bold"
+          class="mt-10 w-full p-2 text-3xl font-bold"
           rows="4"
           placeholder="Summary"
         ></textarea>
@@ -82,42 +82,42 @@
         <div
           v-for="(exp, index) in store.resumeData.experience"
           :key="index"
-          class="mb-4 relative"
+          class="relative mb-4"
         >
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
             <input
               v-model="exp.position"
-              class="w-full p-2 mb-2"
+              class="mb-2 w-full p-2"
               type="text"
               placeholder="Position"
             />
             <input
               v-model="exp.company"
-              class="w-full p-2 mb-2"
+              class="mb-2 w-full p-2"
               type="text"
               placeholder="Company"
             />
             <input
               v-model="exp.dates"
-              class="w-full p-2 mb-2"
+              class="mb-2 w-full p-2"
               type="text"
               placeholder="Dates"
             />
           </div>
           <textarea
             v-model="exp.responsibilities"
-            class="w-full p-2 mb-2"
+            class="mb-2 w-full p-2"
             rows="3"
             placeholder="Responsibilities"
           ></textarea>
           <button
             @click.prevent="removeExperience(index)"
-            class="absolute top-0 right-0 bg-red-500 text-white p-1 rounded-full"
+            class="absolute right-0 top-0 rounded-full bg-red-500 p-1 text-white"
           >
             x
           </button>
         </div>
-        <div class="flex items-center text-center flex-wrap">
+        <div class="flex flex-wrap items-center text-center">
           <button @click.prevent="openModal('experience')" class="haste-option">
             + Experience
           </button>
@@ -125,31 +125,31 @@
           <div
             v-for="(edu, index) in store.resumeData.education"
             :key="index"
-            class="mb-4 relative"
+            class="relative mb-4"
           >
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
               <input
                 v-model="edu.degree"
-                class="w-full p-2 mb-2"
+                class="mb-2 w-full p-2"
                 type="text"
                 placeholder="Degree"
               />
               <input
                 v-model="edu.institution"
-                class="w-full p-2 mb-2"
+                class="mb-2 w-full p-2"
                 type="text"
                 placeholder="Institution"
               />
               <input
                 v-model="edu.dates"
-                class="w-full p-2 mb-2"
+                class="mb-2 w-full p-2"
                 type="text"
                 placeholder="Dates"
               />
             </div>
             <button
               @click.prevent="removeEducation(index)"
-              class="absolute top-0 right-0 bg-red-500 text-white p-1 rounded-full mx-2"
+              class="absolute right-0 top-0 mx-2 rounded-full bg-red-500 p-1 text-white"
             >
               x
             </button>
@@ -161,17 +161,17 @@
           <div
             v-for="(skill, index) in store.resumeData.skills"
             :key="index"
-            class="mb-4 relative"
+            class="relative mb-4"
           >
             <input
               v-model="store.resumeData.skills[index]"
-              class="w-full p-2 mb-2"
+              class="mb-2 w-full p-2"
               type="text"
               placeholder="Skill"
             />
             <button
               @click.prevent="removeSkill(index)"
-              class="absolute top-0 right-0 bg-red-500 text-white p-1 rounded-full"
+              class="absolute right-0 top-0 rounded-full bg-red-500 p-1 text-white"
             >
               x
             </button>
@@ -199,25 +199,25 @@
       <template v-if="modalType === 'experience'">
         <input
           v-model="newEntry.position"
-          class="w-full p-2 mb-2"
+          class="mb-2 w-full p-2"
           type="text"
           placeholder="Position"
         />
         <input
           v-model="newEntry.company"
-          class="w-full p-2 mb-2"
+          class="mb-2 w-full p-2"
           type="text"
           placeholder="Company"
         />
         <input
           v-model="newEntry.dates"
-          class="w-full p-2 mb-2"
+          class="mb-2 w-full p-2"
           type="text"
           placeholder="Dates"
         />
         <textarea
           v-model="newEntry.responsibilities"
-          class="w-full p-2 mb-2"
+          class="mb-2 w-full p-2"
           rows="3"
           placeholder="Responsibilities"
         ></textarea>
@@ -225,19 +225,19 @@
       <template v-if="modalType === 'education'">
         <input
           v-model="newEntry.degree"
-          class="w-full p-2 mb-2"
+          class="mb-2 w-full p-2"
           type="text"
           placeholder="Degree"
         />
         <input
           v-model="newEntry.institution"
-          class="w-full p-2 mb-2"
+          class="mb-2 w-full p-2"
           type="text"
           placeholder="Institution"
         />
         <input
           v-model="newEntry.dates"
-          class="w-full p-2 mb-2"
+          class="mb-2 w-full p-2"
           type="text"
           placeholder="Dates"
         />
@@ -326,7 +326,8 @@ function toggleView(newView) {
   font-weight: 500;
   text-align: center;
   border-radius: calc(var(--radius) - var(--offset));
-  transition: background-color 250ms cubic-bezier(0.93, 0.26, 0.07, 0.69),
+  transition:
+    background-color 250ms cubic-bezier(0.93, 0.26, 0.07, 0.69),
     color 250ms cubic-bezier(0.93, 0.26, 0.07, 0.69);
 }
 

@@ -1,9 +1,7 @@
 :root {
-  --haste-yellow: #FF2800;
+  --haste-yellow: #ff2800;
   --primary-black: #080808;
 }
-
-
 
 input {
   background-color: transparent;

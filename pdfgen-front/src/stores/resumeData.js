@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { ref } from 'vue';
+import { ref } from "vue";
 
 export const useResumeDataStore = defineStore("resume", () => {
   const resumeData = ref({
@@ -11,14 +11,13 @@ export const useResumeDataStore = defineStore("resume", () => {
       location: "",
       linkedin: "",
       github: "",
-      website: "",
+      website: ""
     },
     summary: [],
     experience: [],
     education: [],
-    skills: [],
+    skills: []
   });
 
   return { resumeData };
-
 });
