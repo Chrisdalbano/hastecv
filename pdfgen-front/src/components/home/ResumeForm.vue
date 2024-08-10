@@ -247,11 +247,11 @@
 </template>
 
 <script setup>
-import { useResumeDataStore } from "../stores/resumeData";
+import { useResumeDataStore } from "@/stores/resumeData";
 import { ref } from "vue";
 
-import ReusableModal from "./ReusableModal.vue";
-import JsonEditor from "./JsonEditor.vue";
+import ReusableModal from "@/components/ReusableModal.vue";
+import JsonEditor from "@/components/JsonEditor.vue";
 
 const store = useResumeDataStore();
 const view = ref("form");

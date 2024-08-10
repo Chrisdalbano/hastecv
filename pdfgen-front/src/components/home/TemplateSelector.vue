@@ -7,18 +7,18 @@
       class="mt-2 w-full bg-black p-2 font-open-sans text-2xl"
     >
       <option value="default">
-        <span class="mr-2 inline-block h-3 w-3 rounded-full bg-gray-400"></span
-        >Default
+        <span class="mr-2 inline-block h-3 w-3 rounded-full bg-gray-400"></span>
+        Default
       </option>
       <option value="modern">
-        <span class="mr-2 inline-block h-3 w-3 rounded-full bg-gray-800"></span
-        >Modern
+        <span class="mr-2 inline-block h-3 w-3 rounded-full bg-gray-800"></span>
+        Modern
       </option>
       <option value="minimal">
         <span
           class="mr-2 inline-block h-3 w-3 rounded-full border border-gray-800 bg-white"
-        ></span
-        >Minimal
+        ></span>
+        Minimal
       </option>
     </select>
   </div>

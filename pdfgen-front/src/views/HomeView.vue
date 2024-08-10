@@ -6,23 +6,15 @@
 
       <ResumeForm @submit="generatePdf" />
     </div>
-    <div class="preview-overlay">
-      <iframe
-        v-if="downloadLink"
-        :src="downloadLink"
-        class="h-full w-full border"
-      ></iframe>
-      <div v-else class="preview-placeholder">
-        Preview of your CV will appear here
-      </div>
-    </div>
+    <PreviewCV />
   </div>
   <DownloadLink v-if="downloadLink" :downloadLink="downloadLink" />
 </template>
 <script setup>
-import ResumeForm from "@/components/ResumeForm.vue";
+import ResumeForm from "@/components/home/ResumeForm.vue";
 import DownloadLink from "@/components/DownloadLink.vue";
-import TemplateSelector from "@/components/TemplateSelector.vue";
+import TemplateSelector from "@/components/home/TemplateSelector.vue";
+import PreviewCV from "@/components/home/PreviewCV.vue";
 
 import { ref } from "vue";
 
@@ -52,24 +44,3 @@ function updateTemplate(newTemplate) {
   template.value = newTemplate;
 }
 </script>
-
-<style scoped>
-.preview-overlay {
-  position: relative;
-  margin: 2rem;
-  height: 90%;
-  width: 90%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #1414147c;
-}
-
-.preview-placeholder {
-  color: var(--haste-yellow);
-
-  font-size: 30px;
-  font-family: "OpenSans";
-  text-align: center;
-}
-</style>
