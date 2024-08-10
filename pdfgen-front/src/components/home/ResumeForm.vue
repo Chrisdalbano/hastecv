@@ -229,7 +229,6 @@ const showModal = ref(false);
 const modalType = ref("");
 const modalTitle = ref("");
 const newEntry = ref({});
-const emit = defineEmits(["submit"]);
 
 function submitForm() {
   store.generatePdf(JSON.stringify(store.resumeData));
