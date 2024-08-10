@@ -1,7 +1,8 @@
-import { createMemoryHistory, createRouter } from "vue-router";
+import { createWebHistory, createRouter } from "vue-router";
 
 import HomeView from "../views/HomeView.vue";
 import JsonEditor from "@/components/JsonEditor.vue";
+import ResumeForm from "@/components/home/ResumeForm.vue";
 
 const routes = [
   {
@@ -10,8 +11,11 @@ const routes = [
 
     children: [
       {
-        name: "json",
-        path: "json",
+        path: "",
+        component: ResumeForm
+      },
+      {
+        path: "/json",
         component: JsonEditor
       }
     ]
@@ -19,7 +23,7 @@ const routes = [
 ];
 
 const router = createRouter({
-  history: createMemoryHistory(),
+  history: createWebHistory(),
   routes
 });
 
