@@ -1,6 +1,7 @@
 <template>
   <Header />
   <router-view></router-view>
+  <p>pepe</p>
 </template>
 
 <script setup>
