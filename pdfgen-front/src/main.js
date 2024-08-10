@@ -6,7 +6,6 @@ import router from "./router";
 
 import "@/assets/tailwind.css";
 import "@/assets/global.css";
-import "@/assets/reset.css";
 import "@/assets/fonts.css";
 
 import "ace-builds/src-noconflict/ace";
