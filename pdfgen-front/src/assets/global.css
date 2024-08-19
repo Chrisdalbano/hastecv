@@ -3,6 +3,10 @@
   --primary-black: #080808;
 }
 
+*:focus {
+  outline-style: none;
+}
+
 input {
   background-color: transparent;
   border-bottom: 1px solid whitesmoke;
