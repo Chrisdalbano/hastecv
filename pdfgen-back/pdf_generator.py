@@ -1,195 +1,157 @@
 import os
 from reportlab.lib.pagesizes import letter
 from reportlab.lib.units import inch
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, HRFlowable, Image
+from reportlab.platypus import (
+    SimpleDocTemplate, Paragraph, Spacer, KeepTogether, Image, Table, TableStyle
+)
 from reportlab.lib import colors
-from reportlab.platypus.flowables import KeepTogether
-from styles import get_styles
-
-def hex_to_rgb(hex_color):
-    hex_color = hex_color.lstrip('#')
-    return tuple(int(hex_color[i:i+2], 16) / 255.0 for i in (0, 2, 4))
+from styles.custom_styles import get_custom_styles
+from styles.colors import TEMPLATE_COLORS
 
 def generate_resume(data, template="default"):
     doc = SimpleDocTemplate("resume.pdf", pagesize=letter)
-    styles = get_styles(template=template)
-
+    styles = get_custom_styles(template)
     story = []
 
-    # Define header background colors based on the template
-    header_bg_colors = {
-        'default': '#262626',
-        'modern': '#333333',
-        'minimal': '#FFFFFF'  # No header background
-    }
+    # Set global icon size and text gap
+    icon_size = 11  # Size of icons in the contact info
+    icon_text_gap = 6  # Gap between icon and text in contact info
 
-    header_bg_color = header_bg_colors.get(template)
-
-    # Define the header height
+    # Define header background drawing function
+    header_bg_color = TEMPLATE_COLORS.get(template, {}).get('header_bg', None)
     header_height = 1 * inch
 
-    # Function to draw the header background
     def draw_header_background(canvas, doc):
-        if header_bg_color and header_bg_color != '#FFFFFF':
+        if header_bg_color:
             canvas.saveState()
-            canvas.setFillColorRGB(*hex_to_rgb(header_bg_color))
+            canvas.setFillColorRGB(header_bg_color.red, header_bg_color.green, header_bg_color.blue)
             canvas.rect(0, doc.height + doc.topMargin - header_height, doc.width, header_height, fill=1)
             canvas.restoreState()
 
-    # Header content
-    header_content = []
+    # Add header content
+    def add_header_content():
+        header_content = [Paragraph(data.get('name', ''), styles['CustomTitle']), Spacer(1, 2)]
+        if 'title' in data:
+            header_content.append(Paragraph(data.get('title', ''), styles['CustomSubtitle']))
+        story.append(KeepTogether(header_content))
 
-    if 'name' in data and data['name'].strip():
-        header_content.append(Paragraph(data['name'], styles['CustomTitle']))
-    if 'title' in data and data['title'].strip():
-        header_content.append(Paragraph(data['title'], styles['CustomH2']))
-    header_content.append(HRFlowable(width="100%", thickness=2, lineCap='round', color=colors.white, spaceBefore=6, spaceAfter=12))
+    # Add contact information as a table
+    def add_contact_info():
+        icons_path = "static/icons"
+        contact_items = [
+            ("email.png", data.get('contact', {}).get('email')),
+            ("linkedin.png", data.get('contact', {}).get('linkedin')),
+            ("location.png", data.get('contact', {}).get('location')),
+            ("github.png", data.get('contact', {}).get('github')),
+            ("phone.png", data.get('contact', {}).get('phone')),
+            ("website.png", data.get('contact', {}).get('website')),
+        ]
 
-    # Wrap header content in KeepTogether and add to story
-    story.append(KeepTogether(header_content))
-
-    # Contact Information using a centered 2x3 grid layout
-    icons_path = os.path.join(os.path.dirname(__file__), 'static', 'icons')
-    email_icon = os.path.join(icons_path, 'email.png')
-    phone_icon = os.path.join(icons_path, 'phone.png')
-    location_icon = os.path.join(icons_path, 'location.png')
-    linkedin_icon = os.path.join(icons_path, 'linkedin.png')
-    github_icon = os.path.join(icons_path, 'github.png')
-    website_icon = os.path.join(icons_path, 'website.png')
-
-    icon_size = 11
-    icon_text_gap = 6  # Adjust the gap as needed
-
-    def generate_contact_row(icon_path, text, link=None):
-        if text:
-            if link:
+        def create_contact_row(icon_filename, text, link=None):
+            if not text:
+                return None
+            icon_path = os.path.join(icons_path, icon_filename)
+            if link and template == 'default':
                 text = f"<a href='{link}' color='darkorange'>{link.replace('https://', '')}</a>"
-            return [Image(icon_path, width=icon_size, height=icon_size), Spacer(icon_text_gap, 0), Paragraph(text, styles['CustomNormal'])]
-        return None
+            return [
+                Image(icon_path, width=icon_size, height=icon_size),
+                Spacer(icon_text_gap, 0),
+                Paragraph(text, styles['CustomNormal'])
+            ]
 
-    contact_data = []
-    contact_info = data.get('contact', {})
+        contact_data = [
+            create_contact_row(icon, text, link=text if icon != "location.png" else None)
+            for icon, text in contact_items if text
+        ]
 
-    contact_data.append(generate_contact_row(email_icon, contact_info.get('email')))
-    contact_data.append(generate_contact_row(linkedin_icon, contact_info.get('linkedin'), contact_info.get('linkedin')))
-    contact_data.append(generate_contact_row(location_icon, contact_info.get('location')))
-    contact_data.append(generate_contact_row(github_icon, contact_info.get('github'), contact_info.get('github')))
-    contact_data.append(generate_contact_row(phone_icon, contact_info.get('phone')))
-    contact_data.append(generate_contact_row(website_icon, contact_info.get('website'), contact_info.get('website')))
+        # Arrange contact data in a 2x3 grid
+        contact_rows = [contact_data[i:i + 2] for i in range(0, len(contact_data), 2)]
+        contact_table = Table(
+            [sum(row, []) for row in contact_rows],
+            hAlign='CENTER',
+            colWidths=[icon_size, icon_text_gap, 2.4 * inch] * 2
+        )
+        contact_table.setStyle(TableStyle([
+            ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+            ('TEXTCOLOR', (0, 0), (-1, -1), colors.black),
+            ('FONTNAME', (0, 0), (-1, -1), 'OpenSans-Regular'),
+            ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
+            ('BOTTOMPADDING', (0, 0), (-1, -1), 6),
+            ('TOPPADDING', (0, 0), (-1, -1), 6),
+        ]))
+        story.append(contact_table)
+        story.append(Spacer(1, 20))
 
-    # Filter out None values from contact_data
-    contact_data = [row for row in contact_data if row is not None]
-
-    # Arrange the contact data in a 2x3 grid
-    contact_grid_data = []
-
-    # Ensure we have pairs to create rows correctly
-    for i in range(0, len(contact_data), 2):
-        if i + 1 < len(contact_data):
-            contact_grid_data.append(contact_data[i] + contact_data[i + 1])
+    # Add a generic section
+    def add_section(title, content, custom_style=None):
+        if not content:
+            return
+        story.append(Paragraph(title, custom_style or styles['CustomH2']))
+        if isinstance(content, list):
+            for item in content:
+                story.append(item)
+                story.append(Spacer(1, 6))
         else:
-            # Handle the case where there's an odd number of items
-            contact_grid_data.append(contact_data[i])
-
-    contact_table = Table(contact_grid_data, hAlign='CENTER', colWidths=[icon_size, icon_text_gap, 2.4 * inch, icon_size, icon_text_gap, 2.4 * inch])
-    contact_table.setStyle(TableStyle([
-        ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
-        ('TEXTCOLOR', (0, 0), (-1, -1), colors.black),
-        ('FONTNAME', (0, 0), (-1, -1), 'OpenSans-Regular'),
-        ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
-        ('BOTTOMPADDING', (0, 0), (-1, -1), 6),
-        ('TOPPADDING', (0, 0), (-1, -1), 6),
-    ]))
-
-    story.append(contact_table)
-    story.append(Spacer(1, 20))
-
-    # Summary
-    if 'summary' in data and isinstance(data['summary'], list):
-        story.append(Paragraph("Summary", styles['CustomSubtitle']))
-        
-        for summary_line in data['summary']:
-            if summary_line.strip():  # Ensure non-empty lines are processed
-                story.append(Paragraph(summary_line, styles['CustomNormal']))
-        
+            story.append(content)
         story.append(Spacer(1, 12))
 
-    # Technical Proficiency
-    if 'technical_proficiency' in data:
-        technical_proficiency_section = [Paragraph("Technical Proficiency", styles['CustomSubtitle'])]
-        for key, value in data['technical_proficiency'].items():
-            if value.strip():
-                technical_proficiency_section.append(Paragraph(f"<b>{key.replace('_', ' ').title()}:</b> {value}", styles['CustomNormal']))
-        if len(technical_proficiency_section) > 1:
-            story.extend(technical_proficiency_section)
-            story.append(Spacer(1, 12))
-
-    # Experience
-    if 'experience' in data:
-        story.append(Paragraph("Experience", styles['CustomSubtitle']))
-        for exp in data['experience']:
-            exp_details = [
-                Paragraph(f"<b>{exp['position']}</b> @ {exp['company']} ({exp['dates']})", styles['CustomBold'])
-            ]
+    # Add structured sections with responsibilities
+    def add_experience_section():
+        story.append(Paragraph("Experience", styles['CustomH2']))
+        for exp in data.get('experience', []):
+            story.append(Paragraph(f"<b>{exp['position']}</b> @ {exp['company']} ({exp['dates']})", styles['CustomBold']))
             if 'responsibilities' in exp:
                 for responsibility in exp['responsibilities']:
-                    if responsibility.strip():
-                        exp_details.append(Paragraph(f"• {responsibility}", styles['CustomBullet']))
-            story.extend(exp_details)
+                    story.append(Paragraph(f"• {responsibility}", styles['CustomBullet']))
+            story.append(Spacer(1, 12))
+
+    def add_education_section():
+        story.append(Paragraph("Education", styles['CustomH2']))
+        for edu in data.get('education', []):
+            story.append(Paragraph(f"<b>{edu['degree']}</b>, {edu['institution']} ({edu['dates']})", styles['CustomNormal']))
             story.append(Spacer(1, 6))
         story.append(Spacer(1, 12))
 
-    # Projects
-    if 'projects' in data:
-        project_section = [Paragraph("Projects", styles['CustomSubtitle'])]
-        for project in data['projects']:
-            if project['title'].strip():
-                project_details = [
-                    Paragraph(f"<b>{project['title']}</b> (<a href='{project['url']}' color='darkorange'>{project['url']}</a>)", styles['CustomBold']),
-                    Paragraph(project['description'], styles['CustomNormal']),
-                    Paragraph(f"Technologies: {project['technologies']}", styles['CustomNormal'])
-                ]
-                project_section.extend(project_details)
-                project_section.append(Spacer(1, 6))
-        if len(project_section) > 1:
-            story.extend(project_section)
-            story.append(Spacer(1, 12))
+    def add_projects_section():
+        story.append(Paragraph("Projects", styles['CustomH2']))
+        url_color = '#63C5DA' if template == 'modern' else 'darkorange'
+        for project in data.get('projects', []):
+            story.append(Paragraph(f"<b>{project['title']}</b> (<a href='{project['url']}' color='{url_color}'>{project['url']}</a>)", styles['CustomBold']))
+            story.append(Paragraph(project['description'], styles['CustomNormal']))
+            story.append(Paragraph(f"Technologies: {project['technologies']}", styles['CustomNormal']))
+            story.append(Spacer(1, 6))
+        story.append(Spacer(1, 12))
+        
+    def format_technical_proficiency_title(title):
+    # Replace underscores with spaces and capitalize each word
+        return title.replace('_', ' ').title()
 
-    # Education
-    if 'education' in data:
-        education_section = [Paragraph("Education", styles['CustomSubtitle'])]
-        for edu in data['education']:
-            education_section.append(Paragraph(f"<b>{edu['degree']}</b>, {edu['institution']} ({edu['dates']})", styles['CustomNormal']))
-            education_section.append(Spacer(1, 6))
-        if len(education_section) > 1:
-            story.extend(education_section)
-            story.append(Spacer(1, 12))
+# Add technical proficiency section with formatted titles
+    def add_technical_proficiency_section():
+        story.append(Paragraph("Technical Proficiency", styles['CustomH2']))
+        for key, value in data.get('technical_proficiency', {}).items():
+            formatted_key = format_technical_proficiency_title(key)
+            # Use the bold style from the experience titles
+            story.append(Paragraph(f"{formatted_key}:", styles['CustomBold']))
+            story.append(Paragraph(value, styles['CustomNormal']))
+            story.append(Spacer(1, 6))
+        story.append(Spacer(1, 12))
 
-    # Additional Experience
-    if 'additional_experience' in data:
-        additional_experience_section = [Paragraph("Additional Experience", styles['CustomSubtitle'])]
-        for add_exp in data['additional_experience']:
-            add_exp_details = [
-                Paragraph(f"<b>{add_exp['position']}</b> @ {add_exp['company']} ({add_exp['dates']})", styles['CustomBold'])
-            ]
-            if 'responsibilities' in add_exp:
-                for responsibility in add_exp['responsibilities']:
-                    if responsibility.strip():
-                        add_exp_details.append(Paragraph(f"• {responsibility}", styles['CustomBullet']))
-            additional_experience_section.extend(add_exp_details)
-            additional_experience_section.append(Spacer(1, 6))
-        if len(additional_experience_section) > 1:
-            story.extend(additional_experience_section)
-            story.append(Spacer(1, 12))
+    # Add sections
+    add_header_content()
+    add_contact_info()
+    add_section("Summary", Paragraph(data.get('summary', ''), styles['CustomNormal']))
+    add_technical_proficiency_section()  # Updated section for technical proficiency
+    add_experience_section()
+    add_projects_section()
+    add_education_section()
+    add_section("Additional Experience", [Paragraph(f"<b>{add_exp['position']}</b> @ {add_exp['company']} ({add_exp['dates']})", styles['CustomBold']) for add_exp in data.get('additional_experience', [])])
+    add_section("Skills", [Paragraph(f"• {skill}", styles['CustomBullet']) for skill in data.get('skills', [])])
 
-    # Skills
-    if 'skills' in data and data['skills']:
-        skills_section = [Paragraph("Skills", styles['CustomSubtitle'])]
-        skill_items = [Paragraph(f"• {skill}", styles['CustomBullet']) for skill in data['skills'] if skill.strip()]
-        if skill_items:
-            skills_table = Table([skill_items[i:i+3] for i in range(0, len(skill_items), 3)], hAlign='LEFT')
-            skills_section.append(skills_table)
-            story.extend(skills_section)
+    # Build the PDF document
+    build_method = doc.build if template == "minimal" else lambda s: doc.build(s, onFirstPage=draw_header_background)
+    build_method(story)
 
-    # Build the PDF
-    doc.build(story, onFirstPage=draw_header_background if header_bg_color else None)
+if __name__ == "__main__":
+    data = {}
+    generate_resume(data, template="default")
