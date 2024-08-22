@@ -1,5 +1,5 @@
 :root {
-  --haste-yellow: #ff2800;
+  --haste-yellow: hsl(9, 100%, 50%);
   --primary-black: #080808;
 }
 
@@ -72,17 +72,47 @@ div.jsoneditor-menu > a {
   background-color: var(--primary-black);
 }
 
+.jsoneditor {
+  border: none;
+}
+
 body {
+  --position: 100% 500px;
   color: whitesmoke;
   display: flex;
   flex-direction: column;
   min-height: 100svh;
-  background: rgb(14, 14, 14) 52.4%;
+  /* background: rgb(14, 14, 14) 52.4%; */
+  background:
+    radial-gradient(
+      circle 1000px at var(--position),
+      hsl(9 100% 50% / 0.4),
+      transparent
+    ),
+    conic-gradient(
+        from 90deg at 1px 1px,
+        hsl(228, 6%, 5%) 90deg,
+        hsl(228, 6%, 7%) 0
+      )
+      center -1px / 30px 30px;
 }
 
+@media (max-width: 768px) {
+  body {
+    --position: right top;
+  }
+}
+/* 
+@media (min-height: 8000px) {
+  body {
+    --position: right;
+  }
+} */
+
 .center {
-  width: min(100% - 2rem, 1000px);
+  width: min(100% - 2rem, 1200px);
   margin-inline: auto;
+  padding-inline: 1rem;
 }
 .active-link {
   background-color: var(--haste-yellow) !important;

@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-2">
+  <div class="mt-2 grid">
     <label class="font-open-sans text-2xl font-bold">Resume Style</label>
     <select
       v-model="selectedTemplate"

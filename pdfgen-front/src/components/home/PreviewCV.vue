@@ -5,9 +5,9 @@
       :src="props.downloadLink"
       class="h-full w-full border"
     ></iframe>
-    <div v-else class="preview-placeholder">
+    <p v-else class="preview-placeholder px-4">
       Preview of your CV will appear here
-    </div>
+    </p>
   </div>
 </template>
 
@@ -24,11 +24,19 @@ const props = defineProps({
   flex: 1;
   position: relative;
   margin: 2rem;
-  height: 90%;
+  margin-top: 0;
+  height: 70svh;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: #1414147c;
+  border: 2px solid black;
+}
+
+@media (max-width: 1024px) {
+  .preview-overlay {
+    margin: 0;
+  }
 }
 
 .preview-placeholder {

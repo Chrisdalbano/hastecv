@@ -1,20 +1,10 @@
+@import url("https://fonts.googleapis.com/css2?family=Anton&family=Archivo+Black&family=Domine:wght@400..700&display=swap");
 @font-face {
   font-family: "OpenSans";
-  src: url("../assets/fonts/OpenSans-BoldItalic.ttf") format("truetype");
-  font-weight: bold;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: "OpenSans";
-  src: url("../assets/fonts/OpenSans-Regular.ttf") format("truetype");
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "OpenSans";
-  src: url("../assets/fonts/OpenSans-Bold.ttf") format("truetype");
-  font-style: bold;
+  src:
+    url("../assets/fonts/OpenSans-BoldItalic.ttf") format("truetype"),
+    url("../assets/fonts/OpenSans-Regular.ttf") format("truetype"),
+    url("../assets/fonts/OpenSans-Bold.ttf") format("truetype");
 }
 
 @font-face {

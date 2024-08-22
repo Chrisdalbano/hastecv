@@ -1,17 +1,16 @@
 <template>
   <div class="mt-8">
     <h2 class="mb-4 text-2xl font-bold text-white">Edit JSON</h2>
-    <form @submit.prevent="submitForm">
-      <div ref="jsonEditor" class="my-12 h-72"></div>
-      <button type="submit" @click="submitJson" class="haste-button">
-        Generate
-      </button>
+    <form @submit.prevent="submitJson">
+      <div ref="jsonEditor" class="my-12 h-[45vmin]"></div>
+      <button type="submit" class="haste-button">Generate</button>
     </form>
   </div>
 </template>
+
 <script setup>
 import JSONEditor from "jsoneditor";
-import { useResumeDataStore } from "../stores/resumeData";
+import { useResumeDataStore } from "@/stores/resumeData";
 import { ref, onMounted } from "vue";
 import "jsoneditor/dist/jsoneditor.css";
 import "ace-builds/src-noconflict/ace";
@@ -20,7 +19,6 @@ import "ace-builds/src-noconflict/theme-twilight";
 const store = useResumeDataStore();
 const jsonEditor = ref(null);
 const editor = ref(null);
-const emit = defineEmits(["submit"]);
 
 onMounted(() => {
   const container = jsonEditor.value;
@@ -35,15 +33,11 @@ onMounted(() => {
 function submitJson() {
   try {
     const parsedData = editor.value.get();
-    emit("submit", JSON.stringify(parsedData));
     store.resumeData = parsedData;
+    store.generatePdf(parsedData);
   } catch (error) {
     alert("Invalid JSON format");
   }
-}
-
-function submitForm() {
-  emit("submit", JSON.stringify(store.resumeData));
 }
 </script>
 <style scoped></style>

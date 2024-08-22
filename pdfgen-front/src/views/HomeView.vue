@@ -1,11 +1,14 @@
 <template>
+  <div class="center grid grid-cols-2 max-lg:grid-cols-1">
+    <TemplateSelector @select="updateTemplate" />
+  </div>
   <div
     style="--min-width: 300"
-    class="center relative z-10 grid grid-cols-2 gap-4 overflow-hidden py-4 max-md:grid-cols-1"
+    class="center relative z-10 grid grid-cols-2 gap-4 overflow-hidden p-1 py-4 max-lg:grid-cols-1"
   >
-    <div>
-      <TemplateSelector @select="updateTemplate" />
-      <div class="switch-toggle">
+    <div class="space-y-4">
+      <!-- padding left to compensate the .center class padding -->
+      <div class="switch-toggle pl-1">
         <AppLink to="/" class="flex-1">Manual</AppLink>
         <AppLink to="/json" class="flex-1">JSON</AppLink>
       </div>
@@ -36,6 +39,5 @@ function updateTemplate(newTemplate) {
   background: transparent;
   display: flex;
   max-width: var(--max-width);
-  margin-top: 1em;
 }
 </style>
