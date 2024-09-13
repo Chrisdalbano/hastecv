@@ -8,7 +8,7 @@ from reportlab.lib import colors
 from styles.custom_styles import get_custom_styles
 from styles.colors import TEMPLATE_COLORS
 
-def generate_resume(data, template="default"):
+def generate_resume(data, template="minimal"):
     doc = SimpleDocTemplate("resume.pdf", pagesize=letter)
     styles = get_custom_styles(template)
     story = []
@@ -128,14 +128,15 @@ def generate_resume(data, template="default"):
 
 # Add technical proficiency section with formatted titles
     def add_technical_proficiency_section():
-        story.append(Paragraph("Technical Proficiency", styles['CustomH2']))
-        for key, value in data.get('technical_proficiency', {}).items():
-            formatted_key = format_technical_proficiency_title(key)
-            # Use the bold style from the experience titles
-            story.append(Paragraph(f"{formatted_key}:", styles['CustomBold']))
-            story.append(Paragraph(value, styles['CustomNormal']))
-            story.append(Spacer(1, 6))
-        story.append(Spacer(1, 12))
+        if data.get('technical_proficiency', {}).items():
+            story.append(Paragraph("Technical Proficiency", styles['CustomH2']))
+            for key, value in data.get('technical_proficiency', {}).items():
+                formatted_key = format_technical_proficiency_title(key)
+                # Use the bold style from the experience titles
+                story.append(Paragraph(f"{formatted_key}:", styles['CustomBold']))
+                story.append(Paragraph(value, styles['CustomNormal']))
+                story.append(Spacer(1, 6))
+            story.append(Spacer(1, 12))
 
     # Add sections
     add_header_content()

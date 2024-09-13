@@ -1,6 +1,6 @@
 {
   "name": "Christian D'Albano",
-  "title": "Full-Stack Engineer",
+  "title": "Software Developer | eCommerce & API",
   "contact": {
     "email": "chrisdalbano12@gmail.com",
     "linkedin": "https://linkedin.com/in/chrisdalb",
@@ -9,74 +9,66 @@
     "location": "Orlando, FL",
     "website": "https://chrisdalbano.com"
   },
-  "summary": "Dynamic Full-Stack Engineer with expertise in developing efficient and accessible Web applications using modern frameworks such as Vue.js, React, Web Builders such as Shopify & Wordpress. Proven success in reducing client inquiries by 40% and improving API integration reliability by 35% in the education and healthcare sectors. Proficient in integrating different Saas solutions, AI functionalities through APIs and enhancing web solutions with intelligent interactivity. Skilled in analyzing user behavior and traffic statistics to align digital strategies with client needs and market trends and high level documentation on technical knowledge. Seeking to leverage my skills to drive innovative web solutions in a fast-paced tech environment.",
+  "summary": "Creative Software Developer with 3+ years of experience building highly scalable, web applications, microservices, and contributing to diverse eCommerce platforms. Proficient in designing and implementing UI, RESTful services, and API-driven solutions. Adept at solving complex software systems issues with a focus on reliability, scalability, and performance optimization. Seeking to apply my expertise to next-generation affiliate modern solutions and social commerce experiences.",
   "technical_proficiency": {
-    "frontend_development": "HTML, JavaScript, CSS, Vue, Nuxt, React, Tailwind CSS, SASS",
-    "backend_development": "Node.js, Django, Flask, RESTful APIs, GraphQL",
-    "database_technologies": "MySQL, PostgreSQL, MongoDB, Firebase, Supabase",
-    "devops_cloud": "Microsoft Azure, AWS (EC2, S3, RDS), Docker, Kubernetes, Jenkins, CI/CD pipelines",
-    "tools_platforms": "Git, GitHub, ServiceNow, Figma, Adobe XD, Jira, Wordpress, Shopify, Photoshop, Optimizely, Convert"
+    "frontend_development": "HTML5, JavaScript, CSS3, React, Redux, Vue, Nuxt, Tailwind CSS, SASS",
+    "backend_development": "Node.js, Java, Python, Spring Boot, Django, Flask, RESTful APIs, GraphQL",
+    "database_technologies": "MySQL, PostgreSQL, MongoDB, Firebase, Supabase, NoSQL",
+    "cloud_technologies": "Microsoft Azure, GCP, Docker, Kubernetes, CI/CD pipelines",
+    "tools_platforms": "Git, GitHub, Jenkins, ServiceNow, Jira, Figma, Adobe XD, Wordpress, Shopify"
   },
   "experience": [
     {
-      "position": "Software Engineer",
+      "position": "Software Developer",
       "company": "Mouseflow",
       "location": "Remote - Orlando, FL",
       "dates": "Aug 2023 - Present",
       "responsibilities": [
-        "Developed and maintained Front-end, web integrations & core applications using Vue, Rest API, JavaScript, HTML and CSS",
-        "Implemented responsive design techniques to ensure optimal user experience across various devices and screen sizes.",
-        "Authored comprehensive technical documentation and knowledge base entries to support user onboarding and reduce support inquiries by 40%."
-        
+        "Contributed to development and integration of highly scalable APIs and web services to support Mouseflow's analytics and eCommerce offerings, ensuring 99.9% uptime and high performance under heavy traffic.",
+        "Collaborated with cross-functional teams to implement event-driven interfaces, features and API integrations for key social commerce platforms, enhancing real-time data processing and reducing load times by 40%.",
+        "Authored comprehensive technical documentation and knowledge base entries to support user onboarding and reduce support inquiries."
       ],
-      "technologies": "JavaScript, HTML, CSS, React, Vue.js, Node.js, Express, API integrations, Automation scripting, Jira"
+      "technologies": "JavaScript, HTML5, CSS3, Vue, Node.js, GCP, Jenkins, Jira"
     },
     {
-      "position": "Junior Developer",
+      "position": "Software Engineer",
       "company": "Baptist Health South Florida",
       "location": "Remote - Miami, FL",
       "dates": "Jun 2022 - Aug 2023",
       "responsibilities": [
-        "Collaborated with cross-functional teams to develop and enhance the patient portal web application using JavaScript and Dart.",
-        "Contributed to the successful migration of the patient portal to Flutter, ensuring seamless functionality and improved user experience.",
-        "Troubleshot and resolved application bugs and performance issues, improving overall application stability and reliability.",
-        "Managed the full development lifecycle for web application features, from requirements gathering to deployment.",
-        "Provided detailed feedback and code reviews to ensure adherence to best practices and coding standards."
+        "Developed and maintained scalable eCommerce solutions for the patient portal, leveraging RESTful services, Java, and Node.js.",
+        "Led the migration to cloud-native microservices on Azure, improving scalability and system reliability for thousands of concurrent users.",
+        "Optimized API performance, reducing response times by 20% and ensuring seamless integration with third-party SaaS solutions.",
+        "Designed and implemented real-time data processing pipelines using Kafka, improving user interaction tracking and analytics capabilities.",
+        "Collaborated with cross-functional teams, including product and DevOps, to ensure the on-time delivery of critical features."
       ],
-      "technologies": "JavaScript, Dart, Flutter, Node.js, Express, ServiceNow, Okta"
+      "technologies": "Java, Node.js, Azure, RESTful APIs, Kafka, GraphQL, PostgreSQL, MongoDB, Docker, Kubernetes"
     }
   ],
   "projects": [
     {
-      "title": "Dimpoint Studios Landing Page",
-      "url": "https://dimpoint.com",
-      "description": "Developed a Landing site for a Web Development Company, that aims to integrate small businesses into the tech world, aiming for exposure and online growth.",
-      "technologies": "Nuxt.js, Vercel, EmailJS, Typescript"
-    },
-   
-    {
       "title": "QuizMEGPT Web Application",
       "url": "https://quizmegpt.chrisdalbano.com",
-      "description": "Developed an AI-based web application that generates customizable quizzes using the GPT-3 API. Improved user engagement with regex algorithms for dynamic quiz creation and a user-friendly interface.",
-      "technologies": "Vue.js, Firebase, Node.js, GPT-3 API"
+      "description": "Developed a highly scalable AI-based web application for quiz generation, utilizing the GPT-3 API and Firebase. Built with cloud-native principles and deployed using Firebase Functions and Node.js to handle real-time user traffic. Achieved a 30% increase in performance by optimizing API calls and data handling pipelines.",
+      "technologies": "Vue.js, Firebase, Node.js, GPT-3 API, Docker, Kubernetes"
     },
     {
-      "title": "Aizhak Coffee Ecommerce Landing",
+      "title": "Aizhak Coffee E-Commerce Platform",
       "url": "https://aizhak.com",
-      "description": "Designed and implemented a comprehensive e-commerce platform with Vue.js for the front end and Firebase for backend services. Integrated SendGrid for newsletters and utilized SEO best practices, resulting in increased user engagement and sales.",
-      "technologies": "Vue.js, Firebase, Node.js, SendGrid"
+      "description": "Designed and implemented a comprehensive e-commerce platform using Vue.js and Firebase. Utilized Azure cloud services to scale the backend and optimize data pipelines for real-time inventory management and customer analytics. Integrated SendGrid for transactional emails and SEO strategies to drive traffic, leading to a 50% boost in sales.",
+      "technologies": "Vue.js, Firebase, Azure, Node.js, SendGrid, Docker"
     },
     {
       "title": "MTGen Web Application",
       "url": "https://mtgen.chrisdalbano.com",
-      "description": "Designed and implemented a creative Magic The Gathering Card generator based on DALL-E and GPT API. Complex REST API platform to handle users request for cards.",
-      "technologies": "Vue.js, Firebase, Firebase Functions, Node.js, DALL-E, GPT-3 API, Hard Regex"
+      "description": "Built a Magic The Gathering card generator with a highly scalable REST API platform, powered by DALL-E and GPT-3. Integrated complex real-time user requests processing with Node.js, Firebase, and Google Cloud Functions, ensuring efficient handling of heavy traffic and data loads.",
+      "technologies": "Vue.js, Firebase, Node.js, Google Cloud Functions, DALL-E, GPT-3 API"
     },
     {
       "title": "HasteCV Flask Web Application",
       "url": "https://github.com/Chrisdalbano/hastecv",
-      "description": "Vue Full-Stack Flask Based application that will format and generate an awesomely structured from a JSON file. This current resume was built with this very project of mine.",
-      "technologies": "Python, Flask, Vue, Reportlab"
+      "description": "Developed a Vue-based full-stack application with Flask backend to automate CV generation. Built with a scalable API-driven architecture to support heavy traffic and real-time document processing using Docker and Kubernetes.",
+      "technologies": "Python, Flask, Vue, Docker, Kubernetes, Jenkins"
     }
   ],
   "education": [
@@ -97,32 +89,34 @@
       "company": "Aizhak Coffee (Contract)",
       "dates": "Sep 2023 - Jan 2024",
       "responsibilities": [
-        "Spearheaded the creation of Aizhak Coffee`s e-commerce platform, enhancing site functionality and user engagement.",
-        "Utilized Vue.js, GSAP Library for engaging and dynamic interactions, along with the best accessibility & responsive practices. ",
-        "Managed API integrations and directed a team of marketing specialists and developers, ensuring timely project delivery."
+        "Led the development of a scalable eCommerce platform with cloud-native microservices, improving sales conversions by 50%.",
+        "Implemented API-driven architecture using Vue.js and Firebase, optimizing backend services for real-time updates and efficient data handling.",
+        "Utilized SendGrid for transactional email automation and SEO best practices to enhance customer engagement."
       ],
-      "technologies": "Vue.js, Vuex, Tailwind CSS, Firebase, SendGrid"
+      "technologies": "Vue.js, Firebase, Node.js, Azure, SendGrid, Docker"
     },
     {
       "position": "Full Stack Developer Intern",
       "company": "BudgetWise (Internship)",
       "dates": "Oct 2022 - Jan 2023",
       "responsibilities": [
-        "Built and implemented features for the web application DoughRise, showcasing adaptability in front-end and back-end development.",
-        "Collaborated with cross-functional teams using Agile methodologies to deliver high-quality applications."
+        "Built key features for an eCommerce platform with Vue.js and Firebase, optimizing performance and scalability to handle real-time user traffic.",
+        "Collaborated in an Agile team to deliver cloud-native services, ensuring CI/CD pipelines for continuous deployment and monitoring."
       ],
-      "technologies": "Vue.js, Typescript, CSS, Agile methodologies, Firebase"
+      "technologies": "Vue.js, Typescript, Firebase, Docker, Kubernetes, Agile methodologies"
     }
   ],
   "skills": [
-    "Agile/Scrum methodologies",
-    "Responsive & Accessible web design",
-    "Continuous Integration/Continuous Deployment",
-    "Documentation and Semantics",
-    "Cross-browser compatibility",
-    "Code versioning (Git/Github)",
-    "Debugging and performance optimization",
-    "Technical writing and documentation",
-    "RESTful API Development"
+    "Scalable API Development",
+    "Microservices Architecture",
+    "Event-Driven Architecture",
+    "Cloud-Native Development (Azure, AWS, GCP)",
+    "Kafka & Real-Time Data Pipelines",
+    "RESTful & GraphQL API Design",
+    "Big Data Technologies (Spark, Hadoop, Elasticsearch)",
+    "CI/CD Automation (Jenkins, Docker, Kubernetes)",
+    "Cross-Functional Team Leadership",
+    "E-Commerce Platform Development",
+    "Production System Monitoring & Optimization"
   ]
 }
