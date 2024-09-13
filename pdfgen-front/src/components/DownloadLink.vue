@@ -2,9 +2,9 @@
   <a
     :href="props.downloadLink"
     download="resume.pdf"
-    class="rounded bg-green-500 p-2 text-white"
+    class="haste-button"
   >
-    Download PDF
+    Download Resume
   </a>
 </template>
 

@@ -1,6 +1,6 @@
 <template>
   <div
-    class="__input-container relative isolate h-[4.2rem] border-4 border-black bg-white shadow-[5px_5px_0_black,_10px_10px_var(--haste-yellow)]"
+    class="__input-container relative isolate h-[4.2rem] border-4 border-white shadow-[5px_5px_0_black,_10px_10px_var(--haste-yellow)]"
   >
     <input
       v-model="model"
@@ -9,7 +9,7 @@
       :name="label"
       autocomplete="off"
       :placeholder="label"
-      class="__brutal-input absolute inset-0 z-20 border-0 px-4 text-lg text-black placeholder:text-transparent"
+      class="__brutal-input absolute inset-0 z-20 border-0 px-4 text-base text-white placeholder:text-transparent"
     />
     <label
       :for="id"

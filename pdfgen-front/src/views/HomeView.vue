@@ -16,10 +16,8 @@
     </div>
     <PreviewCV class="min-w-[--min-width]" :downloadLink="store.downloadLink" />
   </div>
-  <DownloadLink v-if="store.downloadLink" :downloadLink="store.downloadLink" />
 </template>
 <script setup>
-import DownloadLink from "@/components/DownloadLink.vue";
 import TemplateSelector from "@/components/home/TemplateSelector.vue";
 import PreviewCV from "@/components/home/PreviewCV.vue";
 import AppLink from "@/components/AppLink.vue";

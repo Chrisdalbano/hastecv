@@ -1,8 +1,8 @@
 <template>
   <div
-    class="input-container relative isolate h-[4.2rem] border-4 border-black bg-white shadow-[5px_5px_0_black,_10px_10px_var(--haste-yellow)]"
+    class="input-container relative isolate h-[4.2rem] border-4 border-white shadow-[5px_5px_0_black,_10px_10px_var(--haste-yellow)]"
     :style="{
-      height: `calc(4.2rem * ${rows})`
+      height: `calc(3rem * ${rows})`
     }"
   >
     <textarea
@@ -12,7 +12,7 @@
       v-model="model"
       :placeholder="label"
       :rows="rows"
-      class="brutal-input absolute inset-0 z-20 resize-none border-0 px-4 py-4 text-lg text-black placeholder:text-transparent"
+      class="brutal-input absolute inset-0 z-20 resize-none border-0 px-4 py-4 text-white placeholder:text-transparent"
     ></textarea>
     <label
       :for="id"

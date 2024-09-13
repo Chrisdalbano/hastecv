@@ -1,6 +1,6 @@
 <template>
   <header
-    class="center bg-transparent py-8 font-open-sans font-bold italic text-white"
+    class="center bg-transparent py-8 font-open-sans font-bold  text-white"
   >
     <h1 class="logo">HasteCV</h1>
   </header>
