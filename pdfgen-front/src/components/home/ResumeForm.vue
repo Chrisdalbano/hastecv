@@ -48,42 +48,44 @@
     <div
       v-for="(exp, index) in store.resumeData.experience"
       :key="index"
-      class="relative mb-4"
+      class="relative my-4"
     >
-      <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+      <div
+        class="grid grid-cols-1 gap-4 bg-black bg-opacity-50 p-2 md:grid-cols-2"
+      >
         <input
           v-model="exp.position"
-          class="mb-2 w-full p-2"
+          class="my-1 w-full p-2"
           type="text"
-          placeholder="Position"
+          placeholder="POSITION"
         />
         <input
           v-model="exp.company"
-          class="mb-2 w-full p-2"
+          class="my-1 w-full p-2"
           type="text"
-          placeholder="Company"
+          placeholder="COMPANY"
         />
         <input
           v-model="exp.dates"
-          class="mb-2 w-full p-2"
+          class="my-1 w-full p-2"
           type="text"
-          placeholder="Dates"
+          placeholder="DATES"
         />
       </div>
       <textarea
         v-model="exp.responsibilities"
-        class="mb-2 w-full p-2"
+        class="mb-2 w-full bg-black bg-opacity-50 p-2"
         rows="3"
-        placeholder="Responsibilities"
+        placeholder="RESPONSABILITIES"
       ></textarea>
       <button
         @click.prevent="removeExperience(index)"
-        class="absolute right-0 top-0 rounded-full bg-red-500 p-1 text-white"
+        class="remove-sub-button"
       >
         x
       </button>
     </div>
-    <div class="flex flex-wrap items-center text-center">
+    <div class="flex flex-col">
       <button @click.prevent="openModal('experience')" class="haste-option">
         + Experience
       </button>
@@ -93,29 +95,31 @@
         :key="index"
         class="relative mb-4"
       >
-        <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+        <div
+          class="grid grid-cols-1 gap-4 bg-black bg-opacity-50 md:grid-cols-2"
+        >
           <input
             v-model="edu.degree"
             class="mb-2 w-full p-2"
             type="text"
-            placeholder="Degree"
+            placeholder="DEGREE"
           />
           <input
             v-model="edu.institution"
             class="mb-2 w-full p-2"
             type="text"
-            placeholder="Institution"
+            placeholder="INSTITUTION"
           />
           <input
             v-model="edu.dates"
             class="mb-2 w-full p-2"
             type="text"
-            placeholder="Dates"
+            placeholder="DATES"
           />
         </div>
         <button
           @click.prevent="removeEducation(index)"
-          class="absolute right-0 top-0 mx-2 rounded-full bg-red-500 p-1 text-white"
+          class="remove-sub-button"
         >
           x
         </button>
@@ -123,26 +127,29 @@
       <button @click.prevent="openModal('education')" class="haste-option">
         + Education
       </button>
-
-      <div
-        v-for="(skill, index) in store.resumeData.skills"
-        :key="index"
-        class="relative mb-4"
-      >
-        <input
-          v-model="store.resumeData.skills[index]"
-          class="mb-2 w-full p-2"
-          type="text"
-          placeholder="Skill"
-        />
-        <button
-          @click.prevent="removeSkill(index)"
-          class="absolute right-0 top-0 rounded-full bg-red-500 p-1 text-white"
+    </div>
+    <div class="start flex w-auto flex-col">
+      <ul v-auto-animate class="flex flex-wrap items-start">
+        <li
+          v-for="(skill, index) in store.resumeData.skills"
+          :key="index"
+          class="relative mb-4 w-[33%] p-1"
         >
-          x
-        </button>
-      </div>
+          <input
+            v-model="store.resumeData.skills[index]"
+            class="mb-2 w-full p-2"
+            type="text"
+            placeholder="Skill"
+          />
+          <button @click.prevent="removeSkill(index)" class="remove-sub-button">
+            x
+          </button>
+        </li>
+      </ul>
+
       <button @click.prevent="addSkill" class="haste-option">+ Skill</button>
+    </div>
+    <div class="flex items-center justify-center">
       <button type="submit" class="haste-button">Generate</button>
     </div>
   </form>
@@ -153,56 +160,52 @@
     @close="closeModal"
     @save="saveEntry"
   >
-    <input
-      v-model="newEntry.position"
-      class="mb-2 w-full p-2"
-      type="text"
-      placeholder="Position"
-    />
-    <input
-      v-model="newEntry.company"
-      class="mb-2 w-full p-2"
-      type="text"
-      placeholder="Company"
-    />
-    <input
-      v-model="newEntry.dates"
-      class="mb-2 w-full p-2"
-      type="text"
-      placeholder="Dates"
-    />
-    <textarea
-      v-model="newEntry.responsibilities"
-      class="mb-2 w-full p-2"
-      rows="3"
-      placeholder="Responsibilities"
-    ></textarea>
-  </ReusableModal>
-
-  <ReusableModal
-    :show="showModal"
-    :title="modalTitle"
-    @close="closeModal"
-    @save="saveEntry"
-  >
-    <input
-      v-model="newEntry.degree"
-      class="mb-2 w-full p-2"
-      type="text"
-      placeholder="Degree"
-    />
-    <input
-      v-model="newEntry.institution"
-      class="mb-2 w-full p-2"
-      type="text"
-      placeholder="Institution"
-    />
-    <input
-      v-model="newEntry.dates"
-      class="mb-2 w-full p-2"
-      type="text"
-      placeholder="Dates"
-    />
+    <div v-if="modalType == 'education'">
+      <input
+        v-model="newEntry.degree"
+        class="mb-2 w-full p-2"
+        type="text"
+        placeholder="Degree"
+      />
+      <input
+        v-model="newEntry.institution"
+        class="mb-2 w-full p-2"
+        type="text"
+        placeholder="Institution"
+      />
+      <input
+        v-model="newEntry.dates"
+        class="mb-2 w-full p-2"
+        type="text"
+        placeholder="Dates"
+      />
+    </div>
+    <div v-else-if="modalType == 'experience'">
+      <input
+        v-model="newEntry.position"
+        class="mb-2 w-full p-2"
+        type="text"
+        placeholder="Position"
+      />
+      <input
+        v-model="newEntry.company"
+        class="mb-2 w-full p-2"
+        type="text"
+        placeholder="Company"
+      />
+      <input
+        v-model="newEntry.dates"
+        class="mb-2 w-full p-2"
+        type="text"
+        placeholder="Dates"
+      />
+      <textarea
+        v-model="newEntry.responsibilities"
+        class="mb-2 w-full p-2"
+        rows="3"
+        placeholder="Responsibilities"
+      ></textarea>
+    </div>
   </ReusableModal>
 </template>
 
@@ -249,15 +252,24 @@ function addSkill() {
   store.resumeData.skills.push(newEntry.value.skill);
 }
 
+function removeSkill(index) {
+  store.resumeData.skills.splice(index, 1);
+}
+
 function removeExperience(index) {
   store.resumeData.experience.splice(index, 1);
 }
 function removeEducation(index) {
   store.resumeData.education.splice(index, 1);
 }
-function removeSkill(index) {
-  store.resumeData.skills.splice(index, 1);
-}
 </script>
 
-<style scoped></style>
+<style scoped>
+input,
+textarea {
+  font-size: 20px;
+  font-weight: 600;
+
+  font-family: monospace;
+}
+</style>

@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .remove-sub-button {
+        @apply absolute right-1 top-1 border p-1 px-2 text-haste-yellow border-haste-yellow;
+    }
+    
+}

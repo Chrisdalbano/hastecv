@@ -11,6 +11,7 @@ import "@/assets/fonts.css";
 import "ace-builds/src-noconflict/ace";
 import "ace-builds/src-noconflict/theme-twilight";
 import "jsoneditor/dist/jsoneditor.css";
+import { autoAnimatePlugin } from '@formkit/auto-animate/vue';
 
 const pinia = createPinia();
-createApp(App).use(router).use(pinia).mount("#app");
+createApp(App).use(router).use(autoAnimatePlugin).use(pinia).mount("#app");

@@ -1,18 +1,24 @@
 <template>
-  <div class="center grid grid-cols-2 max-lg:grid-cols-1">
-    <TemplateSelector @select="updateTemplate" />
-  </div>
   <div
     style="--min-width: 300"
     class="center relative z-10 grid grid-cols-2 gap-4 overflow-hidden p-1 py-4 max-lg:grid-cols-1"
   >
     <div class="space-y-4">
-      <!-- padding left to compensate the .center class padding -->
-      <div class="switch-toggle pl-1">
-        <AppLink to="/" class="flex-1">Manual</AppLink>
-        <AppLink to="/json" class="flex-1">JSON</AppLink>
+      <div
+        class="flex flex-wrap items-center justify-center md:justify-between"
+      >
+        <!-- padding left to compensate the .center class padding -->
+        <div class="switch-toggle">
+          <AppLink to="/" class="flex-1">Manual</AppLink>
+          <AppLink to="/json" class="flex-1">JSON</AppLink>
+        </div>
+        <div class="mx-2 flex items-center">
+          <label class="text-xl font-bold text-haste-yellow">STYLE:</label>
+          <TemplateSelector @select="updateTemplate" />
+        </div>
       </div>
-      <RouterView></RouterView>
+
+      <router-view></router-view>
     </div>
     <PreviewCV class="min-w-[--min-width]" :downloadLink="store.downloadLink" />
   </div>

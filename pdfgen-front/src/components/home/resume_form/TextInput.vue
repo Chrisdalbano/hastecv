@@ -1,6 +1,6 @@
 <template>
   <div
-    class="__input-container relative isolate h-[4.2rem] border-4 border-white shadow-[5px_5px_0_black,_10px_10px_var(--haste-yellow)]"
+    class="__input-container relative isolate h-[4.2rem] border-4 border-transparent bg-black bg-opacity-50"
   >
     <input
       v-model="model"

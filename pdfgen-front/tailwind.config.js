@@ -24,6 +24,7 @@ module.exports = {
         '.border-haste-yellow': {
           borderColor: 'var(--haste-yellow)',
         },
+        
       };
 
       addUtilities(newUtilities, ['responsive', 'hover']);

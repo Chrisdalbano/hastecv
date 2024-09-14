@@ -1,24 +1,27 @@
 <template>
-  <div class="mt-2 grid">
-    <label class="font-open-sans text-2xl font-bold">Resume Style</label>
+  <div class=" px-4 py-2">
     <select
       v-model="selectedTemplate"
       @change="updateTemplate"
-      class="mt-2 w-full bg-black p-2 font-open-sans text-2xl"
+      class="bg-transparent p-2 text-2xl"
     >
       <option value="default">
-        <span class="mr-2 inline-block h-3 w-3 rounded-full bg-gray-400"></span>
-        Default
+        <span
+          class="mr-2 inline-block h-3 w-3 rounded-full bg-transparent"
+        ></span>
+        DEFAULT
       </option>
       <option value="modern">
-        <span class="mr-2 inline-block h-3 w-3 rounded-full bg-gray-800"></span>
-        Modern
+        <span
+          class="mr-2 inline-block h-3 w-3 rounded-full bg-transparent"
+        ></span>
+        MODERN
       </option>
       <option value="minimal">
         <span
-          class="mr-2 inline-block h-3 w-3 rounded-full border border-gray-800 bg-white"
+          class="mr-2 inline-block h-3 w-3 rounded-full border bg-transparent"
         ></span>
-        Minimal
+        MINIMAL
       </option>
     </select>
   </div>
@@ -40,4 +43,29 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+select {
+  border-style: none;
+}
+
+select:focus,
+select:hover {
+  border-style: none;
+}
+
+select option {
+  background-color: var(--primary-black);
+}
+
+* {
+  color: var(--haste-yellow);
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  font-family: monospace;
+  text-transform: uppercase;
+  text-align: center;
+  
+
+}
+</style>
