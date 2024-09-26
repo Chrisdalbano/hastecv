@@ -2,7 +2,7 @@
   <div class="mt-8">
     <h2 class="mb-4 text-2xl font-bold text-white">Edit JSON</h2>
     <form @submit.prevent="submitJson">
-      <div ref="jsonEditor" class="my-12 h-[45vmin]"></div>
+      <div ref="jsonEditor" class="my-12 h-[50vmin]"></div>
       <div class="flex items-center justify-center">
         <button type="submit" class="haste-button">Generate</button>
       </div>

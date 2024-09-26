@@ -18,7 +18,11 @@
         </div>
       </div>
 
-      <router-view></router-view>
+      <router-view v-slot="{ Component, route }">
+        <Transition mode="out-in" name="fade">
+          <component :is="Component" :key="route.path" />
+        </Transition>
+      </router-view>
     </div>
     <PreviewCV class="min-w-[--min-width]" :downloadLink="store.downloadLink" />
   </div>
@@ -43,5 +47,15 @@ function updateTemplate(newTemplate) {
   background: transparent;
   display: flex;
   max-width: var(--max-width);
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 0.25s ease-in-out;
 }
 </style>

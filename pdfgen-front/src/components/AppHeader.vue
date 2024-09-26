@@ -20,11 +20,11 @@ h1.logo {
   font-family: "Anton", sans-serif;
   font-weight: 400;
   letter-spacing: 2px;
-  text-shadow:
+  /* text-shadow:
     3px 3px 0 #000,
     6px 6px 0 #000,
-    9px 9px 0 #000;
+    9px 9px 0 #000; */
   transform: skewX(-20deg);
-  -webkit-text-stroke: 2px black;
+  /* -webkit-text-stroke: 2px black; */
 }
 </style>

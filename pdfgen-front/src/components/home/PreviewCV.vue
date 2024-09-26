@@ -7,7 +7,7 @@
         class="h-full w-full border"
       ></iframe>
       <p v-else class="preview-placeholder px-4">
-        Preview of your CV will appear here
+        PREVIEW OF CV WILL BE SHOWN HERE
       </p>
     </div>
     <div class="flex justify-center">
@@ -43,7 +43,7 @@ const store = useResumeDataStore();
   align-items: center;
   justify-content: center;
   background-color: #1414147c;
-  border: 2px solid black;
+  /* border: 2px solid black; */
 }
 
 @media (max-width: 1024px) {

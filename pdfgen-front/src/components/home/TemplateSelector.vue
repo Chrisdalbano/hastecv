@@ -1,5 +1,5 @@
 <template>
-  <div class=" px-4 py-2">
+  <div class="px-4 py-2">
     <select
       v-model="selectedTemplate"
       @change="updateTemplate"
@@ -65,7 +65,5 @@ select option {
   font-family: monospace;
   text-transform: uppercase;
   text-align: center;
-  
-
 }
 </style>
