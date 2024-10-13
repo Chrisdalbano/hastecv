@@ -86,7 +86,7 @@ const features = [
   {
     title: "It's Free!",
     description:
-      "Just use it freely. No strings attached! We don't collect data, we don't store your information.",
+      "Use it freely. No strings attached! We don't collect data and we don't store your information.",
     image: freeIcon
   },
   {
@@ -102,6 +102,31 @@ function navigateToApp() {
 }
 </script>
 
+<script>
+export default {
+  useHead: {
+    title: "HasteCV - Professional CV Builder",
+    meta: [
+      {
+        name: "description",
+        content:
+          "Craft professional, ATS-ready resumes in minutes. HasteCV offers quick, easy, and free CV-building tools."
+      },
+      {
+        name: "keywords",
+        content:
+          "resume builder, ATS resume, job application, CV builder, resume templates"
+      },
+      { property: "og:title", content: "HasteCV - Professional CV Builder" },
+      {
+        property: "og:description",
+        content:
+          "Create ATS-passing resumes with HasteCV, offering fast and free CV-building tools."
+      }
+    ]
+  }
+};
+</script>
 <style scoped>
 .center {
   width: min(100% - 2rem, 1200px);

@@ -118,6 +118,32 @@ function clearData() {
 }
 </script>
 
+<script>
+export default {
+  useHead: {
+    title: "HasteCV - Create ATS Beating Resumes",
+    meta: [
+      {
+        name: "description",
+        content:
+          "Create professional, ATS-compliant resumes effortlessly with HasteCV. Use manual or JSON modes for ultimate control."
+      },
+      {
+        name: "keywords",
+        content:
+          "resume builder, ATS resume, job application, CV builder, resume templates"
+      },
+      { property: "og:title", content: "HasteCV - Create ATS Beating Resumes" },
+      {
+        property: "og:description",
+        content:
+          "Easily build ATS-compliant resumes in minutes using HasteCV. Manual and JSON editing available."
+      }
+    ]
+  }
+};
+</script>
+
 <style scoped>
 .container {
   display: flex;
@@ -136,7 +162,7 @@ function clearData() {
   padding-right: 1rem;
   /* Hide the scrollbar */
   scrollbar-width: none; /* For Firefox */
-  -ms-overflow-style: none;  /* For Internet Explorer and Edge */
+  -ms-overflow-style: none; /* For Internet Explorer and Edge */
 }
 
 .form-section::-webkit-scrollbar {

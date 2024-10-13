@@ -279,6 +279,32 @@ function removeEducation(index) {
 }
 </script>
 
+<script>
+export default {
+  useHead: {
+    title: "HasteCV - Resume Form",
+    meta: [
+      {
+        name: "description",
+        content:
+          "Input your resume data into HasteCV’s intuitive form to generate an ATS-friendly CV."
+      },
+      {
+        name: "keywords",
+        content:
+          "resume form, ATS resume, job application, CV creation, resume data input"
+      },
+      { property: "og:title", content: "HasteCV - Resume Form" },
+      {
+        property: "og:description",
+        content:
+          "Use HasteCV’s easy form to create your ATS-compliant resume in minutes."
+      }
+    ]
+  }
+};
+</script>
+
 <style scoped>
 input,
 textarea {
@@ -287,6 +313,4 @@ textarea {
 
   font-family: monospace;
 }
-
-
 </style>

@@ -42,4 +42,30 @@ function submitJson() {
   }
 }
 </script>
+
+<script>
+export default {
+  useHead: {
+    title: "HasteCV - JSON Resume Editor",
+    meta: [
+      {
+        name: "description",
+        content:
+          "Advanced users can modify their resume directly in JSON format using HasteCV’s powerful editor."
+      },
+      {
+        name: "keywords",
+        content:
+          "resume editor, JSON editor, advanced resume creation, ATS resume"
+      },
+      { property: "og:title", content: "HasteCV - JSON Resume Editor" },
+      {
+        property: "og:description",
+        content:
+          "Directly modify your resume structure using HasteCV’s JSON resume editor for ultimate control."
+      }
+    ]
+  }
+};
+</script>
 <style scoped></style>
