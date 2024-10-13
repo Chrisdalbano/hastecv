@@ -8,7 +8,7 @@ import logging
 app = Flask(
     __name__, static_folder="dist", template_folder="dist"
 )  # Serving frontend from 'dist'
-CORS(app, resources={r"/generate": {"origins": "https://hastecv.com"}})
+CORS(app, resources={r"/*": {"origins": "https://www.hastecv.com"}})
 Talisman(app)
 
 # Setup logging
