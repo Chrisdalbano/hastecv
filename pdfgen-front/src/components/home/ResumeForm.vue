@@ -80,8 +80,10 @@
             v-model="exp.responsibilities"
             class="mb-2 w-full bg-black bg-opacity-50 p-2"
             rows="3"
-            placeholder="RESPONSABILITIES"
+            placeholder="RESPONSIBILITIES"
+            style="white-space: pre-wrap"
           ></textarea>
+
           <button
             @click.prevent="removeExperience(index)"
             class="remove-sub-button"
@@ -261,6 +263,13 @@ function addSkill() {
 function removeSkill(index) {
   store.resumeData.skills.splice(index, 1);
 }
+
+// function updateResponsibilities(index, value) {
+//   store.resumeData.experience[index].responsibilities = value
+//     .split(/\n+/)
+//     .map((item) => item.trim())
+//     .filter(Boolean);
+// }
 
 function removeExperience(index) {
   store.resumeData.experience.splice(index, 1);

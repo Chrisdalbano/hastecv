@@ -1,18 +1,33 @@
 <template>
   <header
-    class="center bg-transparent py-8 font-open-sans font-bold  text-white"
+    class="center bg-transparent py-8 font-open-sans font-bold text-white"
   >
-    <h1 class="logo">HasteCV</h1>
+    <div class="flex items-center justify-between">
+      <!-- Clickable Logo -->
+      <router-link to="/" class="logo-link">
+        <h1 class="logo">HasteCV</h1>
+      </router-link>
+
+      <!-- Call to Action Button -->
+      <button @click="navigateToApp" class="haste-button">Build Now</button>
+    </div>
   </header>
 </template>
 
-<script setup></script>
+<script setup>
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+
+function navigateToApp() {
+  router.push("/app"); // Navigate to the app's main page
+}
+</script>
 
 <style scoped>
-/* Add any scoped styles for Header component here */
-
-h1 {
-  color: var(--haste-yellow);
+/* Styles for the clickable logo */
+.logo-link {
+  text-decoration: none;
 }
 
 h1.logo {
@@ -20,11 +35,29 @@ h1.logo {
   font-family: "Anton", sans-serif;
   font-weight: 400;
   letter-spacing: 2px;
-  /* text-shadow:
-    3px 3px 0 #000,
-    6px 6px 0 #000,
-    9px 9px 0 #000; */
   transform: skewX(-20deg);
-  /* -webkit-text-stroke: 2px black; */
+  color: var(--haste-yellow);
+  transition:
+    transform 0.2s ease,
+    color 0.2s ease;
+}
+
+/* Logo hover effect */
+.logo-link:hover h1.logo {
+  transform: skewX(0);
+  color: var(--haste-yellow);
+}
+
+.haste-button {
+  font-size: 1.5rem;
+  background-color: var(--haste-yellow);
+  color: var(--primary-black);
+  border-radius: 2px;
+}
+
+.haste-button:hover {
+  background-color: transparent;
+  color: var(--haste-yellow);
+
 }
 </style>

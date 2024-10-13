@@ -1,6 +1,6 @@
 {
   "name": "Christian D'Albano",
-  "title": "Software Developer | eCommerce & API",
+  "title": "Frontend Developer",
   "contact": {
     "email": "chrisdalbano12@gmail.com",
     "linkedin": "https://linkedin.com/in/chrisdalb",
@@ -9,66 +9,84 @@
     "location": "Orlando, FL",
     "website": "https://chrisdalbano.com"
   },
-  "summary": "Creative Software Developer with 3+ years of experience building highly scalable, web applications, microservices, and contributing to diverse eCommerce platforms. Proficient in designing and implementing UI, RESTful services, and API-driven solutions. Adept at solving complex software systems issues with a focus on reliability, scalability, and performance optimization. Seeking to apply my expertise to next-generation affiliate modern solutions and social commerce experiences.",
+  "summary": "Passionate creative developer with strong expertise in modern JavaScript frameworks and a proven track record of building performant, beautiful, usable and scalable web applications. Experienced in delivering pixel-perfect UI/UX designs, optimizing performance, and working with cross-functional teams to bring product ideas to life. Proficient in React, TypeScript, Vue.js, and integrating front-end interfaces with complex back-end systems. Passionate about building user-friendly interfaces and driving code quality through best practices.",
   "technical_proficiency": {
-    "frontend_development": "HTML5, JavaScript, CSS3, React, Redux, Vue, Nuxt, Tailwind CSS, SASS",
-    "backend_development": "Node.js, Java, Python, Spring Boot, Django, Flask, RESTful APIs, GraphQL",
-    "database_technologies": "MySQL, PostgreSQL, MongoDB, Firebase, Supabase, NoSQL",
+    "frontend_development": "React, TypeScript, Vue.js, HTML5, JavaScript (ES6+), CSS3, Tailwind CSS, SASS, Webpack, Vite, Figma, styled-components",
+    "backend_development": "Node.js, Java, Spring Boot, RESTful APIs, GraphQL",
+    "database_technologies": "PostgreSQL, MongoDB, Firebase, Supabase, NoSQL",
     "cloud_technologies": "Microsoft Azure, GCP, Docker, Kubernetes, CI/CD pipelines",
-    "tools_platforms": "Git, GitHub, Jenkins, ServiceNow, Jira, Figma, Adobe XD, Wordpress, Shopify"
+    "tools_platforms": "Git, GitHub, Jenkins, Figma, Adobe XD, Jira, Webpack, Gulp, Grunt"
   },
   "experience": [
     {
-      "position": "Software Developer",
+      "position": "Frontend Developer",
       "company": "Mouseflow",
       "location": "Remote - Orlando, FL",
       "dates": "Aug 2023 - Present",
       "responsibilities": [
-        "Contributed to development and integration of highly scalable APIs and web services to support Mouseflow's analytics and eCommerce offerings, ensuring 99.9% uptime and high performance under heavy traffic.",
-        "Collaborated with cross-functional teams to implement event-driven interfaces, features and API integrations for key social commerce platforms, enhancing real-time data processing and reducing load times by 40%.",
-        "Authored comprehensive technical documentation and knowledge base entries to support user onboarding and reduce support inquiries."
+        "Develop and maintain front-end automation scripts using React and TypeScript to enhance troubleshooting and streamline the support process for web applications.",
+        "Collaborate with back-end teams to integrate API-based services, ensuring efficient communication between front-end systems and back-end services.",
+        "Work closely with front-end teams to debug and optimize Vue.js and React-based interfaces, improving performance and UX across various projects.",
+        "Build and optimize custom user interfaces, driving a 40% improvement in performance and reducing manual support workload through automation."
       ],
-      "technologies": "JavaScript, HTML5, CSS3, Vue, Node.js, GCP, Jenkins, Jira"
+      "technologies": "React, TypeScript, Vue.js, REST APIs, Git, Webpack, Java"
     },
     {
-      "position": "Software Engineer",
+      "position": "Junior Frontend Developer",
       "company": "Baptist Health South Florida",
       "location": "Remote - Miami, FL",
       "dates": "Jun 2022 - Aug 2023",
       "responsibilities": [
-        "Developed and maintained scalable eCommerce solutions for the patient portal, leveraging RESTful services, Java, and Node.js.",
-        "Led the migration to cloud-native microservices on Azure, improving scalability and system reliability for thousands of concurrent users.",
-        "Optimized API performance, reducing response times by 20% and ensuring seamless integration with third-party SaaS solutions.",
-        "Designed and implemented real-time data processing pipelines using Kafka, improving user interaction tracking and analytics capabilities.",
-        "Collaborated with cross-functional teams, including product and DevOps, to ensure the on-time delivery of critical features."
+        "Developed responsive and user-friendly interfaces for a large-scale patient portal using React and TypeScript, improving user experience and reducing response times by 20%.",
+        "Integrated front-end components with Java-based back-end microservices to ensure seamless API consumption and data exchange.",
+        "Collaborated closely with designers to implement pixel-perfect UI/UX designs using Figma and styled-components."
       ],
-      "technologies": "Java, Node.js, Azure, RESTful APIs, Kafka, GraphQL, PostgreSQL, MongoDB, Docker, Kubernetes"
+      "technologies": "React, TypeScript, Java, Azure, PostgreSQL, RESTful APIs, Figma"
+    },
+    {
+      "position": "Full-Stack Developer",
+      "company": "Aizhak Coffee (Contract)",
+      "location": "Remote",
+      "dates": "Sep 2023 - Jan 2024",
+      "responsibilities": [
+        "Designed and implemented a scalable Vue.js front-end for a custom eCommerce platform, optimizing performance for real-time updates and high traffic.",
+        "Collaborated with back-end developers to integrate Vue.js front-end components with Node.js microservices, ensuring smooth API consumption.",
+        "Led the integration of Figma designs into a fully responsive front-end experience using TypeScript, increasing customer engagement by 50%."
+      ],
+      "technologies": "Vue.js, React, TypeScript, Node.js, Firebase, Azure, Webpack, Figma"
+    },
+    {
+      "position": "Frontend Developer Intern",
+      "company": "BudgetWise (Internship)",
+      "location": "Remote",
+      "dates": "Oct 2022 - Jan 2023",
+      "responsibilities": [
+        "Developed front-end features using Vue.js and TypeScript, focusing on responsive design and performance optimization.",
+        "Collaborated with back-end teams to integrate Vue.js components with Java-based microservices, contributing to a scalable eCommerce platform.",
+        "Worked closely with UI/UX designers to implement Figma-based designs into the Vue.js front-end, following best practices in responsive and performant web design."
+      ],
+      "technologies": "Vue.js, TypeScript, Java, Firebase, Docker, Webpack, Figma"
     }
   ],
   "projects": [
     {
-      "title": "QuizMEGPT Web Application",
-      "url": "https://quizmegpt.chrisdalbano.com",
-      "description": "Developed a highly scalable AI-based web application for quiz generation, utilizing the GPT-3 API and Firebase. Built with cloud-native principles and deployed using Firebase Functions and Node.js to handle real-time user traffic. Achieved a 30% increase in performance by optimizing API calls and data handling pipelines.",
-      "technologies": "Vue.js, Firebase, Node.js, GPT-3 API, Docker, Kubernetes"
-    },
-    {
       "title": "Aizhak Coffee E-Commerce Platform",
       "url": "https://aizhak.com",
-      "description": "Designed and implemented a comprehensive e-commerce platform using Vue.js and Firebase. Utilized Azure cloud services to scale the backend and optimize data pipelines for real-time inventory management and customer analytics. Integrated SendGrid for transactional emails and SEO strategies to drive traffic, leading to a 50% boost in sales.",
-      "technologies": "Vue.js, Firebase, Azure, Node.js, SendGrid, Docker"
+      "description": "Led front-end development using Vue.js for a dynamic eCommerce platform. Integrated real-time inventory management and collaborated with back-end teams to ensure seamless API integration with Java microservices.",
+      "technologies": "Vue.js, TypeScript, Firebase, Java, Docker, Figma"
     },
+    {
+      "title": "QuizMEGPT Web Application",
+      "url": "https://quizmegpt.chrisdalbano.com",
+      "description": "Developed a scalable AI-based web application for quiz generation using React and Firebase. Integrated RESTful services and optimized performance by 30% through efficient API consumption and front-end optimizations.",
+      "technologies": "React, TypeScript, Firebase, GPT-3 API, Docker, Kubernetes"
+    },
+
     {
       "title": "MTGen Web Application",
       "url": "https://mtgen.chrisdalbano.com",
-      "description": "Built a Magic The Gathering card generator with a highly scalable REST API platform, powered by DALL-E and GPT-3. Integrated complex real-time user requests processing with Node.js, Firebase, and Google Cloud Functions, ensuring efficient handling of heavy traffic and data loads.",
-      "technologies": "Vue.js, Firebase, Node.js, Google Cloud Functions, DALL-E, GPT-3 API"
-    },
-    {
-      "title": "HasteCV Flask Web Application",
-      "url": "https://github.com/Chrisdalbano/hastecv",
-      "description": "Developed a Vue-based full-stack application with Flask backend to automate CV generation. Built with a scalable API-driven architecture to support heavy traffic and real-time document processing using Docker and Kubernetes.",
-      "technologies": "Python, Flask, Vue, Docker, Kubernetes, Jenkins"
+      "description": "Built a Magic The Gathering card generator with React and integrated real-time API services. Optimized performance for high traffic using Webpack and Firebase functions.",
+      "technologies": "React, TypeScript, Firebase, Node.js, Webpack"
     }
   ],
   "education": [
@@ -85,38 +103,30 @@
   ],
   "additional_experience": [
     {
-      "position": "Full-Stack Developer",
-      "company": "Aizhak Coffee (Contract)",
-      "dates": "Sep 2023 - Jan 2024",
+      "position": "Frontend Developer",
+      "company": "Freelance",
+      "dates": "Feb 2019 - Present",
       "responsibilities": [
-        "Led the development of a scalable eCommerce platform with cloud-native microservices, improving sales conversions by 50%.",
-        "Implemented API-driven architecture using Vue.js and Firebase, optimizing backend services for real-time updates and efficient data handling.",
-        "Utilized SendGrid for transactional email automation and SEO best practices to enhance customer engagement."
+        "Worked with clients to build responsive and scalable web applications, leveraging React, Vue.js, HTML5, and CSS3.",
+        "Collaborated with back-end developers to integrate front-end components with various technologies, including Java-based services and Node.js.",
+        "Optimized front-end code for performance, accessibility, and scalability, following best practices in web development."
       ],
-      "technologies": "Vue.js, Firebase, Node.js, Azure, SendGrid, Docker"
-    },
-    {
-      "position": "Full Stack Developer Intern",
-      "company": "BudgetWise (Internship)",
-      "dates": "Oct 2022 - Jan 2023",
-      "responsibilities": [
-        "Built key features for an eCommerce platform with Vue.js and Firebase, optimizing performance and scalability to handle real-time user traffic.",
-        "Collaborated in an Agile team to deliver cloud-native services, ensuring CI/CD pipelines for continuous deployment and monitoring."
-      ],
-      "technologies": "Vue.js, Typescript, Firebase, Docker, Kubernetes, Agile methodologies"
+      "technologies": "React, Vue.js, TypeScript, HTML5, CSS3, Java, Git"
     }
   ],
   "skills": [
+    "React Development",
+    "Vue.js Development",
+    "TypeScript",
+    "UI/UX Collaboration (Figma, Adobe XD)",
+    "JavaScript (ES6+)",
     "Scalable API Development",
-    "Microservices Architecture",
-    "Event-Driven Architecture",
-    "Cloud-Native Development (Azure, AWS, GCP)",
-    "Kafka & Real-Time Data Pipelines",
     "RESTful & GraphQL API Design",
-    "Big Data Technologies (Spark, Hadoop, Elasticsearch)",
-    "CI/CD Automation (Jenkins, Docker, Kubernetes)",
-    "Cross-Functional Team Leadership",
+    "Responsive Design Principles",
+    "Webpack, Gulp, Grunt, Vite",
+    "Cloud-Native Development (Azure, GCP, Firebase)",
+    "Cross-Functional Team Collaboration",
     "E-Commerce Platform Development",
-    "Production System Monitoring & Optimization"
+    "styled-components"
   ]
 }
