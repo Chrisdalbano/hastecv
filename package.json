@@ -1,9 +1,6 @@
 {
-  "name": "hastecv-fullstack",
+  "name": "hastecv-backend",
   "version": "1.0.0",
-  "scripts": {
-    "heroku-postbuild": "cd pdfgen-front && npm install && npm run build && cp -R dist ../pdfgen-back/"
-  },
   "engines": {
     "node": "14.x"
   },
