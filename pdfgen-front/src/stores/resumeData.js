@@ -67,7 +67,7 @@ export const useResumeDataStore = defineStore("resume", () => {
 
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_API_BASE_URL}/generate`,
+        `https://limitless-ravine-64006-56ec8f2bdbdc.herokuapp.com/generate`,
         {
           method: "POST",
           headers: {
