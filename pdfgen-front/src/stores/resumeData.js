@@ -1,19 +1,16 @@
 import { defineStore } from "pinia";
-import { ref } from "vue";
+import { ref, watch, onMounted } from "vue";
+import { useCookies } from "vue3-cookies";
 
 export const useResumeDataStore = defineStore("resume", () => {
+  const { cookies } = useCookies();
+
+  // Initialize resume data, which we will persist
   const resumeData = ref({
     name: "",
     title: "",
-    contact: {
-      email: "",
-      phone: "",
-      location: "",
-      linkedin: "",
-      github: "",
-      website: ""
-    },
-    summary: [],
+    contact: { email: "", phone: "", location: "" },
+    summary: "",
     experience: [],
     education: [],
     skills: []
@@ -21,8 +18,53 @@ export const useResumeDataStore = defineStore("resume", () => {
 
   const downloadLink = ref(null);
   const template = ref("default");
+  const consentAccepted = ref(cookies.get("consentAccepted") === "true");
+
+  // Load saved data from localStorage (if available) on app start
+  onMounted(() => {
+    const savedResumeData = localStorage.getItem("resumeData");
+    if (savedResumeData) {
+      resumeData.value = JSON.parse(savedResumeData);
+    }
+  });
+
+  // Watch for changes in `resumeData` and persist them in localStorage
+  watch(
+    resumeData,
+    (newData) => {
+      localStorage.setItem("resumeData", JSON.stringify(newData));
+    },
+    { deep: true }
+  );
+
+  // Watch for changes in consent and update the cookies accordingly
+  watch(consentAccepted, (newVal) => {
+    cookies.set("consentAccepted", newVal, "7d");
+  });
+
+  function updateConsentStatus(status) {
+    consentAccepted.value = status;
+  }
+
+  function clearResumeData() {
+    localStorage.removeItem("resumeData");
+    resumeData.value = {
+      name: "",
+      title: "",
+      contact: { email: "", phone: "", location: "" },
+      summary: "",
+      experience: [],
+      education: [],
+      skills: []
+    };
+  }
 
   async function generatePdf(jsonData) {
+    if (!consentAccepted.value) {
+      console.warn("User has not accepted cookies.");
+      return;
+    }
+
     try {
       const response = await fetch("http://127.0.0.1:5000/generate", {
         method: "POST",
@@ -41,5 +83,13 @@ export const useResumeDataStore = defineStore("resume", () => {
     }
   }
 
-  return { resumeData, downloadLink, generatePdf, template };
+  return {
+    resumeData,
+    downloadLink,
+    generatePdf,
+    template,
+    consentAccepted,
+    updateConsentStatus,
+    clearResumeData
+  };
 });

@@ -1,16 +1,25 @@
 <template>
-  <section>
-    <div class="preview-overlay">
-      <iframe
-        v-if="props.downloadLink"
-        :src="props.downloadLink"
-        class="h-full w-full border"
-      ></iframe>
-      <p v-else class="preview-placeholder px-4">
-        PREVIEW OF CV WILL BE SHOWN HERE
-      </p>
+  <section class="preview-container">
+    <!-- CV Preview Overlay with Glassmorphism Effect -->
+    <div class="preview-card">
+      <div class="glass-effect">
+        <!-- Blob Animation -->
+        <div class="blob"></div>
+        <!-- Display the CV Preview -->
+        <iframe
+          v-if="props.downloadLink"
+          :src="props.downloadLink"
+          class="cv-preview"
+          title="CV Preview"
+        ></iframe>
+        <p v-else class="preview-placeholder">
+          PREVIEW OF CV WILL BE SHOWN HERE
+        </p>
+      </div>
     </div>
-    <div class="flex justify-center">
+
+    <!-- Download Link -->
+    <div class="mt-6 flex justify-center">
       <DownloadLink
         v-if="props.downloadLink"
         :downloadLink="store.downloadLink"
@@ -21,8 +30,8 @@
 
 <script setup>
 import { useResumeDataStore } from "../../stores/resumeData";
-
 import DownloadLink from "../DownloadLink.vue";
+
 const props = defineProps({
   downloadLink: {
     required: true
@@ -33,30 +42,101 @@ const store = useResumeDataStore();
 </script>
 
 <style scoped>
-.preview-overlay {
-  flex: 1;
+/* Overall container */
+.preview-container {
+  min-width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  margin-top: 2rem;
+  background-color: bla;
+}
+
+/* Card style for the CV preview */
+.preview-card {
   position: relative;
-  margin: 1rem;
-  margin-top: 0;
-  height: 70svh;
+  width: 100%;
+  height: 70vh;
+  border-radius: 2px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #1414147c;
-  /* border: 2px solid black; */
+  box-shadow:
+    10px 10px 30px rgba(0, 0, 0, 0.25),
+    -10px -10px 30px rgba(255, 109, 12, 0.15);
+  overflow: hidden;
+  background-color: rgba(20, 20, 20, 0.8);
 }
 
-@media (max-width: 1024px) {
-  .preview-overlay {
-    margin: 0;
+/* Glass effect */
+.glass-effect {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  width: calc(100% - 10px);
+  height: calc(100% - 10px);
+  border-radius: 2px;
+  background: rgba(19, 19, 19, 0.1);
+  backdrop-filter: blur(12px);
+  border: 2px solid rgba(255, 17, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+/* Blob animation */
+.blob {
+  position: absolute;
+  z-index: 0;
+  top: 50%;
+  left: 50%;
+  width: 700px;
+  height: 700px;
+  border-radius: 50%;
+  background-color: var(--haste-yellow);
+  opacity: 0.2;
+  filter: blur(30px);
+  animation: blob-bounce 5s infinite ease-in-out;
+}
+
+@keyframes blob-bounce {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) translate3d(0, 0, 0);
+  }
+  25% {
+    transform: translate(-50%, -50%) translate3d(50%, 0, 0);
+  }
+  50% {
+    transform: translate(-50%, -50%) translate3d(50%, 50%, 0);
+  }
+  75% {
+    transform: translate(-50%, -50%) translate3d(0, 50%, 0);
   }
 }
 
-.preview-placeholder {
-  color: var(--haste-yellow);
+/* CV Preview (iframe) */
+.cv-preview {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 2px;
+}
 
-  font-size: 30px;
-  font-family: "OpenSans";
+/* Placeholder when no preview is available */
+.preview-placeholder {
+  font-size: 2rem;
+  color: var(--haste-yellow);
+  font-weight: bold;
+  max-width: 200px;
+  
   text-align: center;
+  z-index: 1;
+  opacity: 0.9;
 }
 </style>

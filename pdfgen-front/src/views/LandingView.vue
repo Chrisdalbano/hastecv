@@ -3,16 +3,44 @@
     <!-- Hero Section -->
     <section class="hero bg-primary-black text-whitesmoke py-20">
       <div class="center px-4 text-center">
-        <h1 class="font-Anton mb-4 text-5xl font-extrabold drop-shadow-lg">
-          Create ATS beating CVs in Minutes with HasteCV
+        <h1
+          class="font-Anton mb-6 text-6xl font-extrabold leading-tight drop-shadow-2xl text-haste-yellow"
+        >
+          Craft ATS-Beating CVs in Minutes
         </h1>
-        <p class="font-Domine text-whitesmoke mb-6 text-xl opacity-90">
-          Fast, easy, and ATS passing CV templates to help you land your dream
-          job. Edit manually or through JSON for ultimate control.
+        <p
+          class="font-Domine text-whitesmoke mx-auto mb-8 max-w-2xl text-lg leading-relaxed opacity-90 md:text-xl"
+        >
+          Effortlessly create professional, ATS-passing CV templates that help
+          you land your dream job. Customize every detail manually or with JSON
+          for full control.
         </p>
-        <button @click="navigateToApp" class="haste-button hover-effect">
-          Start Crafting Resume
-        </button>
+
+        <!-- Updated animated call-to-action button -->
+        <div class="flex justify-center">
+          <button @click="navigateToApp" class="animated-button">
+            <svg
+              viewBox="0 0 24 24"
+              class="arr-2"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"
+              ></path>
+            </svg>
+            <span class="text">Start Crafting Resume</span>
+            <span class="circle"></span>
+            <svg
+              viewBox="0 0 24 24"
+              class="arr-1"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"
+              ></path>
+            </svg>
+          </button>
+        </div>
       </div>
     </section>
 
@@ -89,20 +117,92 @@ function navigateToApp() {
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
 }
 
-/* Subtle hover effect for buttons */
-.haste-button {
-  padding: 0.75rem 1.5rem;
+/* Animated button styling */
+.animated-button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 16px 36px;
+  border: 4px solid transparent;
+  font-size: 18px;
   background-color: transparent;
-  color: var(--haste-yellow);
-  border: 2px solid var(--haste-yellow);
-  transition: all 0.3s ease;
   border-radius: 2px;
+  font-weight: 600;
+  color: var(--haste-yellow);
+  box-shadow: 0 0 0 2px var(--haste-yellow);
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-.haste-button:hover {
+.animated-button svg {
+  position: absolute;
+  width: 24px;
+  fill: var(--haste-yellow);
+  z-index: 9;
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.animated-button .arr-1 {
+  right: 16px;
+}
+
+.animated-button .arr-2 {
+  left: -25%;
+}
+
+.animated-button .circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 20px;
   background-color: var(--haste-yellow);
+  border-radius: 50%;
+  opacity: 0;
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.animated-button .text {
+  position: relative;
+  z-index: 1;
+  transform: translateX(-12px);
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.animated-button:hover {
+  box-shadow: 0 0 0 12px transparent;
   color: var(--primary-black);
-  transform: scale(1.05);
+  border-radius: 12px;
+}
+
+.animated-button:hover .arr-1 {
+  right: -25%;
+}
+
+.animated-button:hover .arr-2 {
+  left: 16px;
+}
+
+.animated-button:hover .text {
+  transform: translateX(12px);
+}
+
+.animated-button:hover svg {
+  fill: var(--primary-black);
+}
+
+.animated-button:active {
+  scale: 0.95;
+  box-shadow: 0 0 0 4px var(--haste-yellow);
+}
+
+.animated-button:hover .circle {
+  width: 250px;
+  height: 220px;
+  opacity: 1;
 }
 
 /* Card styling */
@@ -154,11 +254,5 @@ function navigateToApp() {
 .card .description {
   font-size: 18px;
   opacity: 0.85;
-}
-
-/* Hover animation for subtle movements */
-.hover-effect:hover {
-  transform: translateY(-3px);
-  transition: all 0.2s ease;
 }
 </style>

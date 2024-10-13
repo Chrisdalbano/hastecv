@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="parent-wrapper">
     <form @submit.prevent="generatePdf">
       <fieldset class="mt-10 space-y-10">
         <div class="grid grid-cols-1 gap-x-6 gap-y-10 md:grid-cols-2">
@@ -287,4 +287,6 @@ textarea {
 
   font-family: monospace;
 }
+
+
 </style>
