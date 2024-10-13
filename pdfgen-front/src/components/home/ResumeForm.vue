@@ -45,6 +45,8 @@
           id="summary-input"
         />
       </fieldset>
+
+      <!-- Add Experience -->
       <div class="flex flex-col">
         <button @click.prevent="openModal('experience')" class="haste-option">
           + EXPERIENCE
@@ -93,6 +95,7 @@
         </div>
       </div>
 
+      <!-- Add Education -->
       <div class="flex flex-col">
         <button @click.prevent="openModal('education')" class="haste-option">
           + EDUCATION
@@ -132,6 +135,8 @@
           </button>
         </div>
       </div>
+
+      <!-- Add Skills -->
       <div class="start flex w-auto flex-col">
         <button @click.prevent="addSkill" class="haste-option">+ SKILL</button>
 
@@ -156,11 +161,13 @@
           </li>
         </ul>
       </div>
+
       <div class="flex items-center justify-center">
         <button type="submit" class="haste-button">GENERATE</button>
       </div>
     </form>
 
+    <!-- The Reusable Modal component -->
     <ReusableModal
       :show="showModal"
       :title="modalTitle"
@@ -222,7 +229,6 @@ import { useResumeDataStore } from "@/stores/resumeData";
 import { ref } from "vue";
 import TextInput from "@/components/home/resume_form/TextInput.vue";
 import AreaTextInput from "@/components/home/resume_form/AreaTextInput.vue";
-
 import ReusableModal from "@/components/ReusableModal.vue";
 
 const store = useResumeDataStore();
@@ -232,6 +238,10 @@ const modalTitle = ref("");
 const newEntry = ref({});
 
 function generatePdf() {
+  if (!store.consentAccepted) {
+    alert("You need to accept cookies to generate a resume.");
+    return;
+  }
   store.generatePdf(JSON.stringify(store.resumeData));
 }
 
@@ -241,12 +251,14 @@ function openModal(type) {
   modalTitle.value = `Add ${type.charAt(0).toUpperCase() + type.slice(1)}`;
   newEntry.value = {};
 }
+
 function closeModal() {
   showModal.value = false;
   modalType.value = "";
   modalTitle.value = "";
   newEntry.value = {};
 }
+
 function saveEntry() {
   if (modalType.value === "experience") {
     store.resumeData.experience.push(newEntry.value);
@@ -264,16 +276,10 @@ function removeSkill(index) {
   store.resumeData.skills.splice(index, 1);
 }
 
-// function updateResponsibilities(index, value) {
-//   store.resumeData.experience[index].responsibilities = value
-//     .split(/\n+/)
-//     .map((item) => item.trim())
-//     .filter(Boolean);
-// }
-
 function removeExperience(index) {
   store.resumeData.experience.splice(index, 1);
 }
+
 function removeEducation(index) {
   store.resumeData.education.splice(index, 1);
 }
@@ -304,7 +310,6 @@ export default {
   }
 };
 </script>
-
 <style scoped>
 input,
 textarea {

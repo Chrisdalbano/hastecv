@@ -1,3 +1,4 @@
+<!-- CookieConsent.vue -->
 <template>
   <div v-if="!store.consentAccepted" class="cookie-consent-banner">
     <p>We use cookies to ensure you get the best experience on our site.</p>
