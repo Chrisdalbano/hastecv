@@ -32,4 +32,9 @@ const router = createRouter({
   routes
 });
 
+router.afterEach((to) => {
+  if (typeof window._mfq !== "undefined") {
+    window._mfq.push(["newPageView", to.fullPath]);
+  }
+});
 export default router;
