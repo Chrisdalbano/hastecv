@@ -7,7 +7,11 @@
       </router-link>
 
       <!-- Call to Action Button -->
-      <button @click="navigateToApp" class="haste-button align-middle">
+      <button
+        v-if="!isOnApp"
+        @click="navigateToApp"
+        class="haste-button align-middle"
+      >
         Build Now
       </button>
     </div>
@@ -15,12 +19,18 @@
 </template>
 
 <script setup>
-import { useRouter } from "vue-router";
+import { computed } from "vue";
+import { useRouter, useRoute } from "vue-router";
 
 const router = useRouter();
+const route = useRoute();
+
+const isOnApp = computed(() => {
+  return route.path.includes("/app");
+});
 
 function navigateToApp() {
-  router.push("/app"); // Navigate to the app's main page
+  router.push("/app");
 }
 </script>
 

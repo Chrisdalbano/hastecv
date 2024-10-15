@@ -31,14 +31,8 @@ const isExternalLink = computed(() => {
 
 <style scoped>
 a {
-  padding: 10px 24px;
   border: 4px solid var(--haste-yellow);
   color: var(--haste-yellow);
-  font-size: 20px;
-  font-weight: 600;
-  letter-spacing: 1px;
-  font-family: monospace;
-  text-transform: uppercase;
   text-align: center;
   transition:
     background-color 250ms cubic-bezier(0.93, 0.26, 0.07, 0.69),

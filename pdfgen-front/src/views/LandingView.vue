@@ -48,7 +48,7 @@
     <section class="features py-20">
       <div class="center text-center">
         <h2 class="mb-12 text-3xl font-bold text-haste-yellow">Why HasteCV?</h2>
-        <div class="grid grid-cols-1 gap-8 md:grid-cols-3">
+        <div class="grid gap-8">
           <div v-for="(feature, index) in features" :key="index" class="card">
             <div class="illustration-container">
               <img
@@ -62,6 +62,65 @@
               <p class="description">{{ feature.description }}</p>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+    <section class="how-it-works py-20 bg-gray-800 text-whitesmoke">
+      <div class="center">
+        <h2 class="text-center mb-12 text-3xl font-bold text-haste-yellow">How HasteCV Works</h2>
+        <ol class=" list-inside mx-auto max-w-4xl text-left space-y-8">
+          <li>
+            <h3 class="text-2xl font-bold mb-2">Choose Your Template</h3>
+            <p class="text-lg leading-relaxed">
+              Begin by selecting a template that best suits the type of job you are applying for. HasteCV offers a couple of templates, giving you some flexibility to match your resume with your desired industry. Don't know how to start? Generate some 'Test Data' to get some inspiration.
+            </p>
+          </li>
+          <li>
+            <h3 class="text-2xl font-bold mb-2">Customize Your CV</h3>
+            <p class="text-lg leading-relaxed">
+              Use our editor to manually input your personal details, work experience, and skills, or take advantage of JSON editing for advanced customization. Personalize every detail to stand out from the competition.
+            </p>
+          </li>
+          <li>
+            <h3 class="text-2xl font-bold mb-2">Generated & Optimized for ATS</h3>
+            <p class="text-lg leading-relaxed">
+             When ready, click the GENERATE button to create your resume. With HasteCV, the structure of your resume will be automatically optimized for Applicant Tracking Systems (ATS). It structures your resume to pass through ATS scans effectively, ensuring it reaches hiring managers.
+            </p>
+          </li>
+          <li>
+            <h3 class="text-2xl font-bold mb-2">Download & Apply</h3>
+            <p class="text-lg leading-relaxed">
+              Once satisfied with your CV, download it as a PDF. Your professionally crafted, ATS-ready CV is now ready to send out to potential employers and help you land that dream job.
+            </p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Additional Tips & Resources Section -->
+    <section class="tips-resources py-20 text-whitesmoke">
+      <div class="center">
+        <h2 class="text-center mb-12 text-3xl font-bold text-haste-yellow">Tips & Resources for a Winning CV</h2>
+        <div class="mx-auto max-w-4xl text-left space-y-8">
+          <div>
+            <h3 class="text-2xl font-bold mb-2">Top CV Writing Tips</h3>
+            <p class="text-lg leading-relaxed">
+              Crafting a winning CV is about showcasing your experience and skills in a clear, concise manner. Here are some top tips:
+              <ul class="list-disc list-inside mt-2 space-y-2">
+                <li>Focus on your achievements, not just duties.</li>
+                <li>Keep it concise – one to two pages are ideal.</li>
+                <li>Tailor your CV to the job description for every application.</li>
+                <li>Use action verbs to describe your experience (e.g., led, improved, created).</li>
+              </ul>
+            </p>
+          </div>
+          <div>
+            <h3 class="text-2xl font-bold mb-2">What is JSON Editing</h3>
+            <p class="text-lg leading-relaxed">
+              JSON editing allows advanced customization of your CV. This feature is perfect for tech-savvy users who want complete control over the CV layout. With JSON, you can directly modify the data structure to fit specific needs, ensuring no detail is overlooked.
+            </p>
+          </div>
+         
         </div>
       </div>
     </section>
@@ -127,6 +186,7 @@ export default {
   }
 };
 </script>
+
 <style scoped>
 .center {
   width: min(100% - 2rem, 1200px);
@@ -232,8 +292,9 @@ export default {
 
 /* Card styling */
 .card {
-  width: 320px;
-  height: 380px;
+  border-radius: 8px;
+  width: 100%;
+  height: auto;
   padding: 20px;
   color: whitesmoke;
   background: transparent;
@@ -246,7 +307,7 @@ export default {
 }
 
 .card:hover {
-  border-radius: 12px;
+  border-radius: 8px;
   background-color: var(--haste-yellow);
   scale: 0.95;
   rotate: 8deg;
@@ -271,13 +332,79 @@ export default {
 }
 
 .card .heading {
-  font-size: 32px;
-  font-weight: 400;
+  font-size: 24px;
+  font-weight: 600;
   line-height: 1.2;
+  margin-bottom: 8px;
 }
 
 .card .description {
-  font-size: 18px;
+  font-size: 16px;
   opacity: 0.85;
+}
+
+/* Updated Grid for Medium and Large Screens */
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(300px, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(320px, 1fr));
+  }
+}
+
+/* How-it-works section styling */
+.how-it-works {
+  padding: 2rem;
+  background: var(--primary-black);
+  color: whitesmoke;
+  border-top: 2px solid var(--haste-yellow);
+}
+
+.how-it-works ol {
+  counter-reset: step-counter;
+}
+
+.how-it-works li {
+  position: relative;
+  padding-left: 2.5rem;
+}
+
+.how-it-works li::before {
+  content: counter(step-counter);
+  counter-increment: step-counter;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 2rem;
+  height: 2rem;
+  background-color: var(--haste-yellow);
+  color: var(--primary-black);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+/* Tips & Resources Section Styling */
+.tips-resources {
+  padding: 2rem;
+  background: var(--primary-black);
+  color: whitesmoke;
+  border-top: 2px solid var(--haste-yellow);
+}
+
+.tips-resources .list-disc li a {
+  color: var(--haste-yellow);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.tips-resources .list-disc li a:hover {
+  text-decoration: underline;
 }
 </style>

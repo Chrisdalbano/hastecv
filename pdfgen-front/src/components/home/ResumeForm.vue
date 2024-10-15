@@ -1,6 +1,7 @@
 <template>
-  <div class="parent-wrapper">
-    <form @submit.prevent="generatePdf">
+  <div class="form-wrapper">
+    <!-- Form Container -->
+    <form @submit.prevent="generatePdf" class="form-container">
       <fieldset class="mt-10 space-y-10">
         <div class="grid grid-cols-1 gap-x-6 gap-y-10 md:grid-cols-2">
           <TextInput
@@ -161,10 +162,6 @@
           </li>
         </ul>
       </div>
-
-      <div class="flex items-center justify-center">
-        <button type="submit" class="haste-button">GENERATE</button>
-      </div>
     </form>
 
     <!-- The Reusable Modal component -->
@@ -238,10 +235,6 @@ const modalTitle = ref("");
 const newEntry = ref({});
 
 function generatePdf() {
-  if (!store.consentAccepted) {
-    alert("You need to accept cookies to generate a resume.");
-    return;
-  }
   store.generatePdf(JSON.stringify(store.resumeData));
 }
 
@@ -285,37 +278,18 @@ function removeEducation(index) {
 }
 </script>
 
-<script>
-export default {
-  useHead: {
-    title: "HasteCV - Resume Form",
-    meta: [
-      {
-        name: "description",
-        content:
-          "Input your resume data into HasteCV’s intuitive form to generate an ATS-friendly CV."
-      },
-      {
-        name: "keywords",
-        content:
-          "resume form, ATS resume, job application, CV creation, resume data input"
-      },
-      { property: "og:title", content: "HasteCV - Resume Form" },
-      {
-        property: "og:description",
-        content:
-          "Use HasteCV’s easy form to create your ATS-compliant resume in minutes."
-      }
-    ]
-  }
-};
-</script>
 <style scoped>
 input,
 textarea {
   font-size: 20px;
   font-weight: 600;
-
   font-family: monospace;
+}
+
+.form-container {
+  position: relative;
+  max-height: 100vh;
+  overflow-y: auto;
+  padding-bottom: 80px; /* Space for mobile buttons */
 }
 </style>

@@ -1,45 +1,70 @@
 <template>
-  <div
-    style="--min-width: 300"
-    class="container grid grid-cols-2 gap-4 overflow-hidden p-1 py-4 max-lg:grid-cols-1"
-  >
-    <div class="form-section space-y-4">
+  <div class="container">
+    <div class="form-preview-wrapper">
+      <!-- Form Section -->
       <div
-        class="flex flex-wrap items-center justify-center md:justify-between"
+        :class="[
+          'form-section',
+          { 'hidden-mobile': isPreviewVisible && isMobile }
+        ]"
       >
-        <!-- Switch between Manual and JSON mode -->
-        <div class="switch-toggle">
-          <AppLink to="/app" class="flex-1">Manual</AppLink>
-          <AppLink to="/app/json" class="flex-1">JSON</AppLink>
+        <div class="form-header">
+          <div class="switch-toggle">
+            <AppLink
+              to="/app"
+              class="toggle-link"
+              :class="{ active: currentRoute === '/app' }"
+            >
+              MANUAL
+            </AppLink>
+            <AppLink
+              to="/app/json"
+              class="toggle-link"
+              :class="{ active: currentRoute === '/app/json' }"
+            >
+              JSON
+            </AppLink>
+          </div>
+          <div class="template-selector-wrapper">
+            <label class="template-label">Style:</label>
+            <TemplateSelector @select="updateTemplate" />
+          </div>
+          <div class="sub-options">
+            <button @click="injectDummyData" class="option-button">
+              Load Test Data
+            </button>
+            <div class="divider"></div>
+            <button @click="clearData" class="option-button">Clear Data</button>
+          </div>
         </div>
-        <div class="mx-2 flex items-center">
-          <label class="text-xl font-bold text-haste-yellow">STYLE:</label>
-          <TemplateSelector @select="updateTemplate" />
-        </div>
+
+        <!-- Render the form -->
+        <router-view v-slot="{ Component, route }">
+          <Transition mode="out-in" name="fade">
+            <component :is="Component" :key="route.path" />
+          </Transition>
+        </router-view>
       </div>
 
-      <!-- Button to inject dummy data -->
-      <div class="sub-options flex items-center justify-center gap-6">
-        <button @click="injectDummyData" class="text-[var(--haste-yellow)]">
-          Load Test Data
-        </button>
-        <div class="text-gray-500">|</div>
-        <button @click="clearData" class="text-[var(--haste-yellow)]">
-          Clear Data
-        </button>
+      <!-- CV Preview Section -->
+      <div
+        :class="[
+          'preview-section',
+          { 'hidden-mobile': !isPreviewVisible && isMobile }
+        ]"
+      >
+        <PreviewCV :downloadLink="store.downloadLink" />
       </div>
-
-      <!-- Dynamic rendering of the selected view -->
-      <router-view v-slot="{ Component, route }">
-        <Transition mode="out-in" name="fade">
-          <component :is="Component" :key="route.path" />
-        </Transition>
-      </router-view>
     </div>
 
-    <!-- CV Preview Component -->
-    <div class="preview-section">
-      <PreviewCV :downloadLink="store.downloadLink" />
+    <!-- Generate Button and Overlay -->
+    <div class="generate-button-overlay">
+      <div class="button-group">
+        <GenerateButton />
+        <button v-if="isMobile" @click="togglePreview" class="haste-button">
+          {{ isPreviewVisible ? "BACK" : "VISUALIZE" }}
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -47,74 +72,107 @@
 <script setup>
 import TemplateSelector from "@/components/home/TemplateSelector.vue";
 import PreviewCV from "@/components/home/PreviewCV.vue";
-import AppLink from "@/components/AppLink.vue"; // AppLink for routing
+import AppLink from "@/components/AppLink.vue";
+import GenerateButton from "@/components/GenerateButton.vue";
 import { useResumeDataStore } from "../stores/resumeData";
+import { ref, onMounted, onUnmounted, watch } from "vue";
+import { useRoute } from "vue-router";
 
 const store = useResumeDataStore();
+const isMobile = ref(window.innerWidth <= 768);
+const isPreviewVisible = ref(false);
+const route = useRoute();
+const currentRoute = ref(route.path);
 
+// Update currentRoute whenever the route changes
+watch(route, (newRoute) => {
+  currentRoute.value = newRoute.path;
+});
+
+// Update window size status
+function checkWindowSize() {
+  isMobile.value = window.innerWidth <= 768;
+}
+
+onMounted(() => {
+  window.addEventListener("resize", checkWindowSize);
+  checkWindowSize();
+});
+onUnmounted(() => {
+  window.removeEventListener("resize", checkWindowSize);
+});
+
+// Template update handler
 function updateTemplate(newTemplate) {
   store.template = newTemplate;
 }
 
+// Inject dummy data into the store
 function injectDummyData() {
-  store.resumeData.name = "John Doe";
-  store.resumeData.title = "Software Engineer";
-  store.resumeData.contact.email = "john.doe@example.com";
-  store.resumeData.contact.phone = "123-456-7890";
-  store.resumeData.contact.location = "New York, USA";
-  store.resumeData.contact.linkedin = "https://linkedin.com/in/johndoe";
-  store.resumeData.contact.github = "https://github.com/johndoe";
-  store.resumeData.contact.website = "https://johndoe.dev";
-
-  store.resumeData.summary = [
-    "Highly skilled Software Engineer with 5+ years of experience in building scalable web applications and services.",
-    "Proficient in JavaScript, Vue.js, Python, and various backend technologies."
-  ];
-
-  store.resumeData.experience = [
-    {
-      position: "Lead Software Engineer",
-      company: "TechCorp Solutions",
-      dates: "Jan 2020 - Present",
-      responsibilities: [
-        "Led a team of 10 engineers to build scalable web platforms using Vue.js and Node.js.",
-        "Architected a microservices backend that improved response time by 30%.",
-        "Mentored junior developers and conducted code reviews."
-      ]
+  store.resumeData = {
+    name: "John Doe",
+    title: "Software Engineer",
+    contact: {
+      email: "john.doe@example.com",
+      phone: "123-456-7890",
+      location: "New York, USA",
+      linkedin: "https://linkedin.com/in/johndoe",
+      github: "https://github.com/johndoe",
+      website: "https://johndoe.dev"
     },
-    {
-      position: "Software Engineer",
-      company: "Innovative Web Apps",
-      dates: "Jun 2017 - Dec 2019",
-      responsibilities: [
-        "Developed and maintained web applications using Vue.js and Django.",
-        "Collaborated with the UX/UI team to improve the user experience.",
-        "Automated testing processes and improved deployment pipelines."
-      ]
-    }
-  ];
-
-  store.resumeData.education = [
-    {
-      degree: "Bachelor of Science in Computer Science",
-      institution: "University of Technology",
-      dates: "2013 - 2017"
-    }
-  ];
-
-  store.resumeData.skills = [
-    "JavaScript",
-    "Vue.js",
-    "Node.js",
-    "Python",
-    "Django",
-    "REST APIs",
-    "SQL/NoSQL Databases"
-  ];
+    summary: [
+      "Highly skilled Software Engineer with 5+ years of experience in building scalable web applications and services.",
+      "Proficient in JavaScript, Vue.js, Python, and various backend technologies."
+    ],
+    experience: [
+      {
+        position: "Lead Software Engineer",
+        company: "TechCorp Solutions",
+        dates: "Jan 2020 - Present",
+        responsibilities: [
+          "Led a team of 10 engineers to build scalable web platforms using Vue.js and Node.js.",
+          "Architected a microservices backend that improved response time by 30%.",
+          "Mentored junior developers and conducted code reviews."
+        ]
+      },
+      {
+        position: "Software Engineer",
+        company: "Innovative Web Apps",
+        dates: "Jun 2017 - Dec 2019",
+        responsibilities: [
+          "Developed and maintained web applications using Vue.js and Django.",
+          "Collaborated with the UX/UI team to improve the user experience.",
+          "Automated testing processes and improved deployment pipelines."
+        ]
+      }
+    ],
+    education: [
+      {
+        degree: "Bachelor of Science in Computer Science",
+        institution: "University of Technology",
+        dates: "2013 - 2017"
+      }
+    ],
+    skills: [
+      "JavaScript",
+      "Vue.js",
+      "Node.js",
+      "Python",
+      "Django",
+      "REST APIs",
+      "SQL/NoSQL Databases"
+    ]
+  };
 }
 
+// Clear resume data in the store
 function clearData() {
   store.clearResumeData();
+}
+
+// Toggle preview visibility
+function togglePreview() {
+  isPreviewVisible.value = !isPreviewVisible.value;
 }
 </script>
 
@@ -147,87 +205,194 @@ export default {
 <style scoped>
 .container {
   display: flex;
-  flex-direction: row;
-  gap: 2rem;
-  max-width: 1400px;
-  margin: 0 auto;
+  flex-direction: column;
+  max-width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
   padding: 1rem;
 }
 
-/* Form Section */
-.form-section {
+.form-preview-wrapper {
+  display: flex;
+  height: calc(100% - 100px);
+  gap: 1.5rem;
+}
+
+.form-section,
+.preview-section {
   flex: 1;
   overflow-y: auto;
-  max-height: 100vh;
-  padding-right: 1rem;
-  /* Hide the scrollbar */
-  scrollbar-width: none; /* For Firefox */
-  -ms-overflow-style: none; /* For Internet Explorer and Edge */
+  padding: 1.5rem;
+  background: rgba(20, 20, 20, 0.85);
+  border-radius: 8px;
+  scrollbar-color: rgba(255, 69, 0, 0.5) transparent;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
-.form-section::-webkit-scrollbar {
-  display: none; /* For Chrome, Safari, and Opera */
+.form-section::-webkit-scrollbar,
+.preview-section::-webkit-scrollbar {
+  display: none;
 }
-/* CV Preview Section (Sticky Positioning) */
-.preview-section {
-  flex-basis: 40%;
-  position: sticky;
-  height: calc(100vh - 8rem);
+
+.hidden-mobile {
+  display: none;
+}
+
+.generate-button-overlay {
+  position: fixed;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
-  align-items: center;
   justify-content: center;
-  background-color: rgba(20, 20, 20, 0.7);
+  align-items: center;
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.9);
+  z-index: 30;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
 }
 
-@media (max-width: 1024px) {
-  .container {
+.button-group {
+  display: flex;
+  gap: 10px;
+}
+
+.button-group button {
+  font-size: 1.3rem;
+}
+
+.form-header {
+  gap: 1rem;
+}
+
+.toggle-preview-button {
+  font-size: 1rem;
+  padding: 0.5rem 1.2rem;
+  background: transparent;
+  color: #ff4500;
+  border: 2px solid #ff4500;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.toggle-preview-button:hover {
+  background: #ff4500;
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  .form-preview-wrapper {
     flex-direction: column;
+    height: calc(100% - 150px);
   }
 
+  .form-section,
   .preview-section {
-    position: relative;
-    top: 0;
-    margin-top: 2rem;
-    height: auto;
+    flex: 1;
   }
+
+  .form-header {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .switch-toggle {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .template-selector-wrapper,
+  .sub-options {
+    justify-content: center;
+    width: 100%;
+  }
+}
+
+.form-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 2px solid var(--haste-yellow);
+  background: rgba(20, 20, 20, 0.9);
+  border-radius: 8px;
+  margin-bottom: 1rem;
 }
 
 .switch-toggle {
-  --max-width: 260px;
-  background: transparent;
   display: flex;
-  max-width: var(--max-width);
+  gap: 10px;
+  flex: 1;
 }
 
-.haste-button {
-  font-size: 1.2rem;
-  padding: 0.75rem 1.5rem;
-  background-color: transparent;
+.toggle-link {
+  padding: 10px 20px;
+  border: 2px solid var(--haste-yellow);
+  border-radius: 6px;
+  color: var(--haste-yellow);
+  text-align: center;
+  text-decoration: none;
+  font-weight: 600;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+  cursor: pointer;
+}
+
+.toggle-link.active {
+  background-color: var(--haste-yellow);
+  color: #000;
+}
+
+.toggle-link:hover {
+  background-color: var(--haste-yellow);
+  color: #000;
+}
+
+.template-selector-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.template-label {
+  font-size: 1rem;
+  color: var(--haste-yellow);
+  font-weight: bold;
+}
+
+.sub-options {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.option-button {
+  background: transparent;
   color: var(--haste-yellow);
   border: 2px solid var(--haste-yellow);
-  transition: all 0.3s ease;
-  border-radius: 5px;
-  margin-top: 1rem;
+  padding: 5px 15px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
-.haste-button:hover {
+.option-button:hover {
   background-color: var(--haste-yellow);
-  color: var(--primary-black);
-  transform: scale(1.05);
+  color: #000;
 }
 
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: all 0.25s ease-in-out;
-}
-
-.sub-options button:hover {
-  transition: all 0.25s ease-in-out;
-  transform: scale(1.05);
+.divider {
+  width: 1px;
+  height: 20px;
+  background-color: var(--haste-yellow);
 }
 </style>
