@@ -48,7 +48,7 @@ const store = useResumeDataStore();
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 2rem;
+  margin-top: 1.5rem;
   width: 100%;
 }
 
@@ -63,10 +63,10 @@ const store = useResumeDataStore();
   align-items: center;
   justify-content: center;
   box-shadow:
-    10px 10px 30px rgba(0, 0, 0, 0.25),
-    -10px -10px 30px rgba(255, 109, 12, 0.15);
+    5px 5px 20px rgba(0, 0, 0, 0.15),
+    -5px -5px 20px rgba(255, 109, 12, 0.1);
   overflow: hidden;
-  background-color: rgba(20, 20, 20, 0.8);
+  background-color: rgba(20, 20, 20, 0.85);
   margin-bottom: 1rem;
 }
 
@@ -77,10 +77,10 @@ const store = useResumeDataStore();
   left: 5px;
   width: calc(100% - 10px);
   height: calc(100% - 10px);
-  border-radius: 8px;
+  border-radius: 12px;
   background: rgba(19, 19, 19, 0.1);
-  backdrop-filter: blur(12px);
-  border: 2px solid rgba(255, 17, 0, 0.3);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 17, 0, 0.2);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -93,13 +93,13 @@ const store = useResumeDataStore();
   z-index: 0;
   top: 50%;
   left: 50%;
-  width: 400px;
-  height: 400px;
+  width: 300px;
+  height: 300px;
   border-radius: 50%;
   background-color: var(--haste-yellow);
-  opacity: 0.2;
-  filter: blur(30px);
-  animation: blob-bounce 5s infinite ease-in-out;
+  opacity: 0.15;
+  filter: blur(20px);
+  animation: blob-bounce 6s infinite ease-in-out;
 }
 
 @keyframes blob-bounce {
@@ -108,13 +108,13 @@ const store = useResumeDataStore();
     transform: translate(-50%, -50%) translate3d(0, 0, 0);
   }
   25% {
-    transform: translate(-50%, -50%) translate3d(20%, 0, 0);
+    transform: translate(-50%, -50%) translate3d(15%, 0, 0);
   }
   50% {
-    transform: translate(-50%, -50%) translate3d(20%, 20%, 0);
+    transform: translate(-50%, -50%) translate3d(15%, 15%, 0);
   }
   75% {
-    transform: translate(-50%, -50%) translate3d(0, 20%, 0);
+    transform: translate(-50%, -50%) translate3d(0, 15%, 0);
   }
 }
 
@@ -126,11 +126,12 @@ const store = useResumeDataStore();
   height: 100%;
   border: none;
   border-radius: 8px;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
 }
 
 /* Placeholder when no preview is available */
 .preview-placeholder {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   color: var(--haste-yellow);
   font-weight: bold;
   text-align: center;
@@ -139,32 +140,76 @@ const store = useResumeDataStore();
   opacity: 0.9;
 }
 
+/* Button container styling */
+.button-container {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  margin-top: 1rem;
+  justify-content: center;
+}
+
+/* Action Buttons */
+.action-button {
+  background-color: rgba(255, 17, 0, 0.8);
+  color: #fff;
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.action-button:hover {
+  background-color: rgba(255, 17, 0, 1);
+}
+
+.generate-button {
+  background-color: rgba(0, 128, 255, 0.8);
+}
+
+.generate-button:hover {
+  background-color: rgba(0, 128, 255, 1);
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .preview-card {
-    width: 90%;
-    height: 50vh;
+    width: 95%;
+    height: 40vh;
     margin-top: 1rem;
   }
 
   .glass-effect {
-    top: 3px;
-    left: 3px;
-    width: calc(100% - 6px);
-    height: calc(100% - 6px);
-    border-radius: 5px;
-    backdrop-filter: blur(8px);
+    top: 2px;
+    left: 2px;
+    width: calc(100% - 4px);
+    height: calc(100% - 4px);
+    border-radius: 8px;
+    backdrop-filter: blur(6px);
   }
 
   .blob {
-    width: 250px;
-    height: 250px;
-    filter: blur(20px);
+    width: 200px;
+    height: 200px;
+    filter: blur(15px);
   }
 
   .preview-placeholder {
-    font-size: 1.2rem;
-    padding: 1.5rem;
+    font-size: 1.1rem;
+    padding: 1rem;
+  }
+
+  .button-container {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .action-button {
+    width: 100%;
+    padding: 0.7rem;
   }
 }
 </style>
