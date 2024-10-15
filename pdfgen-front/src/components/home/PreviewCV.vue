@@ -2,7 +2,7 @@
   <section class="preview-container">
     <!-- CV Preview Overlay with Glassmorphism Effect -->
     <div class="preview-card">
-      <div class="glass-effect">
+      <div class="">
         <!-- Blob Animation -->
         <div class="blob"></div>
         <!-- Display the CV Preview -->
@@ -182,14 +182,7 @@ const store = useResumeDataStore();
     margin-top: 1rem;
   }
 
-  .glass-effect {
-    top: 2px;
-    left: 2px;
-    width: calc(100% - 4px);
-    height: calc(100% - 4px);
-    border-radius: 8px;
-    backdrop-filter: blur(6px);
-  }
+ 
 
   .blob {
     width: 200px;
