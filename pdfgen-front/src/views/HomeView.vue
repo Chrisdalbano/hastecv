@@ -225,7 +225,7 @@ export default {
   overflow-y: auto;
   padding: 1.5rem;
   background: rgba(20, 20, 20, 0.85);
-  border-radius: 8px;
+  border-radius: 2px;
   scrollbar-color: rgba(255, 69, 0, 0.5) transparent;
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -251,7 +251,7 @@ export default {
   padding: 10px;
   background: rgba(0, 0, 0, 0.9);
   z-index: 30;
-  border-radius: 10px;
+  border-radius: 2px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
 }
 
@@ -274,7 +274,7 @@ export default {
   background: transparent;
   color: #ff4500;
   border: 2px solid #ff4500;
-  border-radius: 5px;
+  border-radius: 2px;
   cursor: pointer;
   transition: all 0.3s ease;
 }
@@ -320,7 +320,7 @@ export default {
   padding: 1rem;
   border-bottom: 2px solid var(--haste-yellow);
   background: rgba(20, 20, 20, 0.9);
-  border-radius: 8px;
+  border-radius: 2px;
   margin-bottom: 1rem;
 }
 
@@ -333,7 +333,7 @@ export default {
 .toggle-link {
   padding: 10px 20px;
   border: 2px solid var(--haste-yellow);
-  border-radius: 6px;
+  border-radius: 2px;
   color: var(--haste-yellow);
   text-align: center;
   text-decoration: none;
@@ -377,7 +377,7 @@ export default {
   color: var(--haste-yellow);
   border: 2px solid var(--haste-yellow);
   padding: 5px 15px;
-  border-radius: 6px;
+  border-radius: 2px;
   font-weight: 600;
   cursor: pointer;
   transition:
