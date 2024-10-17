@@ -159,9 +159,9 @@ def generate_resume(data, template="minimal"):
 
     # Add projects section
     def add_projects_section():
-        story.append(Paragraph("Projects", styles["CustomH2"]))
-        url_color = "#63C5DA" if template == "modern" else "darkorange"
         if data.get("projects", []):
+            story.append(Paragraph("Projects", styles["CustomH2"]))
+            url_color = "#63C5DA" if template == "modern" else "darkorange"
             for project in data.get("projects", []):
                 story.append(
                     Paragraph(
