@@ -161,7 +161,7 @@ def generate_resume(data, template="minimal"):
     def add_projects_section():
         story.append(Paragraph("Projects", styles["CustomH2"]))
         url_color = "#63C5DA" if template == "modern" else "darkorange"
-        if data.get("projects", {}):
+        if data.get("projects", []):
             for project in data.get("projects", []):
                 story.append(
                     Paragraph(
