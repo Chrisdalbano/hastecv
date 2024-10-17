@@ -1,11 +1,7 @@
 <template>
   <div class="mt-8">
-    <!-- <h2 class="mb-4 text-2xl font-bold text-white">Edit JSON</h2> -->
     <form @submit.prevent="submitJson">
       <div ref="jsonEditor" class="my-12 h-[65vmin]"></div>
-      <!-- <div class="flex items-center justify-center">
-        <button type="submit" class="haste-button">Generate</button>
-      </div> -->
     </form>
   </div>
 </template>
@@ -13,7 +9,7 @@
 <script setup>
 import JSONEditor from "jsoneditor";
 import { useResumeDataStore } from "@/stores/resumeData";
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch, onUnmounted } from "vue";
 import "jsoneditor/dist/jsoneditor.css";
 import "ace-builds/src-noconflict/ace";
 import "ace-builds/src-noconflict/theme-twilight";
@@ -22,6 +18,7 @@ const store = useResumeDataStore();
 const jsonEditor = ref(null);
 const editor = ref(null);
 
+// Initialize the JSONEditor on mounted
 onMounted(() => {
   const container = jsonEditor.value;
   editor.value = new JSONEditor(container, {
@@ -29,13 +26,34 @@ onMounted(() => {
     ace: window.ace,
     theme: "ace/theme/twilight"
   });
+
+  // Set the initial data from the store
   editor.value.set(store.resumeData);
 });
 
+// Watch for changes in the store's resumeData and update the editor
+watch(
+  () => store.resumeData, // watching the resumeData from the store
+  (newData) => {
+    if (editor.value) {
+      editor.value.update(newData); // use update to avoid losing focus on small changes
+    }
+  },
+  { deep: true } // deep watching ensures nested changes are detected
+);
+
+// Cleanup the editor instance on component unmount
+onUnmounted(() => {
+  if (editor.value) {
+    editor.value.destroy();
+  }
+});
+
+// Handle form submission
 function submitJson() {
   try {
     const parsedData = editor.value.get();
-    store.resumeData = parsedData;
+    store.resumeData = parsedData; // Update the store with the new JSON data
     store.generatePdf(parsedData);
   } catch (error) {
     alert("Invalid JSON format");
@@ -68,4 +86,5 @@ export default {
   }
 };
 </script>
+
 <style scoped></style>
