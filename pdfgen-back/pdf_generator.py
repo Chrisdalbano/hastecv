@@ -161,21 +161,23 @@ def generate_resume(data, template="minimal"):
     def add_projects_section():
         story.append(Paragraph("Projects", styles["CustomH2"]))
         url_color = "#63C5DA" if template == "modern" else "darkorange"
-        for project in data.get("projects", []):
-            story.append(
-                Paragraph(
-                    f"<b>{project['title']}</b> (<a href='{project['url']}' color='{url_color}'>{project['url']}</a>)",
-                    styles["CustomBold"],
+        if data.get("projects", {}):
+            for project in data.get("projects", []):
+                story.append(
+                    Paragraph(
+                        f"<b>{project['title']}</b> (<a href='{project['url']}' color='{url_color}'>{project['url']}</a>)",
+                        styles["CustomBold"],
+                    )
                 )
-            )
-            story.append(Paragraph(project["description"], styles["CustomNormal"]))
-            story.append(
-                Paragraph(
-                    f"Technologies: {project['technologies']}", styles["CustomNormal"]
+                story.append(Paragraph(project["description"], styles["CustomNormal"]))
+                story.append(
+                    Paragraph(
+                        f"Technologies: {project['technologies']}",
+                        styles["CustomNormal"],
+                    )
                 )
-            )
-            story.append(Spacer(1, 6))
-        story.append(Spacer(1, 12))
+                story.append(Spacer(1, 6))
+            story.append(Spacer(1, 12))
 
     # Add technical proficiency section
     def add_technical_proficiency_section():
