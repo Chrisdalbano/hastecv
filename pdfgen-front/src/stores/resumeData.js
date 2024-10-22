@@ -2,6 +2,9 @@ import { defineStore } from "pinia";
 import { ref, watch, onMounted } from "vue";
 import { useCookies } from "vue3-cookies";
 
+// Get the backend URL from the environment variable
+const apiUrl = import.meta.env.VITE_API_URL || "http://127.0.0.1:5000"; // Fallback to localhost if not set
+
 export const useResumeDataStore = defineStore("resume", () => {
   const { cookies } = useCookies();
 
@@ -67,7 +70,7 @@ export const useResumeDataStore = defineStore("resume", () => {
 
     try {
       const response = await fetch(
-        `https://limitless-ravine-64006-56ec8f2bdbdc.herokuapp.com/generate`,
+        `${apiUrl}/generate`, // Use dynamic API URL
         {
           method: "POST",
           headers: {

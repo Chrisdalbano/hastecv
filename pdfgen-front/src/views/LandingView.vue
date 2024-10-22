@@ -65,32 +65,50 @@
         </div>
       </div>
     </section>
-    <section class="how-it-works py-20 bg-gray-800 text-whitesmoke">
+
+    <section class="how-it-works text-whitesmoke bg-gray-800 py-20">
       <div class="center">
-        <h2 class="text-center mb-12 text-3xl font-bold text-haste-yellow">How HasteCV Works</h2>
-        <ol class=" list-inside mx-auto max-w-4xl text-left space-y-8">
+        <h2 class="mb-12 text-center text-3xl font-bold text-haste-yellow">
+          How HasteCV Works
+        </h2>
+        <ol class="mx-auto max-w-4xl list-inside space-y-8 text-left">
           <li>
-            <h3 class="text-2xl font-bold mb-2">Choose Your Template</h3>
+            <h3 class="mb-2 text-2xl font-bold">Choose Your Template</h3>
             <p class="text-lg leading-relaxed">
-              Begin by selecting a template that best suits the type of job you are applying for. HasteCV offers a couple of templates, giving you some flexibility to match your resume with your desired industry. Don't know how to start? Generate some 'Test Data' to get some inspiration.
+              Begin by selecting a template that best suits the type of job you
+              are applying for. HasteCV offers a couple of templates, giving you
+              some flexibility to match your resume with your desired industry.
+              Don't know how to start? Generate some 'Test Data' to get some
+              inspiration.
             </p>
           </li>
           <li>
-            <h3 class="text-2xl font-bold mb-2">Customize Your CV</h3>
+            <h3 class="mb-2 text-2xl font-bold">Customize Your CV</h3>
             <p class="text-lg leading-relaxed">
-              Use our editor to manually input your personal details, work experience, and skills, or take advantage of JSON editing for advanced customization. Personalize every detail to stand out from the competition.
+              Use our editor to manually input your personal details, work
+              experience, and skills, or take advantage of JSON editing for
+              advanced customization. Personalize every detail to stand out from
+              the competition.
             </p>
           </li>
           <li>
-            <h3 class="text-2xl font-bold mb-2">Generated & Optimized for ATS</h3>
+            <h3 class="mb-2 text-2xl font-bold">
+              Generated & Optimized for ATS
+            </h3>
             <p class="text-lg leading-relaxed">
-             When ready, click the GENERATE button to create your resume. With HasteCV, the structure of your resume will be automatically optimized for Applicant Tracking Systems (ATS). It structures your resume to pass through ATS scans effectively, ensuring it reaches hiring managers.
+              When ready, click the GENERATE button to create your resume. With
+              HasteCV, the structure of your resume will be automatically
+              optimized for Applicant Tracking Systems (ATS). It structures your
+              resume to pass through ATS scans effectively, ensuring it reaches
+              hiring managers.
             </p>
           </li>
           <li>
-            <h3 class="text-2xl font-bold mb-2">Download & Apply</h3>
+            <h3 class="mb-2 text-2xl font-bold">Download & Apply</h3>
             <p class="text-lg leading-relaxed">
-              Once satisfied with your CV, download it as a PDF. Your professionally crafted, ATS-ready CV is now ready to send out to potential employers and help you land that dream job.
+              Once satisfied with your CV, download it as a PDF. Your
+              professionally crafted, ATS-ready CV is now ready to send out to
+              potential employers and help you land that dream job.
             </p>
           </li>
         </ol>
@@ -98,29 +116,61 @@
     </section>
 
     <!-- Additional Tips & Resources Section -->
-    <section class="tips-resources py-20 text-whitesmoke">
+    <section class="tips-resources text-whitesmoke py-20">
       <div class="center">
-        <h2 class="text-center mb-12 text-3xl font-bold text-haste-yellow">Tips & Resources for a Winning CV</h2>
-        <div class="mx-auto max-w-4xl text-left space-y-8">
+        <h2 class="mb-12 text-center text-3xl font-bold text-haste-yellow">
+          Tips & Resources for a Winning CV
+        </h2>
+        <div class="mx-auto max-w-4xl space-y-8 text-left">
           <div>
-            <h3 class="text-2xl font-bold mb-2">Top CV Writing Tips</h3>
+            <h3 class="mb-2 text-2xl font-bold">Top CV Writing Tips</h3>
             <p class="text-lg leading-relaxed">
-              Crafting a winning CV is about showcasing your experience and skills in a clear, concise manner. Here are some top tips:
-              <ul class="list-disc list-inside mt-2 space-y-2">
-                <li>Focus on your achievements, not just duties.</li>
-                <li>Keep it concise – one to two pages are ideal.</li>
-                <li>Tailor your CV to the job description for every application.</li>
-                <li>Use action verbs to describe your experience (e.g., led, improved, created).</li>
-              </ul>
+              Crafting a winning CV is about showcasing your experience and
+              skills in a clear, concise manner. Here are some top tips:
             </p>
+            <ul class="mt-2 list-inside list-disc space-y-2">
+              <li>Focus on your achievements, not just duties.</li>
+              <li>Keep it concise – one to two pages are ideal.</li>
+              <li>
+                Tailor your CV to the job description for every application.
+              </li>
+              <li>
+                Use action verbs to describe your experience (e.g., led,
+                improved, created).
+              </li>
+            </ul>
           </div>
           <div>
-            <h3 class="text-2xl font-bold mb-2">What is JSON Editing</h3>
+            <h3 class="mb-2 text-2xl font-bold">What is JSON Editing</h3>
             <p class="text-lg leading-relaxed">
-              JSON editing allows advanced customization of your CV. This feature is perfect for tech-savvy users who want complete control over the CV layout. With JSON, you can directly modify the data structure to fit specific needs, ensuring no detail is overlooked.
+              JSON editing allows advanced customization of your CV. This
+              feature is perfect for tech-savvy users who want complete control
+              over the CV layout. With JSON, you can directly modify the data
+              structure to fit specific needs, ensuring no detail is overlooked.
             </p>
           </div>
-         
+
+          <!-- Collapsible JSON Example Section -->
+          <div class="json-example text-whitesmoke">
+            <h3 class="mb-2 text-2xl font-bold">JSON is also customizable!</h3>
+            <p class="mb-6 text-lg leading-relaxed">
+              Take a look at my updated CV crafted using HasteCV below, you can use it as
+              a reference and see how fields like 'technical-proficiency' and
+              'projects' can be added:
+            </p>
+
+            <!-- Collapsible JSON Container -->
+            <div class="json-container">
+              <div ref="jsonContent" class="json-content">
+                <pre><code>{{ formattedJson }}</code></pre>
+              </div>
+
+              <!-- Toggle Button -->
+              <button @click="toggleJsonView" class="toggle-json-btn">
+                {{ isExpanded ? "Collapse JSON" : "Expand JSON" }}
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -129,9 +179,13 @@
 
 <script setup>
 import { useRouter } from "vue-router";
+import { ref, onMounted } from "vue";
+import { gsap } from "gsap";
 import jsonIcon from "../assets/json.svg";
 import freeIcon from "../assets/free.svg";
 import easyIcon from "../assets/easy.svg";
+// Import the JSON data dynamically
+import resumeData from "@/assets/resumeData.json";
 
 const router = useRouter();
 
@@ -159,6 +213,27 @@ const features = [
 function navigateToApp() {
   router.push("/app");
 }
+
+// State for collapsible JSON
+const isExpanded = ref(false);
+const jsonContent = ref(null);
+
+// GSAP animation for expanding/collapsing JSON
+const toggleJsonView = () => {
+  if (isExpanded.value) {
+    gsap.to(jsonContent.value, { height: "200px", duration: 1 });
+  } else {
+    gsap.to(jsonContent.value, { height: "auto", duration: 1 });
+  }
+  isExpanded.value = !isExpanded.value;
+};
+
+// Format JSON for display
+const formattedJson = JSON.stringify(resumeData, null, 2);
+
+onMounted(() => {
+  gsap.set(jsonContent.value, { height: "200px", overflow: "hidden" });
+});
 </script>
 
 <script>
@@ -301,7 +376,6 @@ export default {
   border: 2px solid var(--haste-yellow);
   display: flex;
   flex-direction: column;
-  cursor: pointer;
   transform-origin: center center;
   transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
@@ -406,5 +480,47 @@ export default {
 
 .tips-resources .list-disc li a:hover {
   text-decoration: underline;
+}
+
+/* JSON example container styling */
+.json-container {
+  background-color: #1e1e1e;
+  border: 1px solid var(--haste-yellow);
+  border-radius: 8px;
+  padding: 16px;
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.json-content {
+  overflow: hidden;
+  max-width: 100%;
+  white-space: pre-wrap;
+  color: #d1d5db; /* Light gray color for the JSON text */
+  font-family: "Fira Code", monospace;
+  background: #272822;
+  border-radius: 8px;
+  padding: 16px;
+  transition: height 0.5s ease;
+}
+
+.toggle-json-btn {
+  background-color: var(--haste-yellow);
+  color: var(--primary-black);
+  padding: 8px 16px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 12px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.toggle-json-btn:hover {
+  background-color: #ffcc00;
 }
 </style>

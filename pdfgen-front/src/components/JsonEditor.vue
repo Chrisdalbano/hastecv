@@ -1,8 +1,6 @@
 <template>
   <div class="mt-8">
-    <form @submit.prevent="submitJson">
-      <div ref="jsonEditor" class="my-12 h-[65vmin]"></div>
-    </form>
+    <div ref="jsonEditor" class="my-12 h-[65vmin]"></div>
   </div>
 </template>
 
@@ -17,6 +15,7 @@ import "ace-builds/src-noconflict/theme-twilight";
 const store = useResumeDataStore();
 const jsonEditor = ref(null);
 const editor = ref(null);
+let isUpdatingFromEditor = false; // Flag to avoid circular updates
 
 // Initialize the JSONEditor on mounted
 onMounted(() => {
@@ -24,41 +23,42 @@ onMounted(() => {
   editor.value = new JSONEditor(container, {
     modes: ["code", "form", "text", "tree", "view"],
     ace: window.ace,
-    theme: "ace/theme/twilight"
+    theme: "ace/theme/twilight",
+    onChange: () => {
+      // When the user changes the data in the editor, update the store
+      try {
+        const updatedData = editor.value.get(); // Get the new data from the editor
+        isUpdatingFromEditor = true;
+        store.resumeData = updatedData; // Update the store with the new data
+      } catch (error) {
+        console.error("Failed to parse JSON data:", error);
+      } finally {
+        isUpdatingFromEditor = false; // Reset flag
+      }
+    }
   });
 
   // Set the initial data from the store
   editor.value.set(store.resumeData);
 });
 
-// Watch for changes in the store's resumeData and update the editor
+// Watch the store and update the editor when the store changes
 watch(
-  () => store.resumeData, // watching the resumeData from the store
+  () => store.resumeData,
   (newData) => {
-    if (editor.value) {
-      editor.value.update(newData); // use update to avoid losing focus on small changes
+    // Avoid circular updates: only update the editor if the change did not come from the editor itself
+    if (!isUpdatingFromEditor && editor.value) {
+      editor.value.update(newData);
     }
   },
-  { deep: true } // deep watching ensures nested changes are detected
+  { deep: true } // Deep watch to capture nested changes
 );
 
-// Cleanup the editor instance on component unmount
 onUnmounted(() => {
   if (editor.value) {
     editor.value.destroy();
   }
 });
-
-// Handle form submission
-function submitJson() {
-  try {
-    const parsedData = editor.value.get();
-    store.resumeData = parsedData; // Update the store with the new JSON data
-    store.generatePdf(parsedData);
-  } catch (error) {
-    alert("Invalid JSON format");
-  }
-}
 </script>
 
 <script>

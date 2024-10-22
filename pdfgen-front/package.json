@@ -12,6 +12,7 @@
     "@formkit/auto-animate": "^0.8.2",
     "@vueuse/head": "^2.0.0",
     "ace-builds": "^1.35.4",
+    "gsap": "^3.12.5",
     "jsoneditor": "^10.1.0",
     "pinia": "^2.1.7",
     "vue": "^3.4.29",
