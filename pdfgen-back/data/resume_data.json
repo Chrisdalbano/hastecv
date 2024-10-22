@@ -1,6 +1,6 @@
 {
   "name": "Christian D'Albano",
-  "title": "Frontend Developer",
+  "title": "Software Developer",
   "contact": {
     "email": "chrisdalbano12@gmail.com",
     "linkedin": "https://linkedin.com/in/chrisdalb",
@@ -19,7 +19,7 @@
   },
   "experience": [
     {
-      "position": "Frontend Developer",
+      "position": "Software Developer",
       "company": "Mouseflow",
       "location": "Remote - Orlando, FL",
       "dates": "Aug 2023 - Present",

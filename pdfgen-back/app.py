@@ -1,28 +1,41 @@
-from flask import Flask, render_template, request, send_file, jsonify
+import sys
+import os
+from flask import Flask, request, send_file, jsonify
 from flask_cors import CORS
-from pdf_generator import generate_resume
 from flask_talisman import Talisman
 import json
 import logging
 
-app = Flask(
-    __name__, static_folder="dist", template_folder="dist"
-)  # Serving frontend from 'dist'
-CORS(app, resources={r"/*": {"origins": "https://www.hastecv.com"}})
-Talisman(app)
+# Add the current project directory to the Python path
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
+from .pdf_generator import generate_resume
+
+# Initialize Flask app
+app = Flask(__name__)
+
+# Set default configurations
+app.config.from_mapping(
+    ENV=os.getenv("FLASK_ENV", "production"),  # Default to production
+    DEBUG=os.getenv("FLASK_DEBUG", False)      # Default debug setting
+)
+
+# Safely configure CORS and Talisman based on the environment
+if app.config["ENV"] == "production":
+    # Production settings
+    CORS(app, resources={r"/*": {"origins": "https://www.hastecv.com"}})
+    Talisman(app)  # Enable HTTPS enforcement in production
+else:
+    # Development settings
+    CORS(app, resources={r"/*": {"origins": "http://localhost:5173"}})
+    Talisman(app, force_https=False)  # Disable HTTPS enforcement for local dev
 
 # Setup logging
 handler = logging.StreamHandler()
 handler.setLevel(logging.ERROR)
 app.logger.addHandler(handler)
 
-
-@app.route("/")
-def index():
-    return render_template("index.html")  # Serve the Vue.js app
-
-
-# Other routes for API functionality
+# API functionality here
 @app.route("/generate", methods=["POST"])
 def generate():
     try:
@@ -36,6 +49,7 @@ def generate():
         if not data or not isinstance(data, dict):
             raise ValueError("Invalid data format")
 
+        # Call the resume generation function
         generate_resume(data, template=template)
         return send_file("resume.pdf", as_attachment=True)
 
@@ -46,18 +60,12 @@ def generate():
         app.logger.error(f"Unexpected error: {e}")
         return jsonify({"error": "An unexpected error occurred"}), 500
 
-
 @app.route("/templates")
 def get_templates():
     templates = ["default", "modern", "minimal"]
     return jsonify(templates)
 
-
-@app.route("/<path:path>")
-def static_proxy(path):
-    return app.send_static_file(path)
-
-
+# Secure headers for all responses
 @app.after_request
 def set_secure_headers(response):
     response.headers["Content-Security-Policy"] = "default-src 'self';"
@@ -65,6 +73,6 @@ def set_secure_headers(response):
     response.headers["X-Frame-Options"] = "DENY"
     return response
 
-
 if __name__ == "__main__":
-    app.run(debug=False)
+    # Run Flask app with debug mode if in development
+    app.run(debug=app.config["DEBUG"])
