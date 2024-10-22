@@ -80,7 +80,7 @@ export default {
       {
         property: "og:description",
         content:
-          "Directly modify your resume structure using HasteCV’s JSON resume editor for ultimate control."
+          "Directly modify your resume structure using HasteCV JSON resume editor for ultimate control."
       }
     ]
   }
