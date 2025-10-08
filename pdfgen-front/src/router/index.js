@@ -3,6 +3,7 @@ import LandingView from "../views/LandingView.vue";
 import HomeView from "../views/HomeView.vue"; // Main app view
 import JsonEditor from "@/components/JsonEditor.vue"; // JSON editor component
 import ResumeForm from "@/components/home/ResumeForm.vue"; // Manual CV creation component
+import VisualBuilder from "@/components/visual-builder/VisualBuilder.vue"; // Visual builder component
 
 const routes = [
   {
@@ -22,6 +23,11 @@ const routes = [
         path: "json", // JSON editor route
         name: "JsonEditor",
         component: JsonEditor
+      },
+      {
+        path: "visual", // Visual builder route
+        name: "VisualBuilder",
+        component: VisualBuilder
       }
     ]
   }

@@ -1,36 +1,39 @@
 <template>
-  <section class="preview-container">
-    <div class="preview-card">
-      <!-- Desktop: Show iframe -->
-      <iframe
-        v-if="props.downloadLink && !isMobile"
-        :src="props.downloadLink"
-        class="cv-preview"
-        title="CV Preview"
-        scrolling="yes"
-      ></iframe>
-      
-      <!-- Mobile: Show message and download button -->
-      <div v-else-if="props.downloadLink && isMobile" class="mobile-preview">
-        <p class="mobile-message">📄 Resume generated successfully!</p>
-        <p class="mobile-sub">PDF preview not available on mobile. Click below to download.</p>
-        <DownloadLink :downloadLink="store.downloadLink" />
+  <div class="preview-container">
+    <!-- PDF Viewer -->
+    <div v-if="props.downloadLink" class="pdf-viewer">
+      <!-- Controls -->
+      <div class="pdf-controls">
+        <div class="control-group">
+          <span class="page-info">PDF Preview</span>
+        </div>
+
+        <div class="control-group">
+          <DownloadLink :downloadLink="props.downloadLink" />
+        </div>
       </div>
-      
-      <!-- No preview yet -->
-      <p v-else class="preview-placeholder">PREVIEW OF CV WILL BE SHOWN HERE</p>
+
+      <!-- PDF Display with Iframe -->
+      <div class="pdf-display">
+        <iframe
+          :src="props.downloadLink + '#toolbar=1&navpanes=0&scrollbar=1'"
+          class="pdf-iframe"
+          title="PDF Preview"
+        ></iframe>
+      </div>
     </div>
 
-    <!-- Desktop download button -->
-    <div v-if="props.downloadLink && !isMobile" class="mt-6 flex justify-center">
-      <DownloadLink :downloadLink="store.downloadLink" />
+    <!-- Empty State -->
+    <div v-else class="empty-state">
+      <div class="empty-icon">📄</div>
+      <h3>No Preview Yet</h3>
+      <p>Generate your resume to see a preview here</p>
+      <p class="hint">Fill in your information and click "Generate Resume"</p>
     </div>
-  </section>
+  </div>
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue';
-import { useResumeDataStore } from "../../stores/resumeData";
 import DownloadLink from "../DownloadLink.vue";
 
 const props = defineProps({
@@ -38,108 +41,99 @@ const props = defineProps({
     required: true
   }
 });
-
-const store = useResumeDataStore();
-const isMobile = ref(false);
-
-const checkMobile = () => {
-  isMobile.value = window.innerWidth <= 768;
-};
-
-onMounted(() => {
-  checkMobile();
-  window.addEventListener('resize', checkMobile);
-});
-
-onUnmounted(() => {
-  window.removeEventListener('resize', checkMobile);
-});
 </script>
 
 <style scoped>
-/* Overall container */
 .preview-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-top: 1.5rem;
-  width: 100%;
+  height: 100%;
+  background: var(--gray-800);
+  border-radius: 8px;
+  overflow: hidden;
 }
 
-/* Card style for the CV preview */
-.preview-card {
-  position: relative;
-  width: 100%;
-  max-width: 800px; /* You can remove this if you want full width */
-  height: 70vh; /* Maintain height */
-  border-radius: 8px;
+/* PDF Viewer */
+.pdf-viewer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* PDF Controls */
+.pdf-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: var(--gray-900);
+  border-bottom: 1px solid var(--border-color);
+  flex-shrink: 0;
+}
+
+.control-group {
   display: flex;
   align-items: center;
-  justify-content: center;
-  box-shadow:
-    5px 5px 20px rgba(0, 0, 0, 0.15),
-    -5px -5px 20px rgba(255, 109, 12, 0.1);
+  gap: 0.5rem;
+}
+
+.page-info {
+  color: white;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+/* PDF Display Container */
+.pdf-display {
+  flex: 1;
   overflow: hidden;
-  background-color: rgba(20, 20, 20, 0.85);
-  margin-bottom: 1rem;
+  background: var(--gray-700);
+  padding: 0;
+  min-height: 0;
 }
 
-/* CV Preview (iframe) */
-.cv-preview {
+/* PDF Iframe */
+.pdf-iframe {
   width: 100%;
-  height: 100%; /* Fill the parent */
+  height: 100%;
   border: none;
-  border-radius: 8px;
-  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+  background: white;
 }
 
-/* Placeholder when no preview is available */
-.preview-placeholder {
-  font-size: 1.3rem;
-  color: var(--haste-yellow);
-  font-weight: bold;
-  text-align: center;
-  padding: 2rem;
-  z-index: 1;
-  opacity: 0.9;
-}
-
-/* Mobile preview message */
-.mobile-preview {
+/* Empty State */
+.empty-state {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
+  height: 100%;
   text-align: center;
-  gap: 1rem;
+  padding: 3rem 2rem;
 }
 
-.mobile-message {
+.empty-icon {
+  font-size: 4rem;
+  margin-bottom: 1.5rem;
+  opacity: 0.3;
+}
+
+.empty-state h3 {
+  margin: 0 0 0.75rem 0;
   font-size: 1.5rem;
-  color: var(--haste-yellow);
-  font-weight: bold;
+  color: white;
+  font-weight: 600;
 }
 
-.mobile-sub {
+.empty-state p {
+  margin: 0.5rem 0;
   font-size: 1rem;
-  color: whitesmoke;
-  opacity: 0.8;
-  max-width: 300px;
+  color: var(--gray-400);
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .preview-card {
-    width: 95%;
-    height: 60vh; /* Adjust for smaller screens */
-    margin-top: 1rem;
-  }
-
-  .preview-placeholder {
-    font-size: 1.1rem;
-    padding: 1rem;
-  }
+.hint {
+  font-size: 0.875rem !important;
+  color: var(--gray-500) !important;
+  font-style: italic;
 }
 </style>

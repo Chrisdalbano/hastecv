@@ -48,18 +48,14 @@ def generate_single_column_resume(data, styles, template='executive', density='b
     if header_elements:
         story.extend(header_elements)
         
-        # Add horizontal line after header only if we have header content
-        section = ResumeSection(styles, config)
-        section.add_separator_line(color=styles['_colors']['accent'], width=7.0 * inch)
-        story.extend(section.get_story())
+        # Add spacing after header
+        story.append(config.get_spacer('section'))
     
     # Professional Summary
     summary = data.get('summary', '')
     if summary:
-        section = ResumeSection(styles, config)
         story.append(Paragraph('<b>PROFESSIONAL SUMMARY</b>', styles['SectionHeader']))
-        section.add_separator_line(color=styles['_colors']['primary'], width=1.5 * inch)
-        story.extend(section.get_story())
+        story.append(config.get_spacer('subsection'))
         
         if isinstance(summary, list):
             summary = ' '.join(summary)
@@ -70,10 +66,8 @@ def generate_single_column_resume(data, styles, template='executive', density='b
     # Technical Proficiency / Skills (compact format)
     tech_prof = data.get('technical_proficiency', {})
     if tech_prof and any(tech_prof.values()):  # Only show if has content
-        section = ResumeSection(styles, config)
         story.append(Paragraph('<b>TECHNICAL PROFICIENCY</b>', styles['SectionHeader']))
-        section.add_separator_line(color=styles['_colors']['primary'], width=1.5 * inch)
-        story.extend(section.get_story())
+        story.append(config.get_spacer('subsection'))
         
         story.extend(format_technical_proficiency_compact(tech_prof, styles, config))
         story.append(config.get_spacer('section'))
@@ -81,10 +75,8 @@ def generate_single_column_resume(data, styles, template='executive', density='b
     # Professional Experience
     experience = data.get('experience', [])
     if experience and len(experience) > 0:
-        section = ResumeSection(styles, config)
         story.append(Paragraph('<b>PROFESSIONAL EXPERIENCE</b>', styles['SectionHeader']))
-        section.add_separator_line(color=styles['_colors']['primary'], width=1.5 * inch)
-        story.extend(section.get_story())
+        story.append(config.get_spacer('subsection'))
         
         for i, exp in enumerate(experience):
             exp_elements = format_experience_entry(exp, styles, config)
@@ -96,10 +88,8 @@ def generate_single_column_resume(data, styles, template='executive', density='b
     # Projects
     projects = data.get('projects', [])
     if projects and len(projects) > 0:
-        section = ResumeSection(styles, config)
         story.append(Paragraph('<b>PROJECTS</b>', styles['SectionHeader']))
-        section.add_separator_line(color=styles['_colors']['primary'], width=1.5 * inch)
-        story.extend(section.get_story())
+        story.append(config.get_spacer('subsection'))
         
         for project in projects:
             title = project.get('title', '')
@@ -139,10 +129,8 @@ def generate_single_column_resume(data, styles, template='executive', density='b
     # Education
     education = data.get('education', [])
     if education and len(education) > 0:
-        section = ResumeSection(styles, config)
         story.append(Paragraph('<b>EDUCATION</b>', styles['SectionHeader']))
-        section.add_separator_line(color=styles['_colors']['primary'], width=1.5 * inch)
-        story.extend(section.get_story())
+        story.append(config.get_spacer('subsection'))
         
         for edu in education:
             degree = edu.get('degree', '')
@@ -167,10 +155,8 @@ def generate_single_column_resume(data, styles, template='executive', density='b
     # Skills (if not already included in technical proficiency)
     skills = data.get('skills', [])
     if skills and len(skills) > 0 and not tech_prof:
-        section = ResumeSection(styles, config)
         story.append(Paragraph('<b>SKILLS</b>', styles['SectionHeader']))
-        section.add_separator_line(color=styles['_colors']['primary'], width=1.5 * inch)
-        story.extend(section.get_story())
+        story.append(config.get_spacer('subsection'))
         
         story.append(format_skills_inline(skills, styles))
         story.append(config.get_spacer('section'))
@@ -178,10 +164,8 @@ def generate_single_column_resume(data, styles, template='executive', density='b
     # Additional Experience (if present)
     additional_exp = data.get('additional_experience', [])
     if additional_exp and len(additional_exp) > 0:
-        section = ResumeSection(styles, config)
         story.append(Paragraph('<b>ADDITIONAL EXPERIENCE</b>', styles['SectionHeader']))
-        section.add_separator_line(color=styles['_colors']['primary'], width=1.5 * inch)
-        story.extend(section.get_story())
+        story.append(config.get_spacer('subsection'))
         
         for exp in additional_exp:
             exp_elements = format_experience_entry(exp, styles, config)

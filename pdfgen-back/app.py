@@ -115,6 +115,35 @@ def get_templates():
         return jsonify(templates)
 
 
+@app.route("/generate-visual", methods=["POST"])
+def generate_visual():
+    """Generate PDF from visual layout configuration."""
+    try:
+        req_data = request.get_json()
+        layout_config = req_data.get('layout')
+        resume_data = req_data.get('data')
+        filename = req_data.get('filename', 'resume')
+        
+        if not layout_config or not resume_data:
+            raise ValueError("Missing layout or data")
+        
+        # Import visual layout generator
+        from layouts.visual_layout import generate_visual_layout
+        
+        # Generate PDF
+        output_file = f'{filename}.pdf' if not filename.endswith('.pdf') else filename
+        generate_visual_layout(resume_data, layout_config, output_file)
+        
+        return send_file(output_file, as_attachment=True)
+        
+    except ValueError as ve:
+        app.logger.error(f"ValueError: {ve}")
+        return jsonify({"error": str(ve)}), 400
+    except Exception as e:
+        app.logger.error(f"Unexpected error in generate_visual: {e}")
+        return jsonify({"error": "An unexpected error occurred"}), 500
+
+
 if __name__ == "__main__":
     # Print environment information
     print("\n" + "="*50)
