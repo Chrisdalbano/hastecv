@@ -20,7 +20,8 @@ export const useResumeDataStore = defineStore("resume", () => {
   });
 
   const downloadLink = ref(null);
-  const template = ref("default");
+  const template = ref("executive");
+  const filename = ref("resume");  // Custom filename (without .pdf extension)
   const consentAccepted = ref(cookies.get("consentAccepted") === "true");
 
   // Load saved data from localStorage (if available) on app start
@@ -94,6 +95,7 @@ export const useResumeDataStore = defineStore("resume", () => {
     downloadLink,
     generatePdf,
     template,
+    filename,
     consentAccepted,
     updateConsentStatus,
     clearResumeData

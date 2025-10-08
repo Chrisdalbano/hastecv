@@ -4,26 +4,83 @@
       v-model="selectedTemplate"
       @change="updateTemplate"
       class="template-selector-dropdown"
+      :title="currentTemplateDescription"
     >
-      <option value="default">DEFAULT</option>
-      <option value="modern">MODERN</option>
-      <option value="minimal">MINIMAL</option>
+      <option 
+        v-for="template in templates" 
+        :key="template.value" 
+        :value="template.value"
+      >
+        {{ template.label }}
+      </option>
     </select>
+    <div v-if="showDescription && currentTemplateDescription" class="template-description">
+      {{ currentTemplateDescription }}
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   name: "TemplateSelector",
+  props: {
+    showDescription: {
+      type: Boolean,
+      default: false
+    }
+  },
   data() {
     return {
-      selectedTemplate: "default"
+      selectedTemplate: "executive",
+      templates: [
+        {
+          value: "executive",
+          label: "EXECUTIVE",
+          description: "Traditional single-column layout with professional navy theme. Perfect for corporate roles."
+        },
+        {
+          value: "technical",
+          label: "TECHNICAL",
+          description: "Two-column layout with skills sidebar. Ideal for technical and engineering roles."
+        },
+        {
+          value: "modern",
+          label: "MODERN",
+          description: "Clean, modern design with contemporary colors. Great for creative roles."
+        },
+        {
+          value: "compact",
+          label: "COMPACT",
+          description: "Maximum content density without looking cramped. Best for experienced professionals."
+        },
+        {
+          value: "creative",
+          label: "CREATIVE",
+          description: "Bold, eye-catching design with Riot-inspired aesthetics. Perfect for game design and creative tech roles."
+        },
+        // Legacy support
+        {
+          value: "default",
+          label: "CLASSIC",
+          description: "Classic professional layout (legacy)."
+        }
+      ]
     };
+  },
+  computed: {
+    currentTemplateDescription() {
+      const template = this.templates.find(t => t.value === this.selectedTemplate);
+      return template ? template.description : '';
+    }
   },
   methods: {
     updateTemplate() {
       this.$emit("select", this.selectedTemplate);
     }
+  },
+  mounted() {
+    // Emit initial template
+    this.$emit("select", this.selectedTemplate);
   }
 };
 </script>
@@ -68,5 +125,14 @@ option {
   color: var(--haste-yellow);
   padding: 0.5rem;
   text-align: center;
+}
+
+.template-description {
+  margin-top: 0.5rem;
+  font-size: 0.75rem;
+  color: var(--haste-yellow);
+  font-style: italic;
+  opacity: 0.8;
+  max-width: 200px;
 }
 </style>

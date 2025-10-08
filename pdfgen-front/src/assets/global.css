@@ -1,6 +1,24 @@
 :root {
-  --haste-yellow: hsl(9, 100%, 50%);
+  /* Theme colors - dynamically updated by themeStore */
+  --haste-primary: #FF453A;
+  --haste-primary-rgb: 255, 69, 58;
+  --haste-gradient: linear-gradient(135deg, #FF453A, #d13639);
+  --border-color: rgba(255, 69, 58, 0.3);
+  --hover-color: rgba(255, 69, 58, 0.1);
+  
+  /* Legacy support */
+  --haste-yellow: var(--haste-primary);
+  --haste-red: var(--haste-primary);
+  
+  /* Gray scale */
   --primary-black: #080808;
+  --gray-900: #0f0f0f;
+  --gray-800: #1a1a1a;
+  --gray-700: #2a2a2a;
+  --gray-600: #3a3a3a;
+  --gray-500: #6b7280;
+  --gray-400: #9ca3af;
+  --gray-300: #d1d5db;
 }
 
 *:focus {
