@@ -25,6 +25,17 @@
               JSON
             </AppLink>
           </div>
+          <div class="filename-input-wrapper">
+            <label class="filename-label">Filename:</label>
+            <input 
+              v-model="store.filename" 
+              type="text" 
+              class="filename-input"
+              placeholder="resume"
+              maxlength="50"
+            />
+            <span class="filename-extension">.pdf</span>
+          </div>
           <div class="template-selector-wrapper">
             <label class="template-label">Style:</label>
             <TemplateSelector @select="updateTemplate" />
@@ -352,6 +363,42 @@ export default {
 .toggle-link:hover {
   background-color: var(--haste-yellow);
   color: #000;
+}
+
+.filename-input-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.filename-label {
+  font-size: 0.9rem;
+  color: var(--haste-yellow);
+  font-weight: bold;
+}
+
+.filename-input {
+  background: rgba(20, 20, 20, 0.6);
+  border: 2px solid var(--haste-yellow);
+  color: whitesmoke;
+  padding: 0.4rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  width: 150px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.filename-input:focus {
+  background: rgba(20, 20, 20, 0.9);
+  border-color: #ffcc00;
+}
+
+.filename-extension {
+  font-size: 0.9rem;
+  color: var(--haste-yellow);
+  opacity: 0.7;
 }
 
 .template-selector-wrapper {

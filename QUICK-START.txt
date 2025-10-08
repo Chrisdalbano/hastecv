@@ -1,0 +1,44 @@
+================================================================
+  HasteCV - Quick Start Guide
+================================================================
+
+LOCAL DEVELOPMENT:
+------------------
+1. Double-click: run-dev.bat
+2. Wait for both servers to start
+3. Open: http://localhost:5173
+
+That's it!
+
+================================================================
+
+TROUBLESHOOTING:
+----------------
+If you see CORS errors:
+
+1. Check the Flask backend window - should say:
+   "Flask Environment: development"
+
+2. If it says "production", close both windows and restart
+
+3. Still having issues? See DEV-SETUP.md
+
+================================================================
+
+WHAT THE BATCH FILE DOES:
+--------------------------
+✓ Installs dependencies (first time only)
+✓ Creates virtual environment (first time only)  
+✓ Sets FLASK_ENV=development
+✓ Starts backend on http://127.0.0.1:5000
+✓ Starts frontend on http://localhost:5173
+
+================================================================
+
+ACCESS POINTS:
+--------------
+Frontend:  http://localhost:5173
+Backend:   http://127.0.0.1:5000
+
+================================================================
+

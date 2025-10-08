@@ -1,26 +1,35 @@
 <template>
   <section class="preview-container">
     <div class="preview-card">
+      <!-- Desktop: Show iframe -->
       <iframe
-        v-if="props.downloadLink"
+        v-if="props.downloadLink && !isMobile"
         :src="props.downloadLink"
         class="cv-preview"
         title="CV Preview"
         scrolling="yes"
       ></iframe>
+      
+      <!-- Mobile: Show message and download button -->
+      <div v-else-if="props.downloadLink && isMobile" class="mobile-preview">
+        <p class="mobile-message">📄 Resume generated successfully!</p>
+        <p class="mobile-sub">PDF preview not available on mobile. Click below to download.</p>
+        <DownloadLink :downloadLink="store.downloadLink" />
+      </div>
+      
+      <!-- No preview yet -->
       <p v-else class="preview-placeholder">PREVIEW OF CV WILL BE SHOWN HERE</p>
     </div>
 
-    <div class="mt-6 flex justify-center">
-      <DownloadLink
-        v-if="props.downloadLink"
-        :downloadLink="store.downloadLink"
-      ></DownloadLink>
+    <!-- Desktop download button -->
+    <div v-if="props.downloadLink && !isMobile" class="mt-6 flex justify-center">
+      <DownloadLink :downloadLink="store.downloadLink" />
     </div>
   </section>
 </template>
 
 <script setup>
+import { ref, onMounted, onUnmounted } from 'vue';
 import { useResumeDataStore } from "../../stores/resumeData";
 import DownloadLink from "../DownloadLink.vue";
 
@@ -31,6 +40,20 @@ const props = defineProps({
 });
 
 const store = useResumeDataStore();
+const isMobile = ref(false);
+
+const checkMobile = () => {
+  isMobile.value = window.innerWidth <= 768;
+};
+
+onMounted(() => {
+  checkMobile();
+  window.addEventListener('resize', checkMobile);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('resize', checkMobile);
+});
 </script>
 
 <style scoped>
@@ -80,6 +103,30 @@ const store = useResumeDataStore();
   padding: 2rem;
   z-index: 1;
   opacity: 0.9;
+}
+
+/* Mobile preview message */
+.mobile-preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
+  gap: 1rem;
+}
+
+.mobile-message {
+  font-size: 1.5rem;
+  color: var(--haste-yellow);
+  font-weight: bold;
+}
+
+.mobile-sub {
+  font-size: 1rem;
+  color: whitesmoke;
+  opacity: 0.8;
+  max-width: 300px;
 }
 
 /* Responsive adjustments */
