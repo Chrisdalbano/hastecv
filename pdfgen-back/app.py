@@ -38,16 +38,34 @@ def configure_cors():
     
     if env == "production":
         # Production settings: Allow CORS only for production frontend domain
+        # Support both www and non-www versions, and different subdomains
+        prod_origins = [
+            "https://www.hastecv.com",
+            "https://hastecv.com",
+            "https://app.hastecv.com",
+            os.getenv("FRONTEND_DOMAIN", "https://www.hastecv.com")
+        ]
+        
         cors_config = {
             "resources": {r"/*": {
-                "origins": ["https://www.hastecv.com"],
+                "origins": prod_origins,
                 "methods": ["GET", "POST", "OPTIONS"],
-                "allow_headers": ["Content-Type", "Authorization"],
-                "expose_headers": ["Content-Type"],
+                "allow_headers": [
+                    "Content-Type", 
+                    "Authorization",
+                    "Accept",
+                    "Origin"
+                ],
+                "expose_headers": [
+                    "Content-Type", 
+                    "Content-Disposition"
+                ],
                 "supports_credentials": True,
                 "max_age": 3600
             }}
         }
+        
+        app.logger.info(f"CORS Production Config - Allowed origins: {prod_origins}")
     else:
         # Development settings - Allow localhost and 127.0.0.1 with all common ports
         local_origins = [
@@ -84,12 +102,10 @@ def configure_cors():
                 "max_age": 3600
             }}
         }
+        
+        app.logger.info(f"CORS Development Config - Allowed origins: {', '.join(local_origins)}")
     
     CORS(app, **cors_config)
-    
-    # Log CORS configuration in development
-    if env != "production":
-        app.logger.info(f"CORS enabled for: {', '.join(local_origins)}")
 
 # Configure CORS
 configure_cors()
