@@ -6,14 +6,17 @@
         <h1 class="logo">HasteCV</h1>
       </router-link>
 
-      <!-- Call to Action Button -->
-      <button
-        v-if="!isOnApp"
-        @click="navigateToApp"
-        class="haste-button align-middle"
-      >
-        Build Now
-      </button>
+      <!-- Language Selector and Call to Action Button -->
+      <div class="right-container">
+        <LanguageSelector v-if="isOnApp" />
+        <button
+          v-if="!isOnApp"
+          @click="navigateToApp"
+          class="haste-button align-middle"
+        >
+          Build Now
+        </button>
+      </div>
     </div>
   </nav>
 </template>
@@ -21,6 +24,7 @@
 <script setup>
 import { computed } from "vue";
 import { useRouter, useRoute } from "vue-router";
+import LanguageSelector from "@/components/LanguageSelector.vue";
 
 const router = useRouter();
 const route = useRoute();
@@ -48,6 +52,14 @@ function navigateToApp() {
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
+  gap: 1rem;
+}
+
+/* Right container for button and language selector */
+.right-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
 /* Logo styles */
@@ -103,6 +115,14 @@ h1.logo {
   .haste-button {
     font-size: 1rem;
     padding: 0.5rem 1rem;
+  }
+
+  .header-container {
+    gap: 0.5rem;
+  }
+
+  .right-container {
+    gap: 0.5rem;
   }
 }
 </style>

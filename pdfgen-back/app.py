@@ -18,6 +18,9 @@ except ImportError:
     from pdf_generator import generate_resume
     using_v2 = False
 
+# Import language normalization utilities
+from utils.layout_utils import normalize_resume_data
+
 # Initialize Flask app
 app = Flask(__name__)
 
@@ -64,6 +67,9 @@ def generate():
 
         if not data or not isinstance(data, dict):
             raise ValueError("Invalid data format")
+        
+        # Normalize field names to support multiple languages
+        data = normalize_resume_data(data)
 
         # Call the resume generation function
         generate_resume(data, template=template)
@@ -126,6 +132,9 @@ def generate_visual():
         
         if not layout_config or not resume_data:
             raise ValueError("Missing layout or data")
+        
+        # Normalize field names to support multiple languages
+        resume_data = normalize_resume_data(resume_data)
         
         # Import visual layout generator
         from layouts.visual_layout import generate_visual_layout

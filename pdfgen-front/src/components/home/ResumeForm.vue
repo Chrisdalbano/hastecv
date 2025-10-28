@@ -4,71 +4,71 @@
     <form @submit.prevent="generatePdf" class="form-container">
       <!-- Personal Info Section -->
       <div class="form-section">
-        <h3 class="section-title">Personal Information</h3>
+        <h3 class="section-title">{{ store.getLabel('Personal Information') || 'Personal Information' }}</h3>
         <div class="input-grid">
           <div class="input-group">
-            <label for="name-input" class="input-label">Full Name</label>
+            <label for="name-input" class="input-label">{{ store.getLabel('name') }}</label>
             <input
               v-model="store.resumeData.name"
               id="name-input"
               type="text"
               class="form-input"
-              placeholder="John Doe"
+              :placeholder="store.getLabel('name')"
             />
           </div>
 
           <div class="input-group">
-            <label for="title-input" class="input-label">Job Title</label>
+            <label for="title-input" class="input-label">{{ store.getLabel('title') }}</label>
             <input
               v-model="store.resumeData.title"
               id="title-input"
               type="text"
               class="form-input"
-              placeholder="Software Engineer"
+              :placeholder="store.getLabel('title')"
             />
           </div>
 
           <div class="input-group">
-            <label for="email-input" class="input-label">Email</label>
+            <label for="email-input" class="input-label">{{ store.getLabel('email') }}</label>
             <input
               v-model="store.resumeData.contact.email"
               id="email-input"
               type="email"
               class="form-input"
-              placeholder="john@example.com"
+              :placeholder="store.getLabel('email')"
             />
           </div>
 
           <div class="input-group">
-            <label for="phone-input" class="input-label">Phone</label>
+            <label for="phone-input" class="input-label">{{ store.getLabel('phone') }}</label>
             <input
               v-model="store.resumeData.contact.phone"
               id="phone-input"
               type="tel"
               class="form-input"
-              placeholder="(555) 123-4567"
+              :placeholder="store.getLabel('phone')"
             />
           </div>
 
           <div class="input-group">
-            <label for="location-input" class="input-label">Location</label>
+            <label for="location-input" class="input-label">{{ store.getLabel('location') }}</label>
             <input
               v-model="store.resumeData.contact.location"
               id="location-input"
               type="text"
               class="form-input"
-              placeholder="New York, USA"
+              :placeholder="store.getLabel('location')"
             />
           </div>
 
           <div class="input-group">
-            <label for="website-input" class="input-label">Website</label>
+            <label for="website-input" class="input-label">{{ store.getLabel('website') }}</label>
             <input
               v-model="store.resumeData.contact.website"
               id="website-input"
               type="url"
               class="form-input"
-              placeholder="https://johndoe.com"
+              :placeholder="store.getLabel('website')"
             />
           </div>
         </div>
@@ -76,15 +76,15 @@
 
       <!-- Summary Section -->
       <div class="form-section">
-        <h3 class="section-title">Professional Summary</h3>
+        <h3 class="section-title">{{ store.getLabel('summary') }}</h3>
         <div class="input-group">
-          <label for="summary-input" class="input-label">Summary</label>
+          <label for="summary-input" class="input-label">{{ store.getLabel('summary') }}</label>
           <textarea
             v-model="store.resumeData.summary"
             id="summary-input"
             rows="4"
             class="form-textarea"
-            placeholder="Write a brief professional summary..."
+            :placeholder="`Write a brief ${store.getLabel('summary').toLowerCase()}...`"
           ></textarea>
         </div>
       </div>
@@ -92,9 +92,9 @@
       <!-- Experience Section -->
       <div class="form-section">
         <div class="section-header">
-          <h3 class="section-title">Work Experience</h3>
+          <h3 class="section-title">{{ store.getLabel('experience') }}</h3>
           <button @click.prevent="openModal('experience')" class="add-button">
-            + Add Experience
+            + {{ store.getLabel('Add') || 'Add' }} {{ store.getLabel('experience') }}
           </button>
         </div>
 
@@ -113,78 +113,78 @@
 
           <div class="input-grid">
             <div class="input-group">
-              <label class="input-label">Position</label>
+              <label class="input-label">{{ store.getLabel('position') }}</label>
               <input
                 v-model="exp.position"
                 type="text"
                 class="form-input"
-                placeholder="Senior Developer"
+                :placeholder="store.getLabel('position')"
               />
             </div>
 
             <div class="input-group">
-              <label class="input-label">Company</label>
+              <label class="input-label">{{ store.getLabel('company') }}</label>
               <input
                 v-model="exp.company"
                 type="text"
                 class="form-input"
-                placeholder="Tech Corp"
+                :placeholder="store.getLabel('company')"
               />
             </div>
 
             <div class="input-group">
-              <label class="input-label">Dates</label>
+              <label class="input-label">{{ store.getLabel('dates') }}</label>
               <input
                 v-model="exp.dates"
                 type="text"
                 class="form-input"
-                placeholder="Jan 2020 - Present"
+                :placeholder="store.getLabel('dates')"
               />
             </div>
 
             <div class="input-group">
-              <label class="input-label">Location</label>
+              <label class="input-label">{{ store.getLabel('location') }}</label>
               <input
                 v-model="exp.location"
                 type="text"
                 class="form-input"
-                placeholder="Remote"
+                :placeholder="store.getLabel('location')"
               />
             </div>
           </div>
 
           <div class="input-group mt-4">
-            <label class="input-label">Responsibilities</label>
+            <label class="input-label">{{ store.getLabel('responsibilities') }}</label>
             <textarea
               v-model="exp.responsibilities"
               rows="4"
               class="form-textarea"
-              placeholder="• Led a team of developers&#10;• Built scalable applications&#10;• Improved performance by 40%"
+              :placeholder="`• ${store.getLabel('responsibilities')}`"
             ></textarea>
           </div>
 
           <div class="input-group mt-4">
-            <label class="input-label">Technologies</label>
+            <label class="input-label">{{ store.getLabel('technologies') }}</label>
             <input
               v-model="exp.technologies"
               type="text"
               class="form-input"
-              placeholder="React, Node.js, AWS"
+              :placeholder="store.getLabel('technologies')"
             />
           </div>
         </div>
 
         <div v-if="store.resumeData.experience.length === 0" class="empty-message">
-          No work experience added yet. Click "+ Add Experience" to get started.
+          {{ store.getLabel('No work experience added yet') || 'No work experience added yet' }}.
         </div>
       </div>
 
       <!-- Education Section -->
       <div class="form-section">
         <div class="section-header">
-          <h3 class="section-title">Education</h3>
+          <h3 class="section-title">{{ store.getLabel('education') }}</h3>
           <button @click.prevent="openModal('education')" class="add-button">
-            + Add Education
+            + {{ store.getLabel('Add') || 'Add' }} {{ store.getLabel('education') }}
           </button>
         </div>
 
@@ -203,58 +203,58 @@
 
           <div class="input-grid">
             <div class="input-group">
-              <label class="input-label">Degree</label>
+              <label class="input-label">{{ store.getLabel('degree') }}</label>
               <input
                 v-model="edu.degree"
                 type="text"
                 class="form-input"
-                placeholder="Bachelor of Science"
+                :placeholder="store.getLabel('degree')"
               />
             </div>
 
             <div class="input-group">
-              <label class="input-label">Institution</label>
+              <label class="input-label">{{ store.getLabel('institution') }}</label>
               <input
                 v-model="edu.institution"
                 type="text"
                 class="form-input"
-                placeholder="University Name"
+                :placeholder="store.getLabel('institution')"
               />
             </div>
 
             <div class="input-group">
-              <label class="input-label">Dates</label>
+              <label class="input-label">{{ store.getLabel('dates') }}</label>
               <input
                 v-model="edu.dates"
                 type="text"
                 class="form-input"
-                placeholder="2016 - 2020"
+                :placeholder="store.getLabel('dates')"
               />
             </div>
 
             <div class="input-group">
-              <label class="input-label">Location</label>
+              <label class="input-label">{{ store.getLabel('location') }}</label>
               <input
                 v-model="edu.location"
                 type="text"
                 class="form-input"
-                placeholder="New York, USA"
+                :placeholder="store.getLabel('location')"
               />
             </div>
           </div>
         </div>
 
         <div v-if="store.resumeData.education.length === 0" class="empty-message">
-          No education added yet. Click "+ Add Education" to get started.
+          {{ store.getLabel('No education added yet') || 'No education added yet' }}.
         </div>
       </div>
 
       <!-- Skills Section -->
       <div class="form-section">
         <div class="section-header">
-          <h3 class="section-title">Skills</h3>
+          <h3 class="section-title">{{ store.getLabel('skills') }}</h3>
           <button @click.prevent="addSkill" class="add-button">
-            + Add Skill
+            + {{ store.getLabel('Add') || 'Add' }} {{ store.getLabel('Skill') || 'Skill' }}
           </button>
         </div>
 
@@ -268,7 +268,7 @@
               v-model="store.resumeData.skills[index]"
               type="text"
               class="form-input"
-              placeholder="JavaScript"
+              :placeholder="`${store.getLabel('skills')}`"
             />
             <button
               @click.prevent="removeSkill(index)"
@@ -281,7 +281,7 @@
         </div>
 
         <div v-if="store.resumeData.skills.length === 0" class="empty-message">
-          No skills added yet. Click "+ Add Skill" to get started.
+          {{ store.getLabel('No skills added yet') || 'No skills added yet' }}.
         </div>
       </div>
     </form>
@@ -296,42 +296,42 @@
       <!-- Education Modal Content -->
       <div v-if="modalType == 'education'" class="modal-form">
         <div class="input-group">
-          <label class="input-label">Degree</label>
+          <label class="input-label">{{ store.getLabel('degree') }}</label>
           <input
             v-model="newEntry.degree"
             type="text"
             class="form-input"
-            placeholder="Bachelor of Science in Computer Science"
+            :placeholder="store.getLabel('degree')"
           />
         </div>
 
         <div class="input-group">
-          <label class="input-label">Institution</label>
+          <label class="input-label">{{ store.getLabel('institution') }}</label>
           <input
             v-model="newEntry.institution"
             type="text"
             class="form-input"
-            placeholder="University Name"
+            :placeholder="store.getLabel('institution')"
           />
         </div>
 
         <div class="input-group">
-          <label class="input-label">Dates</label>
+          <label class="input-label">{{ store.getLabel('dates') }}</label>
           <input
             v-model="newEntry.dates"
             type="text"
             class="form-input"
-            placeholder="2016 - 2020"
+            :placeholder="store.getLabel('dates')"
           />
         </div>
 
         <div class="input-group">
-          <label class="input-label">Location</label>
+          <label class="input-label">{{ store.getLabel('location') }}</label>
           <input
             v-model="newEntry.location"
             type="text"
             class="form-input"
-            placeholder="New York, USA"
+            :placeholder="store.getLabel('location')"
           />
         </div>
       </div>
@@ -339,62 +339,62 @@
       <!-- Experience Modal Content -->
       <div v-else-if="modalType == 'experience'" class="modal-form">
         <div class="input-group">
-          <label class="input-label">Position</label>
+          <label class="input-label">{{ store.getLabel('position') }}</label>
           <input
             v-model="newEntry.position"
             type="text"
             class="form-input"
-            placeholder="Senior Software Engineer"
+            :placeholder="store.getLabel('position')"
           />
         </div>
 
         <div class="input-group">
-          <label class="input-label">Company</label>
+          <label class="input-label">{{ store.getLabel('company') }}</label>
           <input
             v-model="newEntry.company"
             type="text"
             class="form-input"
-            placeholder="Tech Corporation"
+            :placeholder="store.getLabel('company')"
           />
         </div>
 
         <div class="input-group">
-          <label class="input-label">Dates</label>
+          <label class="input-label">{{ store.getLabel('dates') }}</label>
           <input
             v-model="newEntry.dates"
             type="text"
             class="form-input"
-            placeholder="Jan 2020 - Present"
+            :placeholder="store.getLabel('dates')"
           />
         </div>
 
         <div class="input-group">
-          <label class="input-label">Location</label>
+          <label class="input-label">{{ store.getLabel('location') }}</label>
           <input
             v-model="newEntry.location"
             type="text"
             class="form-input"
-            placeholder="Remote - New York"
+            :placeholder="store.getLabel('location')"
           />
         </div>
 
         <div class="input-group">
-          <label class="input-label">Responsibilities</label>
+          <label class="input-label">{{ store.getLabel('responsibilities') }}</label>
           <textarea
             v-model="newEntry.responsibilities"
             rows="4"
             class="form-textarea"
-            placeholder="• Built scalable web applications&#10;• Led a team of developers&#10;• Improved performance metrics"
+            :placeholder="`• ${store.getLabel('responsibilities')}`"
           ></textarea>
         </div>
 
         <div class="input-group">
-          <label class="input-label">Technologies</label>
+          <label class="input-label">{{ store.getLabel('technologies') }}</label>
           <input
             v-model="newEntry.technologies"
             type="text"
             class="form-input"
-            placeholder="React, Node.js, PostgreSQL, AWS"
+            :placeholder="store.getLabel('technologies')"
           />
         </div>
       </div>
@@ -420,7 +420,7 @@ function generatePdf() {
 function openModal(type) {
   showModal.value = true;
   modalType.value = type;
-  modalTitle.value = `Add ${type.charAt(0).toUpperCase() + type.slice(1)}`;
+  modalTitle.value = `${store.getLabel('Add') || 'Add'} ${store.getLabel(type)}`;
   newEntry.value = {};
 }
 

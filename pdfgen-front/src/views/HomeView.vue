@@ -48,21 +48,7 @@
           </div>
 
           <!-- Theme Selector -->
-          <div class="control-group">
-            <label class="control-label">Theme</label>
-            <select
-              v-model="themeStore.currentTheme"
-              class="control-select theme-select"
-            >
-              <option
-                v-for="(theme, key) in themeStore.themes"
-                :key="key"
-                :value="key"
-              >
-                {{ theme.name }}
-              </option>
-            </select>
-          </div>
+         
 
           <!-- Action Buttons -->
           <button @click="injectDummyData" class="action-btn">
