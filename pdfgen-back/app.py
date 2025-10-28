@@ -31,22 +31,73 @@ app.config.from_mapping(
     DEBUG=os.getenv("FLASK_DEBUG", False),  # Default debug setting
 )
 
-# Safely configure CORS and Talisman based on the environment
+# CORS Configuration based on environment
+def configure_cors():
+    """Configure CORS based on the environment."""
+    env = app.config["ENV"]
+    
+    if env == "production":
+        # Production settings: Allow CORS only for production frontend domain
+        cors_config = {
+            "resources": {r"/*": {
+                "origins": ["https://www.hastecv.com"],
+                "methods": ["GET", "POST", "OPTIONS"],
+                "allow_headers": ["Content-Type", "Authorization"],
+                "expose_headers": ["Content-Type"],
+                "supports_credentials": True,
+                "max_age": 3600
+            }}
+        }
+    else:
+        # Development settings - Allow localhost and 127.0.0.1 with all common ports
+        local_origins = [
+            "http://localhost:5173",
+            "http://127.0.0.1:5173",
+            "http://localhost:3000",
+            "http://127.0.0.1:3000",
+            "http://localhost:8080",
+            "http://127.0.0.1:8080",
+            "http://localhost:5174",
+            "http://127.0.0.1:5174",
+            "http://localhost",
+            "http://127.0.0.1",
+        ]
+        
+        # Allow custom origin from environment variable for flexibility
+        custom_origin = os.getenv("CORS_ORIGINS")
+        if custom_origin:
+            local_origins.extend(custom_origin.split(","))
+        
+        cors_config = {
+            "resources": {r"/*": {
+                "origins": local_origins,
+                "methods": ["GET", "POST", "OPTIONS", "PUT", "DELETE"],
+                "allow_headers": [
+                    "Content-Type", 
+                    "Authorization",
+                    "Accept",
+                    "Origin",
+                    "X-Requested-With"
+                ],
+                "expose_headers": ["Content-Type", "Content-Disposition"],
+                "supports_credentials": True,
+                "max_age": 3600
+            }}
+        }
+    
+    CORS(app, **cors_config)
+    
+    # Log CORS configuration in development
+    if env != "production":
+        app.logger.info(f"CORS enabled for: {', '.join(local_origins)}")
+
+# Configure CORS
+configure_cors()
+
+# Configure Talisman (security headers)
 if app.config["ENV"] == "production":
-    # Production settings: Allow CORS for the production frontend domain
-    CORS(
-        app,
-        resources={r"/*": {"origins": "https://www.hastecv.com"}},
-        supports_credentials=True,
-    )
     Talisman(app)  # Enable HTTPS enforcement in production
 else:
-    # Development settings - allow both localhost and 127.0.0.1
-    CORS(
-        app,
-        resources={r"/*": {"origins": ["http://localhost:5173", "http://127.0.0.1:5173"]}},
-        supports_credentials=True,
-    )
     Talisman(app, force_https=False)  # Disable HTTPS enforcement for local dev
 
 # Setup logging
@@ -56,8 +107,12 @@ app.logger.addHandler(handler)
 
 
 # API functionality here
-@app.route("/generate", methods=["POST"])
+@app.route("/generate", methods=["POST", "OPTIONS"])
 def generate():
+    # Handle CORS preflight requests
+    if request.method == "OPTIONS":
+        return "", 204
+    
     try:
         req_data = request.get_json()
         data = req_data.get("data")
@@ -92,6 +147,11 @@ def generate():
 # Secure headers for all responses (CORS is handled by Flask-CORS extension)
 @app.after_request
 def set_secure_headers(response):
+    # Add CORS headers to response if not already present
+    if "Access-Control-Allow-Origin" not in response.headers:
+        origin = request.headers.get("Origin", "*")
+        response.headers["Access-Control-Allow-Origin"] = origin
+    
     response.headers["Content-Security-Policy"] = "default-src 'self';"
     response.headers["X-Content-Type-Options"] = "nosniff"
     response.headers["X-Frame-Options"] = "DENY"
@@ -127,17 +187,26 @@ def get_templates():
         return jsonify(templates)
 
 
-@app.route("/generate-visual", methods=["POST"])
+@app.route("/generate-visual", methods=["POST", "OPTIONS"])
 def generate_visual():
     """Generate PDF from visual layout configuration."""
+    # Handle CORS preflight requests
+    if request.method == "OPTIONS":
+        return "", 204
+    
     try:
         req_data = request.get_json()
         layout_config = req_data.get('layout')
         resume_data = req_data.get('data')
         filename = req_data.get('filename', 'resume')
+        language = req_data.get('language', 'en')  # Get language from request
         
         if not layout_config or not resume_data:
             raise ValueError("Missing layout or data")
+        
+        # Validate language
+        if not is_supported_language(language):
+            language = 'en'
         
         # Normalize field names to support multiple languages
         resume_data = normalize_resume_data(resume_data)
@@ -157,6 +226,17 @@ def generate_visual():
     except Exception as e:
         app.logger.error(f"Unexpected error in generate_visual: {e}")
         return jsonify({"error": "An unexpected error occurred"}), 500
+
+
+# Health check endpoint for monitoring
+@app.route("/health", methods=["GET"])
+def health():
+    """Health check endpoint."""
+    return jsonify({
+        "status": "healthy",
+        "environment": app.config["ENV"],
+        "generator": "v2" if using_v2 else "legacy"
+    }), 200
 
 
 if __name__ == "__main__":

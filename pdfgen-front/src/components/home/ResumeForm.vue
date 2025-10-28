@@ -174,7 +174,7 @@
           </div>
         </div>
 
-        <div v-if="store.resumeData.experience.length === 0" class="empty-message">
+        <div v-if="(store.resumeData.experience?.length ?? 0) === 0" class="empty-message">
           {{ store.getLabel('No work experience added yet') || 'No work experience added yet' }}.
         </div>
       </div>
@@ -189,7 +189,7 @@
         </div>
 
         <div
-          v-for="(edu, index) in store.resumeData.education"
+          v-for="(edu, index) in (store.resumeData.education ?? [])"
           :key="index"
           class="entry-card"
         >
@@ -244,7 +244,7 @@
           </div>
         </div>
 
-        <div v-if="store.resumeData.education.length === 0" class="empty-message">
+        <div v-if="(store.resumeData.education?.length ?? 0) === 0" class="empty-message">
           {{ store.getLabel('No education added yet') || 'No education added yet' }}.
         </div>
       </div>
@@ -260,7 +260,7 @@
 
         <div class="skills-grid">
           <div
-            v-for="(skill, index) in store.resumeData.skills"
+            v-for="(skill, index) in (store.resumeData.skills ?? [])"
             :key="index"
             class="skill-item"
           >
@@ -280,7 +280,7 @@
           </div>
         </div>
 
-        <div v-if="store.resumeData.skills.length === 0" class="empty-message">
+        <div v-if="(store.resumeData.skills?.length ?? 0) === 0" class="empty-message">
           {{ store.getLabel('No skills added yet') || 'No skills added yet' }}.
         </div>
       </div>
