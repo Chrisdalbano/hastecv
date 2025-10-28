@@ -20,6 +20,7 @@ except ImportError:
 
 # Import language normalization utilities
 from utils.layout_utils import normalize_resume_data
+from utils.i18n import get_translation, is_supported_language
 
 # Initialize Flask app
 app = Flask(__name__)
@@ -61,6 +62,7 @@ def generate():
         req_data = request.get_json()
         data = req_data.get("data")
         template = req_data.get("template", "default")
+        language = req_data.get("language", "en")  # Get language from request
 
         if isinstance(data, str):
             data = json.loads(data)
@@ -68,11 +70,15 @@ def generate():
         if not data or not isinstance(data, dict):
             raise ValueError("Invalid data format")
         
+        # Validate language
+        if not is_supported_language(language):
+            language = "en"
+        
         # Normalize field names to support multiple languages
         data = normalize_resume_data(data)
 
-        # Call the resume generation function
-        generate_resume(data, template=template)
+        # Call the resume generation function with language
+        generate_resume(data, template=template, language=language)
         return send_file("resume.pdf", as_attachment=True)
 
     except ValueError as ve:

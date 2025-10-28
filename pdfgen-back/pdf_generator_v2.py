@@ -6,6 +6,7 @@ import os
 from styles.professional_styles import get_professional_styles, get_template_colors
 from layouts.single_column import generate_single_column_resume
 from layouts.two_column import generate_two_column_resume
+from utils.i18n import get_translation, is_supported_language
 
 
 # Template configuration
@@ -56,7 +57,7 @@ TEMPLATE_CONFIG = {
 }
 
 
-def generate_resume(data, template='executive', output_file='resume.pdf'):
+def generate_resume(data, template='executive', output_file='resume.pdf', language='en'):
     """
     Generate a professional resume PDF.
     
@@ -64,10 +65,15 @@ def generate_resume(data, template='executive', output_file='resume.pdf'):
         data: Resume data dictionary with sections like name, experience, education, etc.
         template: Template name ('executive', 'technical', 'modern', 'compact')
         output_file: Output filename for the generated PDF
+        language: Language code for PDF labels ('en', 'es', 'fr', 'de', 'pt')
     
     Returns:
         Path to the generated PDF file
     """
+    # Validate language
+    if not is_supported_language(language):
+        language = 'en'
+    
     # Get template configuration
     template_config = TEMPLATE_CONFIG.get(template, TEMPLATE_CONFIG['executive'])
     layout_type = template_config['layout']
@@ -90,7 +96,8 @@ def generate_resume(data, template='executive', output_file='resume.pdf'):
             styles=styles,
             template=display_template,
             density=density,
-            output_file=output_file
+            output_file=output_file,
+            language=language
         )
     else:  # single_column
         return generate_single_column_resume(
@@ -98,7 +105,8 @@ def generate_resume(data, template='executive', output_file='resume.pdf'):
             styles=styles,
             template=display_template,
             density=density,
-            output_file=output_file
+            output_file=output_file,
+            language=language
         )
 
 

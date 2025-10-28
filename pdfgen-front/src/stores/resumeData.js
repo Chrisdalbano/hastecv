@@ -225,7 +225,11 @@ export const useResumeDataStore = defineStore("resume", () => {
           headers: {
             "Content-Type": "application/json"
           },
-          body: JSON.stringify({ data: jsonData, template: template.value })
+          body: JSON.stringify({ 
+            data: jsonData, 
+            template: template.value,
+            language: language.value  // Send language to backend
+          })
         }
       );
 

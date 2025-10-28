@@ -15,9 +15,10 @@ from layouts.base_layout import (
     format_skills_inline,
     format_technical_proficiency_compact
 )
+from utils.i18n import get_translation
 
 
-def generate_single_column_resume(data, styles, template='executive', density='balanced', output_file='resume.pdf'):
+def generate_single_column_resume(data, styles, template='executive', density='balanced', output_file='resume.pdf', language='en'):
     """
     Generate a professional single-column resume.
     
@@ -27,6 +28,7 @@ def generate_single_column_resume(data, styles, template='executive', density='b
         template: Template name for color scheme
         density: Layout density ('compact', 'balanced', 'spacious')
         output_file: Output PDF filename
+        language: Language code for labels ('en', 'es', 'fr', 'de', 'pt')
     """
     # Create layout configuration
     config = LayoutConfig(density=density)
@@ -54,7 +56,8 @@ def generate_single_column_resume(data, styles, template='executive', density='b
     # Professional Summary
     summary = data.get('summary', '')
     if summary:
-        story.append(Paragraph('<b>PROFESSIONAL SUMMARY</b>', styles['SectionHeader']))
+        summary_label = get_translation(language, 'professional_summary')
+        story.append(Paragraph(f'<b>{summary_label}</b>', styles['SectionHeader']))
         story.append(config.get_spacer('subsection'))
         
         if isinstance(summary, list):
@@ -66,7 +69,8 @@ def generate_single_column_resume(data, styles, template='executive', density='b
     # Technical Proficiency / Skills (compact format)
     tech_prof = data.get('technical_proficiency', {})
     if tech_prof and any(tech_prof.values()):  # Only show if has content
-        story.append(Paragraph('<b>TECHNICAL PROFICIENCY</b>', styles['SectionHeader']))
+        tech_label = get_translation(language, 'technical_proficiency')
+        story.append(Paragraph(f'<b>{tech_label}</b>', styles['SectionHeader']))
         story.append(config.get_spacer('subsection'))
         
         story.extend(format_technical_proficiency_compact(tech_prof, styles, config))
@@ -75,7 +79,8 @@ def generate_single_column_resume(data, styles, template='executive', density='b
     # Professional Experience
     experience = data.get('experience', [])
     if experience and len(experience) > 0:
-        story.append(Paragraph('<b>PROFESSIONAL EXPERIENCE</b>', styles['SectionHeader']))
+        experience_label = get_translation(language, 'professional_experience')
+        story.append(Paragraph(f'<b>{experience_label}</b>', styles['SectionHeader']))
         story.append(config.get_spacer('subsection'))
         
         for i, exp in enumerate(experience):
@@ -88,7 +93,8 @@ def generate_single_column_resume(data, styles, template='executive', density='b
     # Projects
     projects = data.get('projects', [])
     if projects and len(projects) > 0:
-        story.append(Paragraph('<b>PROJECTS</b>', styles['SectionHeader']))
+        projects_label = get_translation(language, 'projects')
+        story.append(Paragraph(f'<b>{projects_label}</b>', styles['SectionHeader']))
         story.append(config.get_spacer('subsection'))
         
         for project in projects:
@@ -121,7 +127,8 @@ def generate_single_column_resume(data, styles, template='executive', density='b
             
             # Technologies
             if technologies:
-                story.append(Paragraph(f'<i>Technologies: {technologies}</i>', styles['TechText']))
+                tech_text = get_translation(language, 'technologies')
+                story.append(Paragraph(f'<i>{tech_text}: {technologies}</i>', styles['TechText']))
                 story.append(config.get_spacer('subsection'))
         
         story.append(config.get_spacer('section'))
@@ -129,7 +136,8 @@ def generate_single_column_resume(data, styles, template='executive', density='b
     # Education
     education = data.get('education', [])
     if education and len(education) > 0:
-        story.append(Paragraph('<b>EDUCATION</b>', styles['SectionHeader']))
+        education_label = get_translation(language, 'education')
+        story.append(Paragraph(f'<b>{education_label}</b>', styles['SectionHeader']))
         story.append(config.get_spacer('subsection'))
         
         for edu in education:

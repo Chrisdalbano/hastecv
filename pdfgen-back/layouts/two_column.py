@@ -18,6 +18,7 @@ from layouts.base_layout import (
     format_skills_inline,
     format_technical_proficiency_compact
 )
+from utils.i18n import get_translation
 
 
 class TwoColumnDocTemplate(BaseDocTemplate):
@@ -72,7 +73,7 @@ class TwoColumnDocTemplate(BaseDocTemplate):
         self.addPageTemplates([template])
 
 
-def generate_two_column_resume(data, styles, template='technical', density='compact', output_file='resume.pdf'):
+def generate_two_column_resume(data, styles, template='technical', density='compact', output_file='resume.pdf', language='en'):
     """
     Generate a two-column resume with sidebar.
     
@@ -82,6 +83,7 @@ def generate_two_column_resume(data, styles, template='technical', density='comp
         template: Template name for color scheme
         density: Layout density
         output_file: Output PDF filename
+        language: Language code for labels ('en', 'es', 'fr', 'de', 'pt')
     """
     # Create layout configuration
     config = LayoutConfig(density=density)
@@ -113,7 +115,8 @@ def generate_two_column_resume(data, styles, template='technical', density='comp
     # Contact info in sidebar
     contact = data.get('contact', {})
     if contact:
-        story.append(Paragraph('<b>CONTACT</b>', styles['SectionHeader']))
+        contact_label = get_translation(language, 'contact')
+        story.append(Paragraph(f'<b>{contact_label}</b>', styles['SectionHeader']))
         story.append(config.get_spacer('line'))
         
         if contact.get('email'):
@@ -142,7 +145,8 @@ def generate_two_column_resume(data, styles, template='technical', density='comp
     # Skills in sidebar (if available)
     skills = data.get('skills', [])
     if skills:
-        story.append(Paragraph('<b>SKILLS</b>', styles['SectionHeader']))
+        skills_label = get_translation(language, 'skills')
+        story.append(Paragraph(f'<b>{skills_label}</b>', styles['SectionHeader']))
         story.append(config.get_spacer('line'))
         
         if isinstance(skills, str):
@@ -158,7 +162,8 @@ def generate_two_column_resume(data, styles, template='technical', density='comp
     # Technical Proficiency in sidebar (compact)
     tech_prof = data.get('technical_proficiency', {})
     if tech_prof:
-        story.append(Paragraph('<b>TECHNICAL</b>', styles['SectionHeader']))
+        tech_prof_label = get_translation(language, 'technical_proficiency')
+        story.append(Paragraph(f'<b>{tech_prof_label}</b>', styles['SectionHeader']))
         story.append(config.get_spacer('line'))
         
         for key, value in tech_prof.items():
@@ -173,7 +178,8 @@ def generate_two_column_resume(data, styles, template='technical', density='comp
     # Education in sidebar
     education = data.get('education', [])
     if education:
-        story.append(Paragraph('<b>EDUCATION</b>', styles['SectionHeader']))
+        education_label = get_translation(language, 'education')
+        story.append(Paragraph(f'<b>{education_label}</b>', styles['SectionHeader']))
         story.append(config.get_spacer('line'))
         
         for edu in education:
@@ -199,7 +205,8 @@ def generate_two_column_resume(data, styles, template='technical', density='comp
     # Professional Summary
     summary = data.get('summary', '')
     if summary:
-        story.append(Paragraph('<b>PROFESSIONAL SUMMARY</b>', styles['SectionHeader']))
+        summary_label = get_translation(language, 'professional_summary')
+        story.append(Paragraph(f'<b>{summary_label}</b>', styles['SectionHeader']))
         section = ResumeSection(styles, config)
         section.add_separator_line(color=styles['_colors']['primary'], width=1.2 * inch)
         story.extend(section.get_story())
@@ -213,7 +220,8 @@ def generate_two_column_resume(data, styles, template='technical', density='comp
     # Professional Experience
     experience = data.get('experience', [])
     if experience:
-        story.append(Paragraph('<b>PROFESSIONAL EXPERIENCE</b>', styles['SectionHeader']))
+        experience_label = get_translation(language, 'professional_experience')
+        story.append(Paragraph(f'<b>{experience_label}</b>', styles['SectionHeader']))
         section = ResumeSection(styles, config)
         section.add_separator_line(color=styles['_colors']['primary'], width=1.2 * inch)
         story.extend(section.get_story())
@@ -224,7 +232,8 @@ def generate_two_column_resume(data, styles, template='technical', density='comp
     # Projects
     projects = data.get('projects', [])
     if projects:
-        story.append(Paragraph('<b>PROJECTS</b>', styles['SectionHeader']))
+        projects_label = get_translation(language, 'projects')
+        story.append(Paragraph(f'<b>{projects_label}</b>', styles['SectionHeader']))
         section = ResumeSection(styles, config)
         section.add_separator_line(color=styles['_colors']['primary'], width=1.2 * inch)
         story.extend(section.get_story())
