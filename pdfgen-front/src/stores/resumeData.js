@@ -158,8 +158,30 @@ export const useResumeDataStore = defineStore("resume", () => {
   onMounted(() => {
     const savedResumeData = localStorage.getItem("resumeData");
     if (savedResumeData) {
-      resumeData.value = JSON.parse(savedResumeData);
+      try {
+        const parsedData = JSON.parse(savedResumeData);
+        
+        // Validate and sanitize loaded data to ensure arrays exist
+        resumeData.value = {
+          name: parsedData.name || "",
+          title: parsedData.title || "",
+          contact: {
+            email: parsedData.contact?.email || "",
+            phone: parsedData.contact?.phone || "",
+            location: parsedData.contact?.location || "",
+            website: parsedData.contact?.website || ""
+          },
+          summary: parsedData.summary || "",
+          experience: Array.isArray(parsedData.experience) ? parsedData.experience : [],
+          education: Array.isArray(parsedData.education) ? parsedData.education : [],
+          skills: Array.isArray(parsedData.skills) ? parsedData.skills : []
+        };
+      } catch (error) {
+        console.error("Error loading resume data from localStorage:", error);
+        // If parsing fails, keep the default initialized data
+      }
     }
+    
     const savedLanguage = localStorage.getItem("language");
     if (savedLanguage) {
       language.value = savedLanguage;
