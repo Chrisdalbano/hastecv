@@ -18,7 +18,7 @@ from layouts.base_layout import (
 from utils.i18n import get_translation
 
 
-def generate_single_column_resume(data, styles, template='executive', density='balanced', output_file='resume.pdf', language='en'):
+def generate_single_column_resume(data, styles, template='executive', density='balanced', output_file='resume.pdf', language='en', alignment='left', margins='normal'):
     """
     Generate a professional single-column resume.
     
@@ -33,17 +33,40 @@ def generate_single_column_resume(data, styles, template='executive', density='b
     # Create layout configuration
     config = LayoutConfig(density=density)
     
-    # Create document with optimized margins
+    # Apply custom margins if provided
+    from reportlab.lib.units import inch
+    margin_values = {
+        'narrow': 0.5 * inch,
+        'normal': 0.75 * inch,
+        'wide': 1.0 * inch
+    }
+    margin_size = margin_values.get(margins, 0.75 * inch)
+    
+    # Create document with margins
     doc = SimpleDocTemplate(
         output_file,
         pagesize=letter,
-        topMargin=config.margins['top'],
-        bottomMargin=config.margins['bottom'],
-        leftMargin=config.margins['left'],
-        rightMargin=config.margins['right']
+        topMargin=margin_size,
+        bottomMargin=margin_size,
+        leftMargin=margin_size,
+        rightMargin=margin_size
     )
     
     story = []
+    
+    # Apply alignment to header styles
+    from reportlab.lib.enums import TA_LEFT, TA_CENTER, TA_RIGHT
+    if alignment == 'center':
+        styles['Name'].alignment = TA_CENTER
+        styles['Title'].alignment = TA_CENTER
+        styles['Contact'].alignment = TA_CENTER
+        styles['SectionHeader'].alignment = TA_CENTER
+    elif alignment == 'right':
+        styles['Name'].alignment = TA_RIGHT
+        styles['Title'].alignment = TA_RIGHT
+        styles['Contact'].alignment = TA_RIGHT
+        styles['SectionHeader'].alignment = TA_RIGHT
+    # 'left' is default, no change needed
     
     # Add header (name, title, contact)
     header_elements = create_compact_header(data, styles, config)

@@ -31,7 +31,7 @@ def parse_dimension(value, default='auto'):
     return default
 
 
-def generate_visual_layout(data, layout_config, output_file='resume.pdf'):
+def generate_visual_layout(data, layout_config, output_file='resume.pdf', primary_color=None, layout_type='single-column', spacing='normal', alignment='left', margins='normal'):
     """
     Generate PDF from visual layout configuration.
     
@@ -39,11 +39,23 @@ def generate_visual_layout(data, layout_config, output_file='resume.pdf'):
         data: Resume data dictionary (full resume data, fallback)
         layout_config: Layout configuration from frontend
         output_file: Output PDF filename
+        primary_color: Optional hex color code for theme (e.g., '#1E3A8A')
+        layout_type: Layout type ('single-column', 'two-column', etc.)
+        spacing: Section spacing ('compact', 'normal', 'relaxed')
+        alignment: Header alignment ('left', 'center', 'right')
+        margins: Page margins ('narrow', 'normal', 'wide')
     """
-    # Get template and styles
+    # Get template and styles with custom color
     template = layout_config.get('template', 'executive')
-    styles = get_professional_styles(template=template, density='balanced')
-    config = LayoutConfig(density='balanced')
+    # Map spacing to density
+    density_map = {
+        'compact': 'compact',
+        'normal': 'balanced',
+        'relaxed': 'spacious'
+    }
+    density = density_map.get(spacing, 'balanced')
+    styles = get_professional_styles(template=template, density=density, primary_color=primary_color)
+    config = LayoutConfig(density=density)
     
     # Create document
     doc = SimpleDocTemplate(

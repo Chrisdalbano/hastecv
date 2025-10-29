@@ -1,65 +1,79 @@
 <template>
   <div class="bg-primary-black text-whitesmoke font-OpenSans">
     <!-- Hero Section -->
-    <section class="hero bg-primary-black text-whitesmoke py-20">
-      <div class="center px-4 text-center">
-        <h1
-          class="font-Anton mb-6 text-6xl font-extrabold leading-tight drop-shadow-2xl text-haste-yellow"
-        >
-          Craft ATS-Beating CVs in Minutes
-        </h1>
-        <p
-          class="font-Domine text-whitesmoke mx-auto mb-8 max-w-2xl text-lg leading-relaxed opacity-90 md:text-xl"
-        >
-          Effortlessly create professional, ATS-passing CV templates that help
-          you land your dream job. Customize every detail manually or with JSON
-          for full control.
-        </p>
+    <section class="hero bg-primary-black text-whitesmoke">
+      <div class="center px-4">
+        <div class="hero-content">
+         
+          
+          <h1 class="hero-title">
+            Create Professional Resumes
+            <span class="title-highlight">That Get Results</span>
+          </h1>
+          
+          <p class="hero-description">
+            Build ATS-optimized resumes with our intuitive editor. Choose from professional 
+            themes, customize layouts, and export to PDF in minutes. No design skills required.
+          </p>
 
-        <!-- Updated animated call-to-action button -->
-        <div class="flex justify-center">
-          <button @click="navigateToApp" class="animated-button">
-            <svg
-              viewBox="0 0 24 24"
-              class="arr-2"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"
-              ></path>
-            </svg>
-            <span class="text">Start Crafting Resume</span>
-            <span class="circle"></span>
-            <svg
-              viewBox="0 0 24 24"
-              class="arr-1"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"
-              ></path>
-            </svg>
-          </button>
+          <div class="hero-actions">
+            <button @click="navigateToApp" class="btn-primary">
+              <span>Build Your Resume</span>
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <button @click="scrollToExamples" class="btn-secondary">
+              About HasteCV
+            </button>
+          </div>
+
+          <div class="hero-stats">
+            <div class="stat-item">
+              <div class="stat-value">100%</div>
+              <div class="stat-label">Free Forever</div>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+              <div class="stat-value">Customizable</div>
+              <div class="stat-label">Themes</div>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+              <div class="stat-value">ATS</div>
+              <div class="stat-label">Optimized</div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- Features Section -->
-    <section class="features py-20">
-      <div class="center text-center">
-        <h2 class="mb-12 text-3xl font-bold text-haste-yellow">Why HasteCV?</h2>
-        <div class="grid gap-8">
-          <div v-for="(feature, index) in features" :key="index" class="card">
-            <div class="illustration-container">
-              <img
-                :src="feature.image"
-                alt="Feature Icon"
-                class="illustration"
-              />
+    <section class="features" id="about-hastecv">
+      <div class="center">
+        <div class="section-header">
+          <h2 class="section-title">Powerful Features</h2>
+          <p class="section-description">
+            Everything you need to create a standout resume
+          </p>
+        </div>
+
+        <div class="features-grid">
+          <div v-for="(feature, index) in features" :key="index" class="feature-card">
+            <div class="feature-icon" :style="{ background: feature.gradient }">
+              <component :is="feature.icon" />
             </div>
-            <div class="main-content">
-              <h3 class="heading">{{ feature.title }}</h3>
-              <p class="description">{{ feature.description }}</p>
+            <div class="feature-content">
+              <h3 class="feature-title">{{ feature.title }}</h3>
+              <p class="feature-description">{{ feature.description }}</p>
+              <ul v-if="feature.benefits" class="feature-benefits">
+                <li v-for="(benefit, i) in feature.benefits" :key="i">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M13.3333 4L6 11.3333L2.66667 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  {{ benefit }}
+                </li>
+              </ul>
             </div>
           </div>
         </div>
@@ -140,35 +154,24 @@
               </li>
             </ul>
           </div>
-          <div>
-            <h3 class="mb-2 text-2xl font-bold">What is JSON Editing</h3>
-            <p class="text-lg leading-relaxed">
-              JSON editing allows advanced customization of your CV. This
-              feature is perfect for tech-savvy users who want complete control
-              over the CV layout. With JSON, you can directly modify the data
-              structure to fit specific needs, ensuring no detail is overlooked.
+          <!-- JSON Editor Info -->
+          <div class="json-info-card">
+            <div class="json-info-header">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                <rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2"/>
+                <path d="M8 8h8M8 12h8M8 16h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+              <h3>Advanced JSON Editor</h3>
+            </div>
+            <p class="json-info-text">
+              For developers and power users, our JSON editor provides programmatic control
+              over your resume data. Perfect for automation, templating, or managing multiple variants.
             </p>
-          </div>
-
-          <!-- Collapsible JSON Example Section -->
-          <div class="json-example text-whitesmoke">
-            <h3 class="mb-2 text-2xl font-bold">JSON is also customizable!</h3>
-            <p class="mb-6 text-lg leading-relaxed">
-              Take a look at my updated CV crafted using HasteCV below, you can use it as
-              a reference and see how fields like 'technical-proficiency' and
-              'projects' can be added:
-            </p>
-
-            <!-- Collapsible JSON Container -->
-            <div class="json-container">
-              <div ref="jsonContent" class="json-content">
-                <pre><code>{{ formattedJson }}</code></pre>
-              </div>
-
-              <!-- Toggle Button -->
-              <button @click="toggleJsonView" class="toggle-json-btn">
-                {{ isExpanded ? "Collapse JSON" : "Expand JSON" }}
-              </button>
+            <div class="json-info-features">
+              <span class="feature-badge">Custom Fields</span>
+              <span class="feature-badge">Import/Export</span>
+              <span class="feature-badge">Git-Friendly</span>
+              <span class="feature-badge">API Ready</span>
             </div>
           </div>
         </div>
@@ -179,34 +182,109 @@
 
 <script setup>
 import { useRouter } from "vue-router";
-import { ref, onMounted } from "vue";
-import { gsap } from "gsap";
-import jsonIcon from "../assets/json.svg";
-import freeIcon from "../assets/free.svg";
-import easyIcon from "../assets/easy.svg";
-// Import the JSON data dynamically
-import resumeData from "@/assets/resumeData.json";
+import { onMounted, defineComponent, h } from "vue";
 
 const router = useRouter();
 
+// Feature Icons as inline components
+const ThemeIcon = defineComponent({
+  render() {
+    return h('svg', { width: '32', height: '32', viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', 'stroke-width': '2' }, [
+      h('circle', { cx: '12', cy: '12', r: '3' }),
+      h('path', { d: 'M12 1v6m0 6v6m8.66-5H15m-6 0H3m16.66-5.66l-4.24 4.24m-7.08 0L4.5 6.34m15.16 11.32l-4.24-4.24m-7.08 0L4.5 17.66' })
+    ]);
+  }
+});
+
+const LayoutIcon = defineComponent({
+  render() {
+    return h('svg', { width: '32', height: '32', viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', 'stroke-width': '2' }, [
+      h('rect', { x: '3', y: '3', width: '18', height: '18', rx: '2' }),
+      h('line', { x1: '3', y1: '9', x2: '21', y2: '9' }),
+      h('line', { x1: '9', y1: '21', x2: '9', y2: '9' })
+    ]);
+  }
+});
+
+const EditIcon = defineComponent({
+  render() {
+    return h('svg', { width: '32', height: '32', viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', 'stroke-width': '2' }, [
+      h('path', { d: 'M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7' }),
+      h('path', { d: 'M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z' })
+    ]);
+  }
+});
+
+const DownloadIcon = defineComponent({
+  render() {
+    return h('svg', { width: '32', height: '32', viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', 'stroke-width': '2' }, [
+      h('path', { d: 'M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4' }),
+      h('polyline', { points: '7 10 12 15 17 10' }),
+      h('line', { x1: '12', y1: '15', x2: '12', y2: '3' })
+    ]);
+  }
+});
+
+const PrivacyIcon = defineComponent({
+  render() {
+    return h('svg', { width: '32', height: '32', viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', 'stroke-width': '2' }, [
+      h('path', { d: 'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z' }),
+      h('path', { d: 'M9 12l2 2 4-4' })
+    ]);
+  }
+});
+
+const ATSIcon = defineComponent({
+  render() {
+    return h('svg', { width: '32', height: '32', viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', 'stroke-width': '2' }, [
+      h('polyline', { points: '22 12 18 12 15 21 9 3 6 12 2 12' }),
+      h('circle', { cx: '12', cy: '12', r: '10' })
+    ]);
+  }
+});
+
 const features = [
   {
-    title: "Quick & Easy",
-    description:
-      "Create your CV in just a few clicks using our intuitive editor.",
-    image: easyIcon
+    title: "Professional Themes",
+    description: "Choose from 5 carefully designed professional themes with perfect color contrast.",
+    icon: ThemeIcon,
+    gradient: 'linear-gradient(135deg, #1E3A8A, #3B82F6)',
+    benefits: ['AAA accessibility', 'Industry-specific', 'Customizable colors']
   },
   {
-    title: "It's Free!",
-    description:
-      "Use it freely. No strings attached! We don't collect data and we don't store your information.",
-    image: freeIcon
+    title: "Flexible Layouts",
+    description: "Multiple layout options to match your industry and style preferences.",
+    icon: LayoutIcon,
+    gradient: 'linear-gradient(135deg, #881337, #BE123C)',
+    benefits: ['Single/Multi-column', 'Grid layouts', 'Sidebar options']
   },
   {
-    title: "Edit with JSON",
-    description:
-      "For advanced users, directly modify your CV structure with JSON.",
-    image: jsonIcon
+    title: "Intuitive Editor",
+    description: "Edit your resume with our user-friendly interface or use JSON for advanced control.",
+    icon: EditIcon,
+    gradient: 'linear-gradient(135deg, #0F766E, #14B8A6)',
+    benefits: ['Visual editor', 'JSON support', 'Real-time preview']
+  },
+  {
+    title: "Instant PDF Export",
+    description: "Download professional PDF resumes optimized for both ATS systems and human readers.",
+    icon: DownloadIcon,
+    gradient: 'linear-gradient(135deg, #334155, #64748B)',
+    benefits: ['High-quality PDFs', 'ATS-friendly', 'Instant download']
+  },
+  {
+    title: "Complete Privacy",
+    description: "Your data stays on your device. We don't collect, store, or share your information.",
+    icon: PrivacyIcon,
+    gradient: 'linear-gradient(135deg, #065F46, #059669)',
+    benefits: ['No data collection', 'No sign-up required', '100% private']
+  },
+  {
+    title: "ATS Optimized",
+    description: "Resume structure automatically optimized to pass Applicant Tracking Systems.",
+    icon: ATSIcon,
+    gradient: 'linear-gradient(135deg, #7C2D12, #C2410C)',
+    benefits: ['Keyword friendly', 'Proper formatting', 'Scannable structure']
   }
 ];
 
@@ -214,25 +292,12 @@ function navigateToApp() {
   router.push("/app");
 }
 
-// State for collapsible JSON
-const isExpanded = ref(false);
-const jsonContent = ref(null);
-
-// GSAP animation for expanding/collapsing JSON
-const toggleJsonView = () => {
-  if (isExpanded.value) {
-    gsap.to(jsonContent.value, { height: "200px", duration: 1 });
-  } else {
-    gsap.to(jsonContent.value, { height: "auto", duration: 1 });
-  }
-  isExpanded.value = !isExpanded.value;
-};
-
-// Format JSON for display
-const formattedJson = JSON.stringify(resumeData, null, 2);
+function scrollToExamples() {
+  document.getElementById('about-hastecv').scrollIntoView({ behavior: 'smooth' });
+}
 
 onMounted(() => {
-  gsap.set(jsonContent.value, { height: "200px", overflow: "hidden" });
+  // Page animations
 });
 </script>
 
@@ -273,160 +338,297 @@ export default {
 .hero {
   background: var(--primary-black);
   position: relative;
-  color: whitesmoke;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
-}
-
-/* Animated button styling */
-.animated-button {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  padding: 16px 36px;
-  border: 4px solid transparent;
-  font-size: 18px;
-  background-color: transparent;
-  border-radius: 2px;
-  font-weight: 600;
-  color: var(--haste-yellow);
-  box-shadow: 0 0 0 2px var(--haste-yellow);
-  cursor: pointer;
+  padding: 5rem 0 6rem;
   overflow: hidden;
-  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-.animated-button svg {
+.hero::before {
+  content: '';
   position: absolute;
-  width: 24px;
-  fill: var(--haste-yellow);
-  z-index: 9;
-  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
-}
-
-.animated-button .arr-1 {
-  right: 16px;
-}
-
-.animated-button .arr-2 {
-  left: -25%;
-}
-
-.animated-button .circle {
-  position: absolute;
-  top: 50%;
+  top: 0;
   left: 50%;
-  transform: translate(-50%, -50%);
-  width: 20px;
-  height: 20px;
-  background-color: var(--haste-yellow);
-  border-radius: 50%;
-  opacity: 0;
-  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
-}
-
-.animated-button .text {
-  position: relative;
-  z-index: 1;
-  transform: translateX(-12px);
-  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
-}
-
-.animated-button:hover {
-  box-shadow: 0 0 0 12px transparent;
-  color: var(--primary-black);
-  border-radius: 12px;
-}
-
-.animated-button:hover .arr-1 {
-  right: -25%;
-}
-
-.animated-button:hover .arr-2 {
-  left: 16px;
-}
-
-.animated-button:hover .text {
-  transform: translateX(12px);
-}
-
-.animated-button:hover svg {
-  fill: var(--primary-black);
-}
-
-.animated-button:active {
-  scale: 0.95;
-  box-shadow: 0 0 0 4px var(--haste-yellow);
-}
-
-.animated-button:hover .circle {
-  width: 250px;
-  height: 220px;
-  opacity: 1;
-}
-
-/* Card styling */
-.card {
-  border-radius: 8px;
+  transform: translateX(-50%);
   width: 100%;
-  height: auto;
-  padding: 20px;
-  color: whitesmoke;
-  background: transparent;
-  border: 2px solid var(--haste-yellow);
+  max-width: 1400px;
+  height: 100%;
+  background: radial-gradient(ellipse at top, rgba(var(--haste-primary-rgb), 0.15), transparent 50%);
+  pointer-events: none;
+}
+
+.hero-content {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
   display: flex;
   flex-direction: column;
-  transform-origin: center center;
-  transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  gap: 2rem;
 }
 
-.card:hover {
-  border-radius: 8px;
-  background-color: var(--haste-yellow);
-  scale: 0.95;
-  rotate: 8deg;
-  box-shadow: 0px 3px 187.5px 7.5px rgba(255, 107, 0, 0.4);
-}
-
-.illustration-container {
-  height: 150px;
-  display: flex;
-  justify-content: center;
+.hero-badge {
+  display: inline-flex;
   align-items: center;
-  margin-bottom: 20px;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: var(--gray-800);
+  border: 1px solid var(--border-color);
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--gray-300);
+  width: fit-content;
+  margin: 0 auto;
 }
 
-.illustration {
-  max-width: 140px;
-  max-height: 140px;
+.badge-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--haste-primary);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
 }
 
-.card .main-content {
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.hero-title {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: white;
+  margin: 0;
+}
+
+.title-highlight {
+  display: block;
+  background: var(--haste-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-description {
+  font-size: 1.125rem;
+  line-height: 1.7;
+  color: var(--gray-300);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  background: var(--haste-primary);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(var(--haste-primary-rgb), 0.3);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(var(--haste-primary-rgb), 0.4);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-secondary {
+  padding: 1rem 2rem;
+  background: transparent;
+  color: white;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-secondary:hover {
+  border-color: var(--haste-primary);
+  color: var(--haste-primary);
+  background: rgba(var(--haste-primary-rgb), 0.1);
+}
+
+.hero-stats {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  padding: 2rem;
+  background: var(--gray-900);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  flex-wrap: wrap;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.stat-value {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--haste-primary);
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 0.875rem;
+  color: var(--gray-400);
+  font-weight: 500;
+}
+
+.stat-divider {
+  width: 1px;
+  height: 40px;
+  background: var(--border-color);
+}
+
+/* Features Section */
+.features {
+  padding: 5rem 0;
+  background: var(--gray-900);
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: white;
+  margin: 0 0 1rem;
+  letter-spacing: -0.02em;
+}
+
+.section-description {
+  font-size: 1.125rem;
+  color: var(--gray-400);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+
+.feature-card {
+  background: var(--gray-800);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.feature-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--haste-primary);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+}
+
+.feature-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  flex-shrink: 0;
+}
+
+.feature-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
   flex: 1;
 }
 
-.card .heading {
-  font-size: 24px;
+.feature-title {
+  font-size: 1.25rem;
   font-weight: 600;
-  line-height: 1.2;
-  margin-bottom: 8px;
+  color: white;
+  margin: 0;
+  letter-spacing: -0.01em;
 }
 
-.card .description {
-  font-size: 16px;
-  opacity: 0.85;
+.feature-description {
+  font-size: 0.9375rem;
+  color: var(--gray-400);
+  line-height: 1.6;
+  margin: 0;
 }
 
-/* Updated Grid for Medium and Large Screens */
-@media (min-width: 768px) {
-  .grid {
-    grid-template-columns: repeat(2, minmax(300px, 1fr));
+.feature-benefits {
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.feature-benefits li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--gray-300);
+}
+
+.feature-benefits li svg {
+  flex-shrink: 0;
+  color: var(--haste-primary);
+}
+
+@media (max-width: 768px) {
+  .features-grid {
+    grid-template-columns: 1fr;
   }
-}
-
-@media (min-width: 1024px) {
-  .grid {
-    grid-template-columns: repeat(3, minmax(320px, 1fr));
+  
+  .section-title {
+    font-size: 2rem;
+  }
+  
+  .hero-title {
+    font-size: 2.5rem;
+  }
+  
+  .hero-stats {
+    gap: 1rem;
+  }
+  
+  .stat-divider {
+    display: none;
   }
 }
 
@@ -482,45 +684,67 @@ export default {
   text-decoration: underline;
 }
 
-/* JSON example container styling */
-.json-container {
-  background-color: #1e1e1e;
-  border: 1px solid var(--haste-yellow);
-  border-radius: 8px;
-  padding: 16px;
-  max-width: 800px;
-  margin: 0 auto;
-  position: relative;
+/* JSON Info Card */
+.json-info-card {
+  margin-top: 2rem;
+  padding: 2rem;
+  background: var(--gray-900);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
-.json-content {
-  overflow: hidden;
-  max-width: 100%;
-  white-space: pre-wrap;
-  color: #d1d5db; /* Light gray color for the JSON text */
-  font-family: "Fira Code", monospace;
-  background: #272822;
-  border-radius: 8px;
-  padding: 16px;
-  transition: height 0.5s ease;
+.json-info-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
-.toggle-json-btn {
-  background-color: var(--haste-yellow);
-  color: var(--primary-black);
-  padding: 8px 16px;
-  border: none;
-  cursor: pointer;
-  font-size: 16px;
-  margin-top: 12px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  border-radius: 4px;
-  transition: background-color 0.3s;
+.json-info-header svg {
+  color: var(--haste-primary);
+  flex-shrink: 0;
 }
 
-.toggle-json-btn:hover {
-  background-color: #ffcc00;
+.json-info-header h3 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+}
+
+.json-info-text {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--gray-400);
+  line-height: 1.6;
+}
+
+.json-info-features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.feature-badge {
+  padding: 0.5rem 1rem;
+  background: rgba(var(--haste-primary-rgb), 0.1);
+  border: 1px solid rgba(var(--haste-primary-rgb), 0.3);
+  border-radius: 6px;
+  color: var(--haste-primary);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .json-info-card {
+    padding: 1.5rem;
+  }
+  
+  .json-info-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
 </style>
