@@ -21,6 +21,13 @@
   --gray-300: #d1d5db;
 }
 
+/* Hide GPT Widget on Mobile */
+@media (max-width: 768px) {
+  .desktop-only-widget {
+    display: none !important;
+  }
+}
+
 *:focus {
   outline-style: none;
 }

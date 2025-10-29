@@ -108,6 +108,9 @@
       <SimplifiedCustomization ref="customizationPanelRef" />
     </div>
 
+    <!-- Mobile Backdrop (overlay when sidebar is open) -->
+    <div v-if="isMobile" class="mobile-backdrop" :class="{ 'active': customizationPanelRef?.isOpen }" @click="closeSidebar"></div>
+
     <!-- Bottom Action Bar - Single Generate Button -->
     <div class="bottom-bar">
       <div class="bottom-bar-content">
@@ -356,6 +359,12 @@ function clearData() {
 function togglePreview() {
   isPreviewVisible.value = !isPreviewVisible.value;
 }
+
+function closeSidebar() {
+  if (customizationPanelRef.value && customizationPanelRef.value.isOpen) {
+    customizationPanelRef.value.isOpen = false;
+  }
+}
 </script>
 
 <style scoped>
@@ -521,7 +530,7 @@ function togglePreview() {
   display: grid;
   grid-template-columns: 1fr 1fr auto;
   gap: 1.5rem;
-  padding-left: 1rem;
+  padding-left: 1.5rem;
   flex: 1;
   overflow: hidden;
   max-width: 1920px;
@@ -613,48 +622,608 @@ function togglePreview() {
   opacity: 0;
 }
 
+/* Mobile Backdrop */
+.mobile-backdrop {
+  display: none;
+}
+
 /* Mobile Responsive */
-@media (max-width: 768px) {
-  .control-bar-content {
-    flex-direction: column;
-    align-items: stretch;
+/* ============================================
+   TABLET RESPONSIVE (768px - 1024px)
+   ============================================ */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .main-content {
+    grid-template-columns: 1fr;
     gap: 1rem;
   }
 
+  .customization-sidebar {
+    position: fixed;
+    right: 0;
+    top: 0;
+    height: 100vh;
+    z-index: 1000;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+  }
+
+  .customization-sidebar.is-open {
+    transform: translateX(0);
+    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.5);
+  }
+}
+
+/* ============================================
+   MOBILE RESPONSIVE (< 768px)
+   Completely different UX with bottom sheet
+   ============================================ */
+@media (max-width: 768px) {
+  /* Control Bar - Ultra Compact */
+  .control-bar {
+    padding: 0.5rem 0.75rem;
+  }
+
+  .control-bar-content {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  /* Mode Tabs - Horizontal Pills */
   .mode-tabs {
-    width: 100%;
+    flex: 1;
+    min-width: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+    gap: 0.25rem;
+  }
+
+  .mode-tabs::-webkit-scrollbar {
+    display: none;
   }
 
   .mode-tab {
-    flex: 1;
-    text-align: center;
+    flex: 0 0 auto;
+    min-width: auto;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8125rem;
+    border-radius: 20px;
   }
 
+  .mode-tab svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .mode-tab span {
+    display: none; /* Icons only */
+  }
+
+  /* Hide right controls on mobile - use settings menu instead */
   .right-controls {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0.75rem;
-  }
-
-  .control-group {
-    justify-content: space-between;
-  }
-
-  .action-btn {
-    width: 100%;
-  }
-
-  .main-content {
-    grid-template-columns: 1fr auto;
-    padding: 1rem;
-  }
-
-  .editor-section {
     display: none;
+  }
+
+  /* Main Content - Mobile Tabs */
+  .main-content {
+    grid-template-columns: 1fr;
+    padding: 0;
+    gap: 0;
+    position: relative;
+    height: calc(100vh - 48px - 70px); /* Control bar + bottom bar */
+  }
+
+  .editor-section,
+  .preview-section {
+    display: none;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 0.75rem;
+    -webkit-overflow-scrolling: touch;
   }
 
   .editor-section:not(.hidden-mobile) {
     display: flex;
+    flex-direction: column;
+  }
+
+  .preview-section:not(.hidden-mobile) {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Make forms more mobile-friendly */
+  .editor-section :deep(input),
+  .editor-section :deep(textarea),
+  .editor-section :deep(select) {
+    font-size: 16px !important; /* Prevents zoom on iOS */
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  .editor-section :deep(textarea) {
+    min-height: 100px;
+  }
+
+  /* Manual Form - Beautiful Mobile Experience */
+  .editor-section :deep(.resume-form),
+  .editor-section :deep(.manual-editor),
+  .editor-section :deep(.manual-form) {
+    padding: 0 !important;
+    width: 100% !important;
+  }
+
+  /* Form sections with proper spacing */
+  .editor-section :deep(.form-section),
+  .editor-section :deep(.section-card),
+  .editor-section :deep([class*="section"]):not(.editor-section) {
+    margin-bottom: 1.25rem !important;
+    background: var(--gray-800) !important;
+    border: 2px solid var(--gray-700) !important;
+    border-radius: 16px !important;
+    overflow: visible !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+    position: relative !important;
+  }
+
+  /* Section headers - no overlap */
+  .editor-section :deep(.form-section-header),
+  .editor-section :deep(.section-header),
+  .editor-section :deep(h3),
+  .editor-section :deep(h2) {
+    padding: 1rem !important;
+    background: var(--haste-primary) !important;
+    border-bottom: none !important;
+    border-radius: 14px 14px 0 0 !important;
+    font-weight: 700 !important;
+    font-size: 0.9375rem !important;
+    color: white !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.75px !important;
+    margin: 0 !important;
+    position: relative !important;
+    z-index: 1 !important;
+    display: block !important;
+    width: 100% !important;
+  }
+
+  /* Remove emoji pseudo-element causing overlap */
+  .editor-section :deep(.section-header)::before,
+  .editor-section :deep(h3)::before {
+    content: none !important;
+  }
+
+  /* Form content area */
+  .editor-section :deep(.form-section-content),
+  .editor-section :deep(.section-content),
+  .editor-section :deep([class*="content"]) {
+    padding: 1.25rem 1rem !important;
+    background: var(--gray-800) !important;
+    border-radius: 0 0 14px 14px !important;
+  }
+
+  .editor-section :deep(.form-group),
+  .editor-section :deep(.input-group),
+  .editor-section :deep([class*="group"]) {
+    margin-bottom: 1.25rem !important;
+    position: relative !important;
+  }
+
+  .editor-section :deep(.form-group):last-child,
+  .editor-section :deep(.input-group):last-child {
+    margin-bottom: 0 !important;
+  }
+
+  /* Labels - clear and readable */
+  .editor-section :deep(label) {
+    display: block !important;
+    margin-bottom: 0.625rem !important;
+    font-size: 0.8125rem !important;
+    font-weight: 700 !important;
+    color: white !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    line-height: 1.4 !important;
+  }
+
+  /* Input fields - clean and modern */
+  .editor-section :deep(input[type="text"]),
+  .editor-section :deep(input[type="email"]),
+  .editor-section :deep(input[type="tel"]),
+  .editor-section :deep(input[type="url"]),
+  .editor-section :deep(input[type="date"]),
+  .editor-section :deep(textarea),
+  .editor-section :deep(select) {
+    width: 100% !important;
+    padding: 0.875rem 1rem !important;
+    border: 2px solid var(--gray-600) !important;
+    border-radius: 10px !important;
+    background: var(--gray-900) !important;
+    color: white !important;
+    font-size: 16px !important;
+    font-weight: 400 !important;
+    line-height: 1.5 !important;
+    transition: all 0.2s ease !important;
+    -webkit-appearance: none !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Focus state - simplified */
+  .editor-section :deep(input:focus),
+  .editor-section :deep(textarea:focus),
+  .editor-section :deep(select:focus) {
+    outline: none !important;
+    border-color: var(--haste-primary) !important;
+    background: var(--gray-900) !important;
+    box-shadow: 0 0 0 3px rgba(255, 69, 58, 0.2) !important;
+  }
+
+  .editor-section :deep(textarea) {
+    min-height: 120px !important;
+    resize: vertical !important;
+    line-height: 1.6 !important;
+  }
+
+  /* Buttons in forms - Touch Friendly */
+  .editor-section :deep(button) {
+    min-height: 48px !important;
+    font-size: 0.9375rem !important;
+    font-weight: 600 !important;
+    padding: 0.75rem 1.25rem !important;
+    border-radius: 10px !important;
+    transition: all 0.2s ease !important;
+    border: none !important;
+    cursor: pointer !important;
+  }
+
+  .editor-section :deep(button:active) {
+    transform: scale(0.97) !important;
+  }
+
+  /* Primary buttons (Add) */
+  .editor-section :deep(button[class*="add"]),
+  .editor-section :deep(.add-button) {
+    background: var(--haste-primary) !important;
+    color: white !important;
+    font-weight: 700 !important;
+    box-shadow: 0 2px 8px rgba(255, 69, 58, 0.3) !important;
+  }
+
+  /* Secondary buttons (Remove/Delete) */
+  .editor-section :deep(button[class*="remove"]),
+  .editor-section :deep(button[class*="delete"]),
+  .editor-section :deep(.remove-button),
+  .editor-section :deep(.delete-button) {
+    background: var(--gray-700) !important;
+    color: white !important;
+    border: 1px solid var(--gray-600) !important;
+  }
+
+  /* Array/List items */
+  .editor-section :deep(.array-item),
+  .editor-section :deep([class*="item-container"]) {
+    background: var(--gray-900) !important;
+    border: 1px solid var(--gray-700) !important;
+    border-radius: 10px !important;
+    padding: 1rem !important;
+    margin-bottom: 1rem !important;
+    position: relative !important;
+  }
+
+  /* Checkboxes & Radio buttons */
+  .editor-section :deep(input[type="checkbox"]),
+  .editor-section :deep(input[type="radio"]) {
+    width: 20px !important;
+    height: 20px !important;
+    min-width: 20px !important;
+    margin-right: 0.625rem !important;
+    accent-color: var(--haste-primary) !important;
+  }
+
+  /* Helper text */
+  .editor-section :deep(.input-hint),
+  .editor-section :deep(.hint-text),
+  .editor-section :deep(small) {
+    font-size: 0.75rem !important;
+    color: var(--gray-400) !important;
+    margin-top: 0.375rem !important;
+    display: block !important;
+    line-height: 1.4 !important;
+  }
+
+  /* Mobile Backdrop */
+  .mobile-backdrop {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .mobile-backdrop.active {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  /* Sidebar as Bottom Sheet */
+  .customization-sidebar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: auto;
+    height: auto;
+    max-height: 75vh;
+    width: 100%;
+    transform: translateY(100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-left: none;
+    border-top: 1px solid var(--border-color);
+    border-radius: 20px 20px 0 0;
+    z-index: 1001;
+    box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.6);
+  }
+
+  .customization-sidebar.is-open {
+    transform: translateY(0);
+  }
+
+  /* Force FAB to be visible on mobile */
+  .customization-sidebar {
+    position: static !important; /* Don't hide it */
+  }
+
+  .mini-icons {
+    position: fixed !important;
+    bottom: 90px !important;
+    right: 1rem !important;
+    display: flex !important;
+    flex-direction: row !important;
+    padding: 0.625rem !important;
+    background: var(--haste-primary) !important;
+    border: 3px solid white !important;
+    border-radius: 30px !important;
+    gap: 0.5rem !important;
+    box-shadow: 
+      0 0 0 6px rgba(255, 69, 58, 0.3),
+      0 10px 30px rgba(255, 69, 58, 0.7), 
+      0 6px 16px rgba(0, 0, 0, 0.6) !important;
+    z-index: 99999 !important;
+    animation: pulse-glow 2s ease-in-out infinite !important;
+    pointer-events: all !important;
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% {
+      box-shadow: 
+        0 0 0 6px rgba(255, 69, 58, 0.3),
+        0 10px 30px rgba(255, 69, 58, 0.7), 
+        0 6px 16px rgba(0, 0, 0, 0.6);
+      transform: scale(1);
+    }
+    50% {
+      box-shadow: 
+        0 0 0 8px rgba(255, 69, 58, 0.4),
+        0 14px 40px rgba(255, 69, 58, 0.9), 
+        0 8px 20px rgba(0, 0, 0, 0.7);
+      transform: scale(1.05);
+    }
+  }
+
+  .mini-icon {
+    width: 48px !important;
+    height: 48px !important;
+    border-radius: 24px !important;
+    background: white !important;
+    border: none !important;
+    color: var(--haste-primary) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 22px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .mini-icon svg {
+    width: 24px !important;
+    height: 24px !important;
+  }
+
+  .mini-icon:active {
+    transform: scale(0.9) !important;
+    background: rgba(255, 255, 255, 0.85) !important;
+  }
+
+  /* Bottom Sheet Content */
+  .sidebar-content {
+    max-height: 75vh;
+    overflow-y: auto;
+    border-radius: 20px 20px 0 0;
+  }
+
+  .sidebar-header {
+    padding: 1.25rem 1rem 1rem;
+    position: sticky;
+    top: 0;
+    background: var(--gray-900);
+    z-index: 10;
+  }
+
+  .sidebar-header::before {
+    content: '';
+    position: absolute;
+    top: 0.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 48px;
+    height: 5px;
+    background: var(--gray-600);
+    border-radius: 3px;
+  }
+
+  .sidebar-header h3 {
+    font-size: 1.125rem;
+  }
+
+  /* Bottom Bar - Compact Fixed */
+  .bottom-bar {
+    padding: 0.625rem 0.75rem;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--gray-900);
+    border-top: 1px solid var(--border-color);
+    z-index: 100;
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.4);
+    height: 70px;
+  }
+
+  .bottom-bar-content {
+    max-width: 100%;
+    display: flex;
+    gap: 0.5rem;
+    align-items: stretch;
+  }
+
+  .mobile-toggle {
+    flex: 1;
+    min-height: 44px;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    border-radius: 10px;
+    padding: 0 1rem;
+  }
+
+  /* Generate button on mobile */
+  .bottom-bar :deep(.generate-button) {
+    flex: 2;
+    min-height: 44px;
+    font-size: 0.9375rem;
+    font-weight: 700;
+  }
+
+  /* Preview Card - Full Height */
+  .preview-card {
+    height: 100%;
+    border-radius: 0;
+    border: none;
+    background: transparent;
+  }
+
+  .preview-header {
+    display: none; /* Hide on mobile to save space */
+  }
+
+  .preview-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0.5rem;
+    height: 100%;
+  }
+
+  /* PDF Preview iframe/embed - Full width on mobile */
+  .preview-body :deep(iframe),
+  .preview-body :deep(embed),
+  .preview-body :deep(object) {
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 8px;
+  }
+
+  /* Hide GPT Widget on Mobile */
+  :deep(.gpt-chat-widget),
+  :deep(.gpt-widget-fab),
+  :deep(.gpt-widget-container),
+  :deep([class*="gpt"]) {
+    display: none !important;
+  }
+
+  /* Remove JSON/Visual builder deep styles - let components handle it */
+
+  .editor-section :deep(.instructions-banner) {
+    padding: 1rem;
+    font-size: 0.875rem;
+  }
+
+  .editor-section :deep(.instructions-title) {
+    font-size: 1.125rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .editor-section :deep(.instructions-text) {
+    font-size: 0.8125rem;
+  }
+
+  .editor-section :deep(.builder-layout) {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .editor-section :deep(.sections-panel),
+  .editor-section :deep(.preview-panel) {
+    max-height: none;
+  }
+
+  .editor-section :deep(.section-item) {
+    padding: 0.75rem;
+  }
+
+  .editor-section :deep(.section-controls button) {
+    min-width: 40px;
+    min-height: 40px;
+  }
+
+  .editor-section :deep(.add-section-menu) {
+    grid-template-columns: 1fr;
+  }
+
+  /* JSON Editor Mobile */
+  .editor-section :deep(.json-editor-container) {
+    font-size: 14px;
+  }
+}
+
+/* Extra Small Phones */
+@media (max-width: 480px) {
+  .mode-tab span {
+    display: none;
+  }
+
+  .mode-tab {
+    padding: 0.5rem;
+  }
+
+  .customization-sidebar {
+    max-height: 85vh;
+  }
+
+  .sidebar-content {
+    max-height: 85vh;
+  }
+
+  .control-label svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .mini-icons {
+    right: 0.5rem;
+    bottom: 70px;
+  }
+
+  .mini-icon {
+    width: 44px;
+    height: 44px;
   }
 }
 

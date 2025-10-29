@@ -7,8 +7,8 @@
   </main>
   <FooterComponent />
   
-  <!-- Global GPT Chat Widget -->
-  <GPTChatWidget />
+  <!-- Global GPT Chat Widget - Desktop Only -->
+  <GPTChatWidget class="desktop-only-widget" />
 </template>
 
 <script setup>
