@@ -6,12 +6,16 @@
     <router-view></router-view>
   </main>
   <FooterComponent />
+  
+  <!-- Global GPT Chat Widget -->
+  <GPTChatWidget />
 </template>
 
 <script setup>
 import AppHeader from "@/components/AppHeader.vue";
 import FooterComponent from "@/components/FooterComponent.vue";
 import CookieConsent from "@/components/CookieConsent.vue";
+import GPTChatWidget from "@/components/GPTChatWidget.vue";
 </script>
 
 <script>

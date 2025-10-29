@@ -1,19 +1,5 @@
 <template>
-  <div class="language-selector">
-    <label for="language-select" class="language-label">Language:</label>
-    <select
-      id="language-select"
-      v-model="store.language"
-      class="language-select"
-      @change="handleLanguageChange"
-    >
-      <option value="en">🇺🇸 English</option>
-      <option value="es">🇪🇸 Español</option>
-      <option value="fr">🇫🇷 Français</option>
-      <option value="de">🇩🇪 Deutsch</option>
-      <option value="pt">🇵🇹 Português</option>
-    </select>
-  </div>
+
 </template>
 
 <script setup>

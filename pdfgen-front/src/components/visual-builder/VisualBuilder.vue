@@ -92,11 +92,37 @@
                 </div>
               </div>
 
-              <!-- Extra Properties for Spacer/Divider -->
+              <!-- Extra Properties for All Sections -->
               <div
-                v-if="section.enabled && (section.type === 'spacer' || section.type === 'divider')"
+                v-if="section.enabled"
                 class="section-properties"
               >
+                <!-- Alignment for content sections -->
+                <div v-if="section.type !== 'spacer' && section.type !== 'divider'" class="property-group">
+                  <label class="property-label">Alignment</label>
+                  <div class="alignment-buttons">
+                    <button
+                      :class="['alignment-btn', { 'active': section.alignment === 'left' }]"
+                      @click="updateAlignment(section.id, 'left')"
+                      title="Left"
+                    >
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                        <path d="M2 3h12M2 6h8M2 9h12M2 12h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                      </svg>
+                    </button>
+                    <button
+                      :class="['alignment-btn', { 'active': section.alignment === 'center' }]"
+                      @click="updateAlignment(section.id, 'center')"
+                      title="Center"
+                    >
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                        <path d="M2 3h12M4 6h8M2 9h12M4 12h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Spacer specific -->
                 <div v-if="section.type === 'spacer'" class="property-group">
                   <label class="property-label">Height</label>
                   <select
@@ -110,6 +136,8 @@
                     <option value="50px">50px</option>
                   </select>
                 </div>
+
+                <!-- Divider specific -->
                 <div v-if="section.type === 'divider'" class="property-group">
                   <label class="property-label">Color</label>
                   <input
@@ -257,6 +285,10 @@ function updateHeight(id, height) {
 
 function updateColor(id, color) {
   canvasStore.updateSection(id, { color });
+}
+
+function updateAlignment(id, alignment) {
+  canvasStore.updateSection(id, { alignment });
 }
 </script>
 
@@ -531,6 +563,7 @@ function updateColor(id, color) {
   background: var(--gray-900);
   border-top: 1px solid var(--border-color);
   display: flex;
+  flex-wrap: wrap;
   gap: 1rem;
 }
 
@@ -562,6 +595,37 @@ function updateColor(id, color) {
   border-radius: 4px;
   background: var(--gray-700);
   cursor: pointer;
+}
+
+/* Alignment Buttons */
+.alignment-buttons {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.alignment-btn {
+  width: 32px;
+  height: 32px;
+  background: var(--gray-700);
+  border: 1px solid var(--border-color);
+  color: var(--gray-400);
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.alignment-btn:hover {
+  border-color: var(--haste-primary);
+  color: var(--haste-primary);
+}
+
+.alignment-btn.active {
+  background: var(--haste-primary);
+  border-color: var(--haste-primary);
+  color: white;
 }
 
 /* Panel Footer */

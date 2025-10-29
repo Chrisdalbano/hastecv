@@ -233,7 +233,7 @@ export const useResumeDataStore = defineStore("resume", () => {
     };
   }
 
-  async function generatePdf(jsonData) {
+  async function generatePdf(jsonData, options = {}) {
     if (!consentAccepted.value) {
       console.warn("User has not accepted cookies.");
       return;
@@ -250,7 +250,12 @@ export const useResumeDataStore = defineStore("resume", () => {
           body: JSON.stringify({ 
             data: jsonData, 
             template: template.value,
-            language: language.value  // Send language to backend
+            language: language.value,  // Send language to backend
+            theme_color: options.theme_color || null,  // Send theme color
+            layout_type: options.layout_type || 'single-column',  // Send layout type
+            spacing: options.spacing || 'normal',  // Send spacing
+            alignment: options.alignment || 'left',  // Send alignment
+            margins: options.margins || 'normal'  // Send margins
           })
         }
       );

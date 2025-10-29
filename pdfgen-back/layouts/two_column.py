@@ -73,7 +73,7 @@ class TwoColumnDocTemplate(BaseDocTemplate):
         self.addPageTemplates([template])
 
 
-def generate_two_column_resume(data, styles, template='technical', density='compact', output_file='resume.pdf', language='en'):
+def generate_two_column_resume(data, styles, template='technical', density='compact', output_file='resume.pdf', language='en', alignment='left', margins='normal'):
     """
     Generate a two-column resume with sidebar.
     
@@ -88,17 +88,38 @@ def generate_two_column_resume(data, styles, template='technical', density='comp
     # Create layout configuration
     config = LayoutConfig(density=density)
     
+    # Apply custom margins if provided
+    margin_values = {
+        'narrow': 0.5 * inch,
+        'normal': 0.75 * inch,
+        'wide': 1.0 * inch
+    }
+    margin_size = margin_values.get(margins, 0.75 * inch)
+    
     # Create two-column document
     doc = TwoColumnDocTemplate(
         output_file,
         pagesize=letter,
-        topMargin=config.margins['top'],
-        bottomMargin=config.margins['bottom'],
-        leftMargin=config.margins['left'],
-        rightMargin=config.margins['right']
+        topMargin=margin_size,
+        bottomMargin=margin_size,
+        leftMargin=margin_size,
+        rightMargin=margin_size
     )
     
     story = []
+    
+    # Apply alignment to header styles
+    from reportlab.lib.enums import TA_LEFT, TA_CENTER, TA_RIGHT
+    if alignment == 'center':
+        styles['Name'].alignment = TA_CENTER
+        styles['Title'].alignment = TA_CENTER
+        styles['Contact'].alignment = TA_CENTER
+        styles['SectionHeader'].alignment = TA_CENTER
+    elif alignment == 'right':
+        styles['Name'].alignment = TA_RIGHT
+        styles['Title'].alignment = TA_RIGHT
+        styles['Contact'].alignment = TA_RIGHT
+        styles['SectionHeader'].alignment = TA_RIGHT
     
     # SIDEBAR CONTENT (Frame 1)
     # Name and title at top of sidebar

@@ -14,6 +14,7 @@ export const useCanvasStore = defineStore('canvas', () => {
       width: '100%', 
       height: 'auto',
       padding: 'small',
+      alignment: 'left',
       order: 0
     },
     { 
@@ -23,6 +24,7 @@ export const useCanvasStore = defineStore('canvas', () => {
       width: '100%', 
       height: 'auto',
       padding: 'small',
+      alignment: 'left',
       order: 1
     },
     { 
@@ -32,6 +34,7 @@ export const useCanvasStore = defineStore('canvas', () => {
       width: '100%', 
       height: 'auto',
       padding: 'small',
+      alignment: 'left',
       order: 2
     },
     { 
@@ -41,6 +44,7 @@ export const useCanvasStore = defineStore('canvas', () => {
       width: '100%', 
       height: 'auto',
       padding: 'small',
+      alignment: 'left',
       order: 3
     },
     { 
@@ -50,6 +54,7 @@ export const useCanvasStore = defineStore('canvas', () => {
       width: '100%', 
       height: 'auto',
       padding: 'small',
+      alignment: 'left',
       order: 4
     },
     { 
@@ -59,6 +64,7 @@ export const useCanvasStore = defineStore('canvas', () => {
       width: '100%', 
       height: 'auto',
       padding: 'small',
+      alignment: 'left',
       order: 5
     },
     { 
@@ -68,6 +74,7 @@ export const useCanvasStore = defineStore('canvas', () => {
       width: '100%', 
       height: 'auto',
       padding: 'small',
+      alignment: 'left',
       order: 6
     }
   ]);
@@ -94,6 +101,7 @@ export const useCanvasStore = defineStore('canvas', () => {
       width: '100%',
       height: type === 'spacer' ? '20px' : 'auto',
       padding: type === 'divider' || type === 'spacer' ? 'none' : 'medium',
+      alignment: type === 'divider' || type === 'spacer' ? null : 'left',
       order: sections.value.length,
       // Spacer/divider specific
       ...(type === 'spacer' && { color: 'transparent' }),
