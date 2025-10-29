@@ -110,11 +110,19 @@ def configure_cors():
 # Configure CORS
 configure_cors()
 
-# Configure Talisman (security headers)
+# Configure Talisman (security headers) - Must allow CORS to work
 if app.config["ENV"] == "production":
-    Talisman(app)  # Enable HTTPS enforcement in production
+    # Production: HTTPS enforcement enabled, but allow CORS
+    Talisman(app, 
+             force_https=True,
+             strict_transport_security=True,
+             content_security_policy=None,  # Let after_request handle CSP
+             session_cookie_secure=True)
 else:
-    Talisman(app, force_https=False)  # Disable HTTPS enforcement for local dev
+    # Development: Minimal security for local testing
+    Talisman(app, 
+             force_https=False,
+             content_security_policy=None)
 
 # Setup logging
 handler = logging.StreamHandler()
@@ -163,17 +171,12 @@ def generate():
 # Secure headers for all responses (CORS is handled by Flask-CORS extension)
 @app.after_request
 def set_secure_headers(response):
-    # Add CORS headers to response if not already present
-    if "Access-Control-Allow-Origin" not in response.headers:
-        origin = request.headers.get("Origin", "*")
-        response.headers["Access-Control-Allow-Origin"] = origin
+    # DO NOT manually set CORS headers - Flask-CORS handles this automatically
+    # Manual headers can interfere with preflight responses
     
     response.headers["Content-Security-Policy"] = "default-src 'self';"
     response.headers["X-Content-Type-Options"] = "nosniff"
     response.headers["X-Frame-Options"] = "DENY"
-    
-    # Note: CORS headers are automatically added by Flask-CORS extension
-    # Do not manually add CORS headers here to avoid duplicates
     
     return response
 
