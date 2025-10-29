@@ -178,6 +178,7 @@ export const useCanvasStore = defineStore('canvas', () => {
         width: section.width,
         height: section.height,
         padding: section.padding,
+        alignment: section.alignment || 'left', // Include alignment
         ...(section.type === 'spacer' && { color: section.color }),
         ...(section.type === 'divider' && { 
           color: section.color, 

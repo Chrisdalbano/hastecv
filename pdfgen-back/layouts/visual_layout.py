@@ -82,9 +82,24 @@ def generate_visual_layout(data, layout_config, output_file='resume.pdf', primar
         section_type = section.get('type')
         section_data = section.get('data', {})
         padding_type = section.get('padding', 'medium')
+        section_alignment = section.get('alignment', 'left')  # Get per-section alignment
         
         # Debug each section
-        print(f"[{idx+1}] Processing: {section_type}, data keys: {list(section_data.keys()) if section_data else 'None'}")
+        print(f"[{idx+1}] Processing: {section_type}, alignment: {section_alignment}, data keys: {list(section_data.keys()) if section_data else 'None'}")
+        
+        # Apply section-specific alignment temporarily
+        from reportlab.lib.enums import TA_LEFT, TA_CENTER, TA_RIGHT
+        original_alignments = {}
+        if section_alignment == 'center':
+            original_alignments['Name'] = getattr(styles.get('Name'), 'alignment', TA_LEFT)
+            original_alignments['SectionHeader'] = getattr(styles.get('SectionHeader'), 'alignment', TA_LEFT)
+            styles['Name'].alignment = TA_CENTER
+            styles['SectionHeader'].alignment = TA_CENTER
+        elif section_alignment == 'right':
+            original_alignments['Name'] = getattr(styles.get('Name'), 'alignment', TA_LEFT)
+            original_alignments['SectionHeader'] = getattr(styles.get('SectionHeader'), 'alignment', TA_LEFT)
+            styles['Name'].alignment = TA_RIGHT
+            styles['SectionHeader'].alignment = TA_RIGHT
         
         # Add spacing based on padding
         padding_map = {
@@ -100,6 +115,11 @@ def generate_visual_layout(data, layout_config, output_file='resume.pdf', primar
             elements = create_header_section(section_data, styles, config)
             story.extend(elements)
             
+            # Restore original alignment for header
+            if original_alignments:
+                styles['Name'].alignment = original_alignments.get('Name', TA_LEFT)
+                styles['SectionHeader'].alignment = original_alignments.get('SectionHeader', TA_LEFT)
+            
         elif section_type == 'summary':
             summary = section_data.get('summary', '')
             if summary:
@@ -108,6 +128,7 @@ def generate_visual_layout(data, layout_config, output_file='resume.pdf', primar
                 if isinstance(summary, list):
                     summary = ' '.join(summary)
                 story.append(Paragraph(summary, styles['BodyText']))
+            
                 
         elif section_type == 'experience':
             experiences = section_data.get('experience', [])
@@ -205,6 +226,12 @@ def generate_visual_layout(data, layout_config, output_file='resume.pdf', primar
         # Add section padding
         if padding > 0:
             story.append(Spacer(1, padding))
+        
+        # Restore alignment after each section
+        if original_alignments:
+            for style_name, original_align in original_alignments.items():
+                if style_name in styles:
+                    styles[style_name].alignment = original_align
     
     # Build PDF
     doc.build(story)
