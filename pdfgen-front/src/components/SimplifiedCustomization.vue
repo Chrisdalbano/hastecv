@@ -312,14 +312,15 @@ watch(() => themeStore.pdfCustomColor, (newValue) => {
   }
 });
 
-// Expose settings for parent
+// Expose settings and state for parent
 defineExpose({
   getLayoutSettings: () => ({
     layout: 'single-column', // Always single column now
     spacing: selectedSpacing.value,
     alignment: selectedAlignment.value,
     margin: selectedMargin.value
-  })
+  }),
+  isOpen
 });
 </script>
 
