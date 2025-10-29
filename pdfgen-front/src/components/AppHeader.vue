@@ -8,7 +8,6 @@
 
       <!-- Language Selector and Call to Action Button -->
       <div class="right-container">
-        <LanguageSelector v-if="isOnApp" />
         <button
           v-if="!isOnApp"
           @click="navigateToApp"
@@ -24,7 +23,6 @@
 <script setup>
 import { computed } from "vue";
 import { useRouter, useRoute } from "vue-router";
-import LanguageSelector from "@/components/LanguageSelector.vue";
 
 const router = useRouter();
 const route = useRoute();

@@ -11,6 +11,7 @@
             :class="['mode-tab', { active: currentRoute === mode.path }]"
             @click="navigateTo(mode.path)"
           >
+            <component v-if="mode.icon" :is="mode.icon" class="mode-icon" />
             {{ mode.label }}
           </button>
         </div>
@@ -30,31 +31,40 @@
             <span class="file-extension">.pdf</span>
           </div>
 
-          <!-- Template Selector -->
+         
+
+          <!-- Language Selector -->
           <div class="control-group">
-            <label class="control-label">Template</label>
+            <label class="control-label">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="display: inline-block; vertical-align: middle; margin-right: 4px;">
+                <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <path d="M2 8h12M8 2c1.5 2 1.5 4 1.5 6s0 4-1.5 6M8 2C6.5 4 6.5 6 6.5 8s0 4 1.5 6" stroke="currentColor" stroke-width="1.5"/>
+              </svg>
+              Language
+            </label>
             <select
-              v-model="store.template"
+              v-model="store.language"
               class="control-select"
             >
-              <option
-                v-for="template in templates"
-                :key="template.value"
-                :value="template.value"
-              >
-                {{ template.label }}
-              </option>
+              <option value="en">🇺🇸 English</option>
+              <option value="es">🇪🇸 Español</option>
+              <option value="fr">🇫🇷 Français</option>
+              <option value="de">🇩🇪 Deutsch</option>
+              <option value="pt">🇵🇹 Português</option>
             </select>
           </div>
 
-          <!-- Theme Selector -->
-         
-
           <!-- Action Buttons -->
           <button @click="injectDummyData" class="action-btn">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+              <path d="M9 3.75V14.25M3.75 9H14.25" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
             Load Test Data
           </button>
           <button @click="clearData" class="action-btn action-btn-danger">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+              <path d="M13.5 4.5L4.5 13.5M4.5 4.5L13.5 13.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
             Clear
           </button>
         </div>
@@ -93,6 +103,9 @@
           </div>
         </div>
       </div>
+
+      <!-- Customization Sidebar (Physical space) -->
+      <SimplifiedCustomization ref="customizationPanelRef" />
     </div>
 
     <!-- Bottom Action Bar - Single Generate Button -->
@@ -105,7 +118,7 @@
         >
           {{ isPreviewVisible ? "← Back to Editor" : "Preview →" }}
         </button>
-        <GenerateButton />
+        <GenerateButton ref="generateButtonRef" :customizationPanel="customizationPanelRef" />
       </div>
     </div>
   </div>
@@ -114,9 +127,10 @@
 <script setup>
 import PreviewCV from "@/components/home/PreviewCV.vue";
 import GenerateButton from "@/components/GenerateButton.vue";
+import SimplifiedCustomization from "@/components/SimplifiedCustomization.vue";
 import { useResumeDataStore } from "../stores/resumeData";
 import { useThemeStore } from "../stores/themeStore";
-import { ref, onMounted, onUnmounted, watch } from "vue";
+import { ref, onMounted, onUnmounted, watch, defineComponent, h } from "vue";
 import { useRoute, useRouter } from "vue-router";
 
 const store = useResumeDataStore();
@@ -131,27 +145,96 @@ onMounted(() => {
   checkWindowSize();
 });
 
-onUnmounted(() => {
-  window.removeEventListener("resize", checkWindowSize);
-});
-
+// Refs and reactive state
 const isMobile = ref(window.innerWidth <= 768);
 const isPreviewVisible = ref(false);
 const currentRoute = ref(route.path);
+const customizationPanelRef = ref(null);
+const generateButtonRef = ref(null);
+let debounceTimer = null;
+
+onUnmounted(() => {
+  window.removeEventListener("resize", checkWindowSize);
+  if (debounceTimer) {
+    clearTimeout(debounceTimer);
+  }
+});
+
+// Auto-regenerate PDF when theme/layout changes
+const autoRegenerate = () => {
+  // Only auto-regenerate if we have a download link (PDF was generated at least once)
+  if (!store.downloadLink || !store.consentAccepted) {
+    return;
+  }
+  
+  // Clear existing timer
+  if (debounceTimer) {
+    clearTimeout(debounceTimer);
+  }
+  
+  // Set new timer (1 second debounce)
+  debounceTimer = setTimeout(async () => {
+    if (generateButtonRef.value && !generateButtonRef.value.isGenerating) {
+      try {
+        await generateButtonRef.value.handleGenerate();
+      } catch (error) {
+        console.error('Auto-regeneration error:', error);
+      }
+    }
+  }, 1000);
+};
+
+// Watch for theme changes
+watch(() => themeStore.pdfTheme, autoRegenerate);
+watch(() => themeStore.pdfCustomColor, autoRegenerate);
+
+// Watch for layout/spacing changes (via customization panel ref)
+// Wait for component to mount before setting up watch
+watch(() => customizationPanelRef.value, (newVal) => {
+  if (newVal && newVal.getLayoutSettings) {
+    // Now we can watch layout settings changes
+    watch(() => {
+      try {
+        return newVal.getLayoutSettings ? JSON.stringify(newVal.getLayoutSettings()) : null;
+      } catch (e) {
+        return null;
+      }
+    }, autoRegenerate);
+  }
+});
+
+// Mode icons
+const ManualIcon = defineComponent({
+  render() {
+    return h('svg', { width: '18', height: '18', viewBox: '0 0 18 18', fill: 'none' }, [
+      h('path', { d: 'M7.5 3.75H3.75V7.5H7.5V3.75ZM14.25 3.75H10.5V7.5H14.25V3.75ZM7.5 10.5H3.75V14.25H7.5V10.5ZM14.25 10.5H10.5V14.25H14.25V10.5Z', stroke: 'currentColor', 'stroke-width': '1.5', 'stroke-linecap': 'round', 'stroke-linejoin': 'round' })
+    ]);
+  }
+});
+
+const JSONIcon = defineComponent({
+  render() {
+    return h('svg', { width: '18', height: '18', viewBox: '0 0 18 18', fill: 'none' }, [
+      h('path', { d: 'M4.5 3.75L2.25 6L4.5 8.25M13.5 3.75L15.75 6L13.5 8.25M10.5 2.25L7.5 11.25', stroke: 'currentColor', 'stroke-width': '1.5', 'stroke-linecap': 'round', 'stroke-linejoin': 'round' })
+    ]);
+  }
+});
+
+const VisualIcon = defineComponent({
+  render() {
+    return h('svg', { width: '18', height: '18', viewBox: '0 0 18 18', fill: 'none' }, [
+      h('rect', { x: '3', y: '3', width: '12', height: '12', rx: '1.5', stroke: 'currentColor', 'stroke-width': '1.5' }),
+      h('path', { d: 'M3 7.5H15M9 7.5V15', stroke: 'currentColor', 'stroke-width': '1.5' })
+    ]);
+  }
+});
 
 const modes = [
-  { path: '/app', label: 'Manual' },
-  { path: '/app/json', label: 'JSON' },
-  { path: '/app/visual', label: 'Visual Builder' }
+  { path: '/app', label: 'Manual', icon: ManualIcon },
+  { path: '/app/json', label: 'JSON', icon: JSONIcon },
+  { path: '/app/visual', label: 'Visual Builder', icon: VisualIcon }
 ];
 
-const templates = ref([
-  { value: "executive", label: "Executive" },
-  { value: "modern", label: "Modern" },
-  { value: "minimal", label: "Minimal" },
-  { value: "creative", label: "Creative" },
-  { value: "default", label: "Default" }
-]);
 
 // Update currentRoute when route changes
 watch(route, (newRoute) => {
@@ -280,7 +363,7 @@ function togglePreview() {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  overflow: hidden;
+  overflow: visible; /* Allow sidebar content to be visible */
 }
 
 /* Control Bar */
@@ -290,6 +373,8 @@ function togglePreview() {
   padding: 1rem 1.5rem;
   flex-shrink: 0;
 }
+
+/* Simplified - removed tab system, now using floating sidebar */
 
 .control-bar-content {
   display: flex;
@@ -308,15 +393,24 @@ function togglePreview() {
 }
 
 .mode-tab {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   padding: 0.625rem 1.25rem;
   background: transparent;
   color: white;
   border: 1px solid var(--border-color);
-  border-radius: 4px;
+  border-radius: 6px;
   font-weight: 600;
   font-size: 0.9375rem;
   cursor: pointer;
   transition: all 0.2s;
+}
+
+.mode-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
 }
 
 .mode-tab:hover {
@@ -388,16 +482,23 @@ function togglePreview() {
 
 /* Action Buttons */
 .action-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   padding: 0.5rem 1rem;
   background: transparent;
   color: white;
   border: 1px solid var(--gray-600);
-  border-radius: 4px;
+  border-radius: 6px;
   font-weight: 600;
   font-size: 0.875rem;
   cursor: pointer;
   transition: all 0.2s;
   white-space: nowrap;
+}
+
+.action-btn svg {
+  flex-shrink: 0;
 }
 
 .action-btn:hover {
@@ -418,9 +519,9 @@ function togglePreview() {
 /* Main Content */
 .main-content {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr auto;
   gap: 1.5rem;
-  padding: 1.5rem;
+  padding-left: 1rem;
   flex: 1;
   overflow: hidden;
   max-width: 1920px;
@@ -441,13 +542,11 @@ function togglePreview() {
 
 /* Preview Card */
 .preview-card {
+  flex: 1;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  height: 100%;
-  background: var(--gray-900);
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  overflow: hidden;
+  min-height: 0;
 }
 
 .preview-header {
@@ -546,8 +645,16 @@ function togglePreview() {
   }
 
   .main-content {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr auto;
     padding: 1rem;
+  }
+
+  .editor-section {
+    display: none;
+  }
+
+  .editor-section:not(.hidden-mobile) {
+    display: flex;
   }
 }
 

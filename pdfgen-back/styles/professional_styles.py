@@ -8,13 +8,14 @@ from reportlab.lib import colors
 from styles.fonts import register_fonts
 
 
-def get_professional_styles(template='executive', density='balanced'):
+def get_professional_styles(template='executive', density='balanced', primary_color=None):
     """
     Get optimized professional styles for resume generation.
     
     Args:
         template: Template name ('executive', 'technical', 'modern', 'compact')
         density: Spacing density ('compact', 'balanced', 'spacious')
+        primary_color: Optional hex color code to override template color (e.g., '#1E3A8A')
     
     Returns:
         Dictionary of ParagraphStyle objects
@@ -69,6 +70,20 @@ def get_professional_styles(template='executive', density='balanced'):
     }
     
     colors_dict = color_schemes.get(template, color_schemes['executive'])
+    
+    # Override primary color if custom color is provided
+    if primary_color:
+        try:
+            # Parse hex color and override primary colors
+            custom_color = colors.HexColor(primary_color)
+            colors_dict['primary'] = custom_color
+            colors_dict['secondary'] = custom_color  # Also apply to secondary for consistency
+            colors_dict['link'] = custom_color
+            colors_dict['accent'] = custom_color  # And accent colors
+            # Keep text color as-is for readability
+        except Exception as e:
+            # If invalid color, log and continue with template default
+            print(f"Invalid primary_color '{primary_color}': {e}")
     
     # Define all styles
     styles = {}

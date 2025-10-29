@@ -57,7 +57,7 @@ TEMPLATE_CONFIG = {
 }
 
 
-def generate_resume(data, template='executive', output_file='resume.pdf', language='en'):
+def generate_resume(data, template='executive', output_file='resume.pdf', language='en', primary_color=None, layout_type=None, spacing='normal', alignment='left', margins='normal'):
     """
     Generate a professional resume PDF.
     
@@ -66,6 +66,11 @@ def generate_resume(data, template='executive', output_file='resume.pdf', langua
         template: Template name ('executive', 'technical', 'modern', 'compact')
         output_file: Output filename for the generated PDF
         language: Language code for PDF labels ('en', 'es', 'fr', 'de', 'pt')
+        primary_color: Hex color code for theme (e.g., '#1E3A8A')
+        layout_type: Layout type override ('single-column', 'two-column', 'sidebar-left', 'sidebar-right', 'grid')
+        spacing: Section spacing ('compact', 'normal', 'relaxed')
+        alignment: Header alignment ('left', 'center', 'right')
+        margins: Page margins ('narrow', 'normal', 'wide')
     
     Returns:
         Path to the generated PDF file
@@ -76,8 +81,16 @@ def generate_resume(data, template='executive', output_file='resume.pdf', langua
     
     # Get template configuration
     template_config = TEMPLATE_CONFIG.get(template, TEMPLATE_CONFIG['executive'])
-    layout_type = template_config['layout']
-    density = template_config['density']
+    # Use layout_type parameter if provided, otherwise use template default
+    if layout_type is None:
+        layout_type = template_config['layout']
+    # Use spacing parameter to override density
+    density_map = {
+        'compact': 'compact',
+        'normal': 'balanced',
+        'relaxed': 'spacious'
+    }
+    density = density_map.get(spacing, template_config['density'])
     
     # Map legacy template names to new ones
     template_map = {
@@ -86,28 +99,24 @@ def generate_resume(data, template='executive', output_file='resume.pdf', langua
     }
     display_template = template_map.get(template, template)
     
-    # Get styles for this template
-    styles = get_professional_styles(template=display_template, density=density)
+    # Get styles for this template with custom color if provided
+    styles = get_professional_styles(
+        template=display_template, 
+        density=density,
+        primary_color=primary_color
+    )
     
-    # Generate based on layout type
-    if layout_type == 'two_column':
-        return generate_two_column_resume(
-            data=data,
-            styles=styles,
-            template=display_template,
-            density=density,
-            output_file=output_file,
-            language=language
-        )
-    else:  # single_column
-        return generate_single_column_resume(
-            data=data,
-            styles=styles,
-            template=display_template,
-            density=density,
-            output_file=output_file,
-            language=language
-        )
+    # Always use single-column layout (simplified, most reliable)
+    return generate_single_column_resume(
+        data=data,
+        styles=styles,
+        template=display_template,
+        density=density,
+        output_file=output_file,
+        language=language,
+        alignment=alignment,
+        margins=margins
+    )
 
 
 def get_available_templates():

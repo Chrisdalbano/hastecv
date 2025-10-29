@@ -110,11 +110,15 @@ def configure_cors():
 # Configure CORS
 configure_cors()
 
-# Configure Talisman (security headers)
+# Configure Talisman (security headers) - Must allow CORS to work
 if app.config["ENV"] == "production":
-    Talisman(app)  # Enable HTTPS enforcement in production
-else:
-    Talisman(app, force_https=False)  # Disable HTTPS enforcement for local dev
+    # Production: HTTPS enforcement enabled, but allow CORS
+    Talisman(app, 
+             force_https=True,
+             strict_transport_security=True,
+             content_security_policy=None,  # Let after_request handle CSP
+             session_cookie_secure=True)
+# In development, don't use Talisman at all to avoid redirect issues
 
 # Setup logging
 handler = logging.StreamHandler()
@@ -123,17 +127,27 @@ app.logger.addHandler(handler)
 
 
 # API functionality here
-@app.route("/generate", methods=["POST", "OPTIONS"])
+@app.route("/generate", methods=["POST", "OPTIONS"], strict_slashes=False)
 def generate():
     # Handle CORS preflight requests
     if request.method == "OPTIONS":
-        return "", 204
+        response = app.make_response(("", 204))
+        response.headers["Access-Control-Allow-Origin"] = request.headers.get("Origin", "*")
+        response.headers["Access-Control-Allow-Methods"] = "POST, OPTIONS"
+        response.headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization, Accept, Origin"
+        response.headers["Access-Control-Max-Age"] = "3600"
+        return response
     
     try:
         req_data = request.get_json()
         data = req_data.get("data")
         template = req_data.get("template", "default")
         language = req_data.get("language", "en")  # Get language from request
+        theme_color = req_data.get("theme_color")  # Get theme color from request
+        layout_type = req_data.get("layout_type", "single-column")  # Get layout type
+        spacing = req_data.get("spacing", "normal")  # Get spacing
+        alignment = req_data.get("alignment", "left")  # Get alignment
+        margins = req_data.get("margins", "normal")  # Get margins
 
         if isinstance(data, str):
             data = json.loads(data)
@@ -148,8 +162,17 @@ def generate():
         # Normalize field names to support multiple languages
         data = normalize_resume_data(data)
 
-        # Call the resume generation function with language
-        generate_resume(data, template=template, language=language)
+        # Call the resume generation function with all customization options
+        generate_resume(
+            data, 
+            template=template, 
+            language=language, 
+            primary_color=theme_color,
+            layout_type=layout_type,
+            spacing=spacing,
+            alignment=alignment,
+            margins=margins
+        )
         return send_file("resume.pdf", as_attachment=True)
 
     except ValueError as ve:
@@ -160,20 +183,14 @@ def generate():
         return jsonify({"error": "An unexpected error occurred"}), 500
 
 
-# Secure headers for all responses (CORS is handled by Flask-CORS extension)
+# Secure headers for all responses
 @app.after_request
 def set_secure_headers(response):
-    # Add CORS headers to response if not already present
-    if "Access-Control-Allow-Origin" not in response.headers:
-        origin = request.headers.get("Origin", "*")
-        response.headers["Access-Control-Allow-Origin"] = origin
-    
-    response.headers["Content-Security-Policy"] = "default-src 'self';"
-    response.headers["X-Content-Type-Options"] = "nosniff"
-    response.headers["X-Frame-Options"] = "DENY"
-    
-    # Note: CORS headers are automatically added by Flask-CORS extension
-    # Do not manually add CORS headers here to avoid duplicates
+    # Only add security headers in production
+    if app.config["ENV"] == "production":
+        response.headers["Content-Security-Policy"] = "default-src 'self';"
+        response.headers["X-Content-Type-Options"] = "nosniff"
+        response.headers["X-Frame-Options"] = "DENY"
     
     return response
 
@@ -203,12 +220,17 @@ def get_templates():
         return jsonify(templates)
 
 
-@app.route("/generate-visual", methods=["POST", "OPTIONS"])
+@app.route("/generate-visual", methods=["POST", "OPTIONS"], strict_slashes=False)
 def generate_visual():
     """Generate PDF from visual layout configuration."""
     # Handle CORS preflight requests
     if request.method == "OPTIONS":
-        return "", 204
+        response = app.make_response(("", 204))
+        response.headers["Access-Control-Allow-Origin"] = request.headers.get("Origin", "*")
+        response.headers["Access-Control-Allow-Methods"] = "POST, OPTIONS"
+        response.headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization, Accept, Origin"
+        response.headers["Access-Control-Max-Age"] = "3600"
+        return response
     
     try:
         req_data = request.get_json()
@@ -216,6 +238,11 @@ def generate_visual():
         resume_data = req_data.get('data')
         filename = req_data.get('filename', 'resume')
         language = req_data.get('language', 'en')  # Get language from request
+        theme_color = req_data.get('theme_color')  # Get theme color from request
+        layout_type = req_data.get('layout_type', 'single-column')  # Get layout type
+        spacing = req_data.get('spacing', 'normal')  # Get spacing
+        alignment = req_data.get('alignment', 'left')  # Get alignment
+        margins = req_data.get('margins', 'normal')  # Get margins
         
         if not layout_config or not resume_data:
             raise ValueError("Missing layout or data")
@@ -230,9 +257,18 @@ def generate_visual():
         # Import visual layout generator
         from layouts.visual_layout import generate_visual_layout
         
-        # Generate PDF
+        # Generate PDF with all customization options
         output_file = f'{filename}.pdf' if not filename.endswith('.pdf') else filename
-        generate_visual_layout(resume_data, layout_config, output_file)
+        generate_visual_layout(
+            resume_data, 
+            layout_config, 
+            output_file, 
+            primary_color=theme_color,
+            layout_type=layout_type,
+            spacing=spacing,
+            alignment=alignment,
+            margins=margins
+        )
         
         return send_file(output_file, as_attachment=True)
         

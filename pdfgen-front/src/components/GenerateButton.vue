@@ -14,15 +14,31 @@
 
 <script setup>
 import { useResumeDataStore } from "@/stores/resumeData";
+import { useThemeStore } from "@/stores/themeStore";
 import { useRoute } from "vue-router";
 import { ref, watch } from "vue";
 import { useCanvasStore } from "@/stores/canvasStore";
 
+// Props
+const props = defineProps({
+  customizationPanel: {
+    type: Object,
+    default: null
+  }
+});
+
 const store = useResumeDataStore();
+const themeStore = useThemeStore();
 const canvasStore = useCanvasStore();
 const route = useRoute();
 const canGenerate = ref(store.consentAccepted);
 const isGenerating = ref(false);
+
+// Expose generate method for parent components
+defineExpose({
+  handleGenerate,
+  isGenerating
+});
 
 // Watching for changes in consent status
 watch(
@@ -44,6 +60,10 @@ async function handleGenerate() {
   console.log('Starting generation...');
 
   try {
+    // Get layout settings from customization panel
+    const layoutSettings = props.customizationPanel?.getLayoutSettings?.() || {};
+    console.log('Layout settings:', layoutSettings);
+    
     // Check if we're in visual builder mode
     if (route.path === '/app/visual') {
       console.log('Visual builder mode');
@@ -68,7 +88,13 @@ async function handleGenerate() {
         body: JSON.stringify({
           layout: layout,
           data: store.resumeData,
-          filename: store.filename || 'resume'
+          filename: store.filename || 'resume',
+          theme_color: themeStore.getPDFColor(),
+          language: store.language,
+          layout_type: layoutSettings.layout,
+          spacing: layoutSettings.spacing,
+          alignment: layoutSettings.alignment,
+          margins: layoutSettings.margin
         })
       });
 
@@ -87,7 +113,15 @@ async function handleGenerate() {
       // Regular generation (Manual/JSON mode)
       console.log('Regular mode (Manual/JSON)');
       console.log('Resume data:', store.resumeData);
-      await store.generatePdf(JSON.stringify(store.resumeData));
+      console.log('Theme color:', themeStore.getPDFColor());
+      console.log('Layout settings:', layoutSettings);
+      await store.generatePdf(JSON.stringify(store.resumeData), {
+        theme_color: themeStore.getPDFColor(),
+        layout_type: layoutSettings.layout,
+        spacing: layoutSettings.spacing,
+        alignment: layoutSettings.alignment,
+        margins: layoutSettings.margin
+      });
       console.log('PDF generated, download link:', store.downloadLink);
     }
   } catch (error) {
